@@ -3,8 +3,8 @@
 int main()
 {
 	Window main;
-	Creature testcreature(main, "images/Cbasic.png");
-	Resource testresource(main, "images/Rbasic.png");
+	Creature testcreature(main, "img/Cbasic.png");
+	Resource testresource(main, "img/Rbasic.png");
 	Event e;
 
 	while(e.gRun())
