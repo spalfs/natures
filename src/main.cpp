@@ -17,6 +17,7 @@ int main()
 			//	eventHandle(e.gEvent());
 		}
 		main.Clear();
+		testcreature.Behavior();
 		testcreature.Place();
 		testresource.Place();
 		main.Render();

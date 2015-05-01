@@ -13,9 +13,9 @@ Creature::Creature(Window m, std::string s)
 void Creature::Behavior()
 {
   //Detection
-  
+
   //Priorities
-  
+
 	//Action
 	this->Action();
 }
@@ -26,7 +26,7 @@ void Creature::Action()
 	//	eat//reproduce//etc;
 
 	if(x==xT)
-	{	
+	{
 		if(y<yT)
 			y++;
 		else
@@ -42,7 +42,6 @@ void Creature::Action()
 	else
 	{
 		srand(time(NULL));
-		z = rand%1;
-		if(
+		int z = rand()%1;
 	}
 }
