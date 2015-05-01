@@ -1,8 +1,9 @@
-OBJS = src/main.cpp src/window.cpp src/entity.cpp src/event.cpp src/creature.cpp src/resource.cpp
+OBJS = src/*.cpp
+DEPS = inc/
 
 CC = g++
 
-COMPILER_FLAGS = -w
+COMPILER_FLAGS = -w -I$(DEPS)
 
 LINKER_FLAGS = -lSDL2 -lSDL2_image
 
