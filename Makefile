@@ -1,4 +1,4 @@
-OBJS = src/main.cpp src/window.cpp src/entity.cpp src/event.cpp
+OBJS = src/main.cpp src/window.cpp src/entity.cpp src/event.cpp src/creature.cpp src/resource.cpp
 
 CC = g++
 

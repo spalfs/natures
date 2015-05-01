@@ -1,12 +1,5 @@
 #include "entity.h"
 
-Entity::Entity(Window m, std::string s)
-{
-	texture = loadTexture(s, m);
-	renderer = m.getRenderer();
-	x=y=200;
-}
-
 void Entity::Place()
 {
 	SDL_Rect rect = {x, y, width/8, height/8};

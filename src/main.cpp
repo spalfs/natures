@@ -3,7 +3,8 @@
 int main()
 {
 	Window main;
-	Entity ship(main, "images/basic.png");
+	Creature testcreature(main, "images/Cbasic.png");
+	Resource testresource(main, "images/Rbasic.png");
 	Event e;
 
 	while(e.gRun())
@@ -16,7 +17,8 @@ int main()
 			//	eventHandle(e.gEvent());
 		}
 		main.Clear();
-		ship.Place();
+		testcreature.Place();
+		testresource.Place();
 		main.Render();
 	}
 

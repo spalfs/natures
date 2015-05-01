@@ -6,7 +6,6 @@
 class Entity
 {
 	public:
-		Entity(Window m, std::string s);
 		void Place();
 		SDL_Texture* loadTexture(std::string path, Window main);
 
