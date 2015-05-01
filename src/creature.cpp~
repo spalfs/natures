@@ -41,8 +41,7 @@ void Creature::Action()
 	}
 	else
 	{
-		srand(time(NULL));
-		z = rand%1;
-		if(
+
+
 	}
 }
