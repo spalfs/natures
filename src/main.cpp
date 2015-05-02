@@ -21,6 +21,7 @@ int main()
 		testcreature.Place();
 		testresource.Place();
 		main.Render();
+		SDL_Delay(10);
 	}
 
 	main.Destroy();

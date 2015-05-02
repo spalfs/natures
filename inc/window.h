@@ -7,6 +7,7 @@
 #include <cmath>
 #include <stdlib.h>
 #include <time.h>
+#include <iostream>
 
 class Window
 {

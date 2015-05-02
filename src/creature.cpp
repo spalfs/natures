@@ -22,26 +22,36 @@ void Creature::Behavior()
 
 void Creature::Action()
 {
-	//if(isclose)
-	//	eat//reproduce//etc;
+	//std::cout << (sqrt(((x-xT)^2)+((y-yT)^2));
+	if((sqrt(((x-xT)^2)+((y-yT)^2)))<2)
+		return; //eat//reproduce//etc;
 
 	if(x==xT)
-	{
 		if(y<yT)
 			y++;
 		else
 			y--;
-	}
 	else if(y==yT)
-	{
 		if(x<xT)
 			x++;
 		else
 			x--;
-	}
 	else
 	{
-		srand(time(NULL));
-		int z = rand()%1;
+		int z = rand()%2;
+		if(z)
+		{
+			if(x<xT)
+				x++;
+			else
+				x--;
+		}
+		else
+		{
+			if(y<xT)
+				y++;
+			else
+				y--;
+		}
 	}
 }
