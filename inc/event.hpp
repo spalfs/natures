@@ -1,7 +1,7 @@
 #ifndef event_h
 #define event_h
 
-#include "window.h"
+#include "window.hpp"
 
 class Event
 {

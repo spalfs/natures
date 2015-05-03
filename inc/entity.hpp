@@ -1,7 +1,7 @@
 #ifndef entity_h
 #define entity_h
 
-#include "window.h"
+#include "window.hpp"
 
 class Entity
 {

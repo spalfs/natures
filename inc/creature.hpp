@@ -1,7 +1,7 @@
 #ifndef creature_h
 #define creature_h
 
-#include "entity.h"
+#include "entity.hpp"
 
 class Creature: public Entity
 {

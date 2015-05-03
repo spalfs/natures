@@ -1,7 +1,7 @@
 #ifndef resource_h
 #define resource_h
 
-#include "entity.h"
+#include "entity.hpp"
 
 class Resource: public Entity
 {

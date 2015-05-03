@@ -1,4 +1,4 @@
-#include "creature.h"
+#include "creature.hpp"
 
 Creature::Creature(Window m, std::string s)
 {

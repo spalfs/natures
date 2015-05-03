@@ -1,4 +1,4 @@
-#include "resource.h"
+#include "resource.hpp"
 
 Resource::Resource(Window m, std::string s)
 {
