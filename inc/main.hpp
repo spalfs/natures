@@ -6,5 +6,6 @@
 #include "event.hpp"
 #include "creature.hpp"
 #include "resource.hpp"
+#include "list.hpp"
 
 #endif

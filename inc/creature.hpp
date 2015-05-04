@@ -8,7 +8,8 @@ class Creature: public Entity
   public:
     Creature(Window m, std::string s);
     void Behavior();
-		void Action();
+	void Action();
+	
   private:
     int xT;
     int yT;

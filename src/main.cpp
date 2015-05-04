@@ -3,8 +3,9 @@
 int main()
 {
 	Window main;
-	Creature testcreature(main, "img/Cbasic.png");
-	Resource testresource(main, "img/Rbasic.png");
+	//Creature testcreature(main, "img/Cbasic.png");
+	//Resource testresource(main, "img/Rbasic.png");
+	List(main);
 	Event e;
 
 	while(e.gRun())
@@ -17,9 +18,11 @@ int main()
 			//	eventHandle(e.gEvent());
 		}
 		main.Clear();
-		testcreature.Behavior();
-		testcreature.Place();
-		testresource.Place();
+		
+		//testcreature.Behavior();
+		//testcreature.Place();
+		//testresource.Place();
+		
 		main.Render();
 		SDL_Delay(10);
 	}

@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <iostream>
+#include <vector>
 
 class Window
 {

@@ -16,8 +16,8 @@ void Creature::Behavior()
 
   //Priorities
 
-	//Action
-	this->Action();
+  //Action
+  this->Action();
 }
 
 void Creature::Action()
