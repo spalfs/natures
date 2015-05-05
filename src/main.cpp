@@ -3,9 +3,7 @@
 int main()
 {
 	Window main;
-	//Creature testcreature(main, "img/Cbasic.png");
-	//Resource testresource(main, "img/Rbasic.png");
-	List(main);
+	List L(main);
 	Event e;
 
 	while(e.gRun())
@@ -17,14 +15,14 @@ int main()
 			//else if(e.gEventType() == SDL_KEYDOWN)
 			//	eventHandle(e.gEvent());
 		}
+		
 		main.Clear();
-		
-		//testcreature.Behavior();
-		//testcreature.Place();
-		//testresource.Place();
-		
+
+		L.Behavior();
+		L.Place();
+
 		main.Render();
-		SDL_Delay(10);
+		SDL_Delay(5);
 	}
 
 	main.Destroy();

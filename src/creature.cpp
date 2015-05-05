@@ -4,7 +4,14 @@ Creature::Creature(Window m, std::string s)
 {
 	texture = loadTexture(s, m);
 	renderer = m.getRenderer();
-	x=y=500;
+
+	srand(time(NULL));
+	int z = rand()%800;
+	y=z;
+
+	z = rand()%800;
+	x=z;
+	std::cout << x << ' ' <<  y << std::endl;
 
 	//For the test resource
 	xT=yT=300;

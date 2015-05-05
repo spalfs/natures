@@ -9,6 +9,8 @@
 #include <time.h>
 #include <iostream>
 #include <vector>
+#include <chrono>
+#include <random>
 
 class Window
 {

@@ -10,11 +10,12 @@ class List
 	public:
 		List(Window m);
 		void Behavior();
+		void Place();
 
 	private:
+		//Window main;
 		std::vector<Resource> R;
 		std::vector<Creature> C;
-		Window main;
 		int ** L;
 };
 
