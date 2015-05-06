@@ -20,13 +20,13 @@ Creature::Creature(Window m, std::string s)
 void Creature::Behavior()
 {
 	hp--;
-  //Detection
+  	//Detection
 
 
-  //Priorities
+  	//Priorities
 
-  //Action
-  this->Action();
+  	//Action
+  	this->Action();
 }
 
 void Creature::Action()
@@ -75,8 +75,6 @@ void Creature::Action()
 			y--;
 		}
 	}
-
-
 
 	/*	
 	else

@@ -29,6 +29,11 @@ void List::Behavior()
 void List::Place()
 {
   int i;
+
+  for(i = 0;i < L.size(); i++)
+    if(L.getType()==1)
+      L.erase(L.begin()+i);
+
   for(i = 0; i < C.size(); i++)
   {
     C[i].Place();
