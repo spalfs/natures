@@ -2,28 +2,41 @@
 
 List::List(Window m)
 {
-  Creature X0(m,"img/Cbasic.png");
-  C.push_back(X0);
-  Creature X1(m,"img/Cbasic.png");
-  C.push_back(X1);
+  int i;
+  for(i=0;i<5;i++)
+  {
+    Creature X = Creature(m,"img/Cbasic.png");
+    C.push_back(X);
+  }
 
-  Resource Y(m,"img/Rbasic.png");
-  R.push_back(Y);
-};
+  for(i=0;i<5;i++)
+  {
+    Resource Y(m,"img/Rbasic.png");
+    R.push_back(Y);
+    L.push_back(Y.getLocation());
+  }
+}
 
 void List::Behavior()
 {
   int i;
   for(i = 0; i < C.size(); i++)
+  {
     C[i].Behavior();
+  }
 }
 
 void List::Place()
 {
   int i;
   for(i = 0; i < C.size(); i++)
+  {
     C[i].Place();
+    L.push_back(C[i].getLocation());
+  }
 
   for(i = 0; i < R.size(); i++)
+  {
     R[i].Place();
+  }
 }

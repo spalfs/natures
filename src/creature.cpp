@@ -4,22 +4,24 @@ Creature::Creature(Window m, std::string s)
 {
 	texture = loadTexture(s, m);
 	renderer = m.getRenderer();
+	hp = 100;
+	hu = 0;
 
-	srand(time(NULL));
-	int z = rand()%800;
-	y=z;
-
-	z = rand()%800;
-	x=z;
-	std::cout << x << ' ' <<  y << std::endl;
-
+	int zy = rand()%800;
+	int zx = rand()%1200;
+	y=zy;
+	x=zx;
+	//std::cout << x << ' ' <<  y << std::endl;
+	
 	//For the test resource
 	xT=yT=300;
 }
 
 void Creature::Behavior()
 {
+	hp--;
   //Detection
+
 
   //Priorities
 
@@ -34,15 +36,19 @@ void Creature::Action()
 		return; //eat//reproduce//etc;
 
 	if(x==xT)
+	{
 		if(y<yT)
 			y++;
 		else
 			y--;
+	}
 	else if(y==yT)
+	{
 		if(x<xT)
 			x++;
 		else
 			x--;
+	}
 	else
 	{
 		int z = rand()%2;
@@ -55,10 +61,16 @@ void Creature::Action()
 		}
 		else
 		{
-			if(y<xT)
+			if(y<yT)
 				y++;
 			else
 				y--;
 		}
 	}
+}
+
+Location Creature::getLocation()
+{
+	Location L(x,y,1);
+	return L;
 }

@@ -4,6 +4,7 @@
 #include "creature.hpp"
 #include "resource.hpp"
 #include "window.hpp"
+#include "location.hpp"
 
 class List
 {
@@ -16,7 +17,7 @@ class List
 		//Window main;
 		std::vector<Resource> R;
 		std::vector<Creature> C;
-		int ** L;
+		std::vector<Location> L;
 };
 
 #endif

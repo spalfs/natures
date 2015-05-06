@@ -15,11 +15,11 @@ int main()
 			//else if(e.gEventType() == SDL_KEYDOWN)
 			//	eventHandle(e.gEvent());
 		}
-		
+
 		main.Clear();
 
-		L.Behavior();
 		L.Place();
+		L.Behavior();
 
 		main.Render();
 		SDL_Delay(5);

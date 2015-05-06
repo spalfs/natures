@@ -7,5 +7,6 @@
 #include "creature.hpp"
 #include "resource.hpp"
 #include "list.hpp"
+#include "location.hpp"
 
 #endif

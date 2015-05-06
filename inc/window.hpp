@@ -1,6 +1,7 @@
 #ifndef window_h
 #define window_h
 
+//Theres alot here that are probs not used needs cleaning
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <string>
