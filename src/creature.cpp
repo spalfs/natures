@@ -49,6 +49,36 @@ void Creature::Action()
 		else
 			x--;
 	}
+	else if(x<xT)
+	{
+		if(y<yT)
+		{
+			x++;
+			y++;
+		}
+		else
+		{
+			x++;
+			y--;
+		}
+	}
+	else if (x>xT)
+	{
+		if(y<yT)
+		{
+			x--;
+			y++;
+		}
+		else
+		{
+			x--;
+			y--;
+		}
+	}
+
+
+
+	/*	
 	else
 	{
 		int z = rand()%2;
@@ -67,6 +97,7 @@ void Creature::Action()
 				y--;
 		}
 	}
+	*/
 }
 
 Location Creature::getLocation()
