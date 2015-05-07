@@ -12,6 +12,7 @@ class List
 		List(Window m);
 		void Behavior();
 		void Place();
+		double Distance(Location A, Location B);
 
 	private:
 		//Window main;

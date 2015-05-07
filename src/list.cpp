@@ -19,10 +19,20 @@ List::List(Window m)
 
 void List::Behavior()
 {
-  int i;
+  int i, j;
+  std::vector<Location> Z;
+
   for(i = 0; i < C.size(); i++)
   {
     C[i].Behavior();
+    for(j = 0; j < L.size(); j++)
+      if(200>(Distance(C[i].getLocation(),L[j])))
+      {
+        Z.push_back(L[j]);
+      }
+
+    C[i].giveKnown(Z);
+    Z.clear();
   }
 }
 
@@ -31,7 +41,7 @@ void List::Place()
   int i;
 
   for(i = 0;i < L.size(); i++)
-    if(L.getType()==1)
+    if(L[i].t==1)
       L.erase(L.begin()+i);
 
   for(i = 0; i < C.size(); i++)
@@ -44,4 +54,11 @@ void List::Place()
   {
     R[i].Place();
   }
+}
+
+double List::Distance(Location A, Location B)
+{
+  double z = sqrt(pow(A.x-B.x,2)+pow(A.y-B.y,2));
+  //std::cout << z << "\n";
+  return z;
 }

@@ -9,30 +9,29 @@ Creature::Creature(Window m, std::string s)
 
 	int zy = rand()%800;
 	int zx = rand()%1200;
-	y=zy;
-	x=zx;
+	y=yT=zy;
+	x=xT=zx;
 	//std::cout << x << ' ' <<  y << std::endl;
-	
+
 	//For the test resource
-	xT=yT=300;
+	//xT=yT=300;
 }
 
 void Creature::Behavior()
 {
 	hp--;
-  	//Detection
+  //Detection
 
-
-  	//Priorities
-
-  	//Action
-  	this->Action();
+  //Priorities
+	this->Priority();
+  //Action
+  this->Action();
 }
 
 void Creature::Action()
 {
 	//std::cout << (sqrt(((x-xT)^2)+((y-yT)^2));
-	if((sqrt(((x-xT)^2)+((y-yT)^2)))<2)
+	if(sqrt(pow(x-xT,2)+pow(y-yT,2))<2)
 		return; //eat//reproduce//etc;
 
 	if(x==xT)
@@ -76,7 +75,7 @@ void Creature::Action()
 		}
 	}
 
-	/*	
+	/*
 	else
 	{
 		int z = rand()%2;
@@ -96,6 +95,21 @@ void Creature::Action()
 		}
 	}
 	*/
+}
+
+void Creature::Priority()
+{
+	int i;
+	for(i=0;i<K.size();i++)
+	{
+		std::cout << K[i].t;
+		if(K[i].t==2)
+		{
+			xT = K[i].x;
+			yT = K[i].y;
+			std::cout << xT << "IN\n";
+		}
+	}
 }
 
 Location Creature::getLocation()
