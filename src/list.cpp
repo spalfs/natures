@@ -18,7 +18,7 @@ List::List(Window m) //Constructor
     L.push_back(Y.getLocation());
   }
 
-  main = &m;
+  main = m;
 }
 
 void List::Place()
@@ -52,21 +52,23 @@ void List::Behavior()
   for(i = 0; i < C.size(); i++)
   {
     C[i].Behavior(); //executes the behavior of the creature at i
-    
-    // This kills the creature
-    if(C[i].getHealth()==0)
-    {
-      Location z = C[i].getLocation();
-      R.push_back(Resource(*main,"img/Cdead.png",z));
-      C.erase(C.begin()+i);
-    }
-    
+
+    //if the distance between the creature and L[j] is less than 200, insert L[j] into vector Z.
     for(j = 0; j < L.size(); j++)
-      if(200>(Distance(C[i].getLocation(),L[j]))) //if the distance between the creature and L[j] is less than 200, insert L[j] into vector Z.
+      if(200>(Distance(C[i].getLocation(),L[j])))
         Z.push_back(L[j]);
 
     C[i].giveKnown(Z); //sets creature's target location?
     Z.clear(); //clear vector Z for next creature
+
+    // This kills the creature
+    if(C[i].getHealth()==0)
+    {
+      Location z = C[i].getLocation();
+      Resource r = Resource(main,"img/Cdead.png",z);
+      R.push_back(r);
+      C.erase(C.begin()+i);
+    }
   }
 }
 

@@ -17,6 +17,7 @@ class Window
 {
 	public:
 		Window();
+		Window(std::string){};
 		void Destroy();
 
 		void Clear();

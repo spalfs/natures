@@ -14,7 +14,7 @@ Creature::Creature(Window m, std::string s) //Constructor
 
 void Creature::Behavior()
 {
-	health--; //Decrements health each time a behavior is executed
+	health-=5; //Decrements health each time a behavior is executed
 	this->Priority(); //Checks which action has priority (doesn't really do this right now)
   this->Action(); //Does action
 }
