@@ -9,7 +9,7 @@ class Creature: public Entity
   public:
     Creature(Window m, std::string s);
     void Behavior();
-	void Action();
+    bool Action();
     void Priority();
     Location getLocation();
     void giveKnown(std::vector<Location> Z){location = Z;};

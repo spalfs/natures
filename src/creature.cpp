@@ -14,9 +14,13 @@ Creature::Creature(Window m, std::string s) //Constructor
 
 void Creature::Behavior()
 {
-	health-=5; //Decrements health each time a behavior is executed
+	health-=1; //Decrements health each time a behavior is executed
 	this->Priority(); //Checks which action has priority (doesn't really do this right now)
-  this->Action(); //Does action
+
+	if(this->Action())
+	{
+		health+=10;
+	}
 }
 
 void Creature::Priority()
@@ -33,11 +37,11 @@ void Creature::Priority()
 	}
 }
 
-void Creature::Action()
+bool Creature::Action()
 {
 	//If the distance is close, will return an bool
 	if(sqrt(pow(xPosition - xTarget, 2) + pow(yPosition - yTarget, 2)) < 2)
-		return; //<--- eat action should be here
+		return true;
 
 	//Makes moves towards target coordinates
 	if(xPosition==xTarget)
@@ -85,6 +89,7 @@ void Creature::Action()
 			yPosition--;
 		}
 	}
+	return false;
 }
 
 Location Creature::getLocation()
