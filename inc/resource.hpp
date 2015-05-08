@@ -8,6 +8,7 @@ class Resource: public Entity
 {
   public:
     Resource(Window m, std::string s);
+    Resource(Window m, std::string s, Location z);
     Location getLocation();
 
   private:

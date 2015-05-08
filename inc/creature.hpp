@@ -9,10 +9,11 @@ class Creature: public Entity
   public:
     Creature(Window m, std::string s);
     void Behavior();
-	  void Action();
+	void Action();
     void Priority();
     Location getLocation();
     void giveKnown(std::vector<Location> Z){location = Z;};
+    int getHealth(){return health;};
 
   private:
     int xTarget; //x-coordinate of creature's target position

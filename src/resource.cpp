@@ -12,6 +12,15 @@ Resource::Resource(Window m, std::string s) //Constructor
 	xPosition = xStart;
 }
 
+Resource::Resource(Window m, std::string s, Location z)
+{
+	texture = loadTexture(s, m);
+	renderer = m.getRenderer();
+	
+	yPosition = z.y;
+	xPosition = z.x;
+}
+
 Location Resource::getLocation() //Returns resource object
 {
 	Location L(xPosition,yPosition,2);

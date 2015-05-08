@@ -17,6 +17,8 @@ List::List(Window m) //Constructor
     R.push_back(Y);
     L.push_back(Y.getLocation());
   }
+
+  main = &m;
 }
 
 void List::Place()
@@ -47,15 +49,21 @@ void List::Behavior()
   int i, j;
   std::vector<Location> Z;
 
-  //
   for(i = 0; i < C.size(); i++)
   {
     C[i].Behavior(); //executes the behavior of the creature at i
+    
+    // This kills the creature
+    if(C[i].getHealth()==0)
+    {
+      Location z = C[i].getLocation();
+      R.push_back(Resource(main,"img/Cdead.png",z));
+      C.erase(C.begin()+i);
+    }
+    
     for(j = 0; j < L.size(); j++)
       if(200>(Distance(C[i].getLocation(),L[j]))) //if the distance between the creature and L[j] is less than 200, insert L[j] into vector Z.
-      {
         Z.push_back(L[j]);
-      }
 
     C[i].giveKnown(Z); //sets creature's target location?
     Z.clear(); //clear vector Z for next creature
