@@ -12,9 +12,11 @@ class List
 		List(Window m);
 		void Behavior();
 		void Place();
+		double Distance(Location A, Location B);
 
 	private:
-		//Window main;
+		//vectors containing objects of each type
+		Window * main;//will be needed for adding R's and C's after constructor.
 		std::vector<Resource> R;
 		std::vector<Creature> C;
 		std::vector<Location> L;

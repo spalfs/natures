@@ -1,17 +1,19 @@
 #include "resource.hpp"
 
-Resource::Resource(Window m, std::string s)
+Resource::Resource(Window m, std::string s) //Constructor
 {
 	texture = loadTexture(s, m);
 	renderer = m.getRenderer();
-	int zy = rand()%800;
-	int zx = rand()%1200;
-	y=zy;
-	x=zx;
+
+	//Initialized random position coordinates
+	int yStart = rand()%800;
+	int xStart = rand()%1200;
+	yPosition = yStart;
+	xPosition = xStart;
 }
 
-Location Resource::getLocation()
+Location Resource::getLocation() //Returns resource object
 {
-	Location L(x,y,2);
+	Location L(xPosition,yPosition,2);
 	return L;
 }
