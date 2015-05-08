@@ -11,7 +11,7 @@ class Resource: public Entity
     Location getLocation();
 
   private:
-    int amount;
+    int amount; //value associated with the amount of whatever (food, etc) left in the resource
 };
 
 #endif

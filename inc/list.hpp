@@ -15,7 +15,7 @@ class List
 		double Distance(Location A, Location B);
 
 	private:
-		//Window main;
+		//vectors containing objects of each type
 		std::vector<Resource> R;
 		std::vector<Creature> C;
 		std::vector<Location> L;
