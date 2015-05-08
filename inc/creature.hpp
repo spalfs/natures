@@ -19,7 +19,7 @@ class Creature: public Entity
     int yTarget; //y-coordinate of creature's target position
     int health; //health of a creature (0-100)
     int hunger; //value associated with a creatures want to find food (0-100)
-    std::vector<Location> location; //vector containing creatures location on window or target location?
+    std::vector<Location> location; //vector containing objects near the creature
 };
 
 #endif

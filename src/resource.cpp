@@ -12,7 +12,7 @@ Resource::Resource(Window m, std::string s) //Constructor
 	xPosition = xStart;
 }
 
-Location Resource::getLocation() //Returns resource location vector
+Location Resource::getLocation() //Returns resource object
 {
 	Location L(xPosition,yPosition,2);
 	return L;

@@ -65,6 +65,5 @@ void List::Behavior()
 double List::Distance(Location A, Location B)
 {
   //computes distance between two points
-  double z = sqrt(pow(A.x - B.x, 2) + pow(A.y - B.y, 2));
-  return z;
+  return sqrt(pow(A.x - B.x, 2) + pow(A.y - B.y, 2));
 }
