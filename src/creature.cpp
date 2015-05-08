@@ -12,7 +12,7 @@ Creature::Creature(Window m, std::string s) //Constructor
 	xPosition=xTarget=rand()%1200;
 }
 
-void Creature::Behavior()
+int Creature::Behavior()
 {
 	health-=1; //Decrements health each time a behavior is executed
 	this->Priority(); //Checks which action has priority (doesn't really do this right now)
@@ -20,7 +20,9 @@ void Creature::Behavior()
 	if(this->Action())
 	{
 		health+=10;
+		return 2;
 	}
+	return 0;
 }
 
 void Creature::Priority()
@@ -40,6 +42,10 @@ void Creature::Priority()
 bool Creature::Action()
 {
 	//If the distance is close, will return an bool
+
+	//if(xPosition == xTarget && yPosition == yTarget)
+	//	return false;
+
 	if(sqrt(pow(xPosition - xTarget, 2) + pow(yPosition - yTarget, 2)) < 2)
 		return true;
 

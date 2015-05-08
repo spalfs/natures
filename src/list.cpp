@@ -46,12 +46,42 @@ void List::Place()
 
 void List::Behavior()
 {
-  int i, j;
+  int i, j, k, l;
   std::vector<Location> Z;
 
   for(i = 0; i < C.size(); i++)
   {
-    C[i].Behavior(); //executes the behavior of the creature at i
+    int o = C[i].Behavior();
+
+    if(o==1)
+    {
+      //If next to creature
+    }
+
+    if(o==2)
+    {
+      //If next to resource
+      Location tmp = C[i].getLocation();
+      for(k=0;k<R.size();k++)
+      {
+        if(Distance(tmp,R[k].getLocation())<2)
+        {
+          R[k].eat();
+          if(R[k].getAmount()<=0)
+          {
+            R.erase(R.begin()+k);
+            for(l=0;l<L.size();l++)
+            {
+              if(L[l].x==R[k].getLocation().x&&L[l].y==R[k].getLocation().y) // NEED TO OPERATOR OVERLOAD FOR THIS
+              {
+                L.erase(L.begin()+l);
+                std::cout << "removing";
+              }
+            }
+          }
+        }
+      }
+    }
 
     //if the distance between the creature and L[j] is less than 200, insert L[j] into vector Z.
     for(j = 0; j < L.size(); j++)
@@ -62,7 +92,7 @@ void List::Behavior()
     Z.clear(); //clear vector Z for next creature
 
     // This kills the creature
-    if(C[i].getHealth()==0)
+    if(C[i].getHealth()<=0)
     {
       Location z = C[i].getLocation();
       Resource r = Resource(main,"img/Cdead.png",z);

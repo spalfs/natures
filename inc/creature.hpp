@@ -8,7 +8,7 @@ class Creature: public Entity
 {
   public:
     Creature(Window m, std::string s);
-    void Behavior();
+    int Behavior();
     bool Action();
     void Priority();
     Location getLocation();

@@ -8,6 +8,8 @@ Resource::Resource(Window m, std::string s) //Constructor
 	//Initialized random position coordinates
 	yPosition = rand()%800;
 	xPosition = rand()%1200;
+
+	amount = 100;
 }
 
 Resource::Resource(Window m, std::string s, Location z)
@@ -17,6 +19,8 @@ Resource::Resource(Window m, std::string s, Location z)
 
 	yPosition = z.y;
 	xPosition = z.x;
+
+	amount = 100;
 }
 
 Location Resource::getLocation() //Returns resource object
