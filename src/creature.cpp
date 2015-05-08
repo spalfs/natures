@@ -1,119 +1,100 @@
 #include "creature.hpp"
 
-Creature::Creature(Window m, std::string s)
+Creature::Creature(Window m, std::string s) //Constructor
 {
 	texture = loadTexture(s, m);
 	renderer = m.getRenderer();
-	hp = 100;
-	hu = 0;
+	health = 100;
+	hunger = 0;
 
-	int zy = rand()%800;
-	int zx = rand()%1200;
-	y=yT=zy;
-	x=xT=zx;
-	//std::cout << x << ' ' <<  y << std::endl;
-
-	//For the test resource
-	//xT=yT=300;
+	//initializes random start coordinates for creature, target position is equivalent to it's position
+	int yStart = rand()%800;
+	int xStart = rand()%1200;
+	yPosition=yTarget=yStart;
+	xPosition=xTarget=xStart;
 }
 
 void Creature::Behavior()
 {
-	hp--;
+	health--; //Decrements health each time a behavior is executed
   //Detection
-
-  //Priorities
-	this->Priority();
-  //Action
-  this->Action();
-}
-
-void Creature::Action()
-{
-	//std::cout << (sqrt(((x-xT)^2)+((y-yT)^2));
-	if(sqrt(pow(x-xT,2)+pow(y-yT,2))<2)
-		return; //eat//reproduce//etc;
-
-	if(x==xT)
-	{
-		if(y<yT)
-			y++;
-		else
-			y--;
-	}
-	else if(y==yT)
-	{
-		if(x<xT)
-			x++;
-		else
-			x--;
-	}
-	else if(x<xT)
-	{
-		if(y<yT)
-		{
-			x++;
-			y++;
-		}
-		else
-		{
-			x++;
-			y--;
-		}
-	}
-	else if (x>xT)
-	{
-		if(y<yT)
-		{
-			x--;
-			y++;
-		}
-		else
-		{
-			x--;
-			y--;
-		}
-	}
-
-	/*
-	else
-	{
-		int z = rand()%2;
-		if(z)
-		{
-			if(x<xT)
-				x++;
-			else
-				x--;
-		}
-		else
-		{
-			if(y<yT)
-				y++;
-			else
-				y--;
-		}
-	}
-	*/
+	this->Priority(); //Checks which action has priority (doesn't really do this right now)
+  this->Action(); //Does action
 }
 
 void Creature::Priority()
 {
+	//Traverses location vector, if object at [i] is resource (2), then creature's target coordinates are set
 	int i;
-	for(i=0;i<K.size();i++)
+	for(i=0;i<location.size();i++)
 	{
-		std::cout << K[i].t;
-		if(K[i].t==2)
+		std::cout << location[i].type;
+		if(location[i].type==2)
 		{
-			xT = K[i].x;
-			yT = K[i].y;
-			std::cout << xT << "IN\n";
+			xTarget = location[i].x;
+			yTarget = location[i].y;
+			std::cout << xTarget << "IN\n";
+		}
+	}
+}
+
+void Creature::Action()
+{
+	//If the distance is too small, do something?
+	if(sqrt(pow(xPosition - xTarget, 2) + pow(yPosition - yTarget, 2)) < 2)
+		return; //<--- eat action should be here
+
+	//Makes moves towards target coordinates
+	if(xPosition==xTarget)
+	{
+		if(yPosition<yTarget)
+			yPosition++;
+		else
+			yPosition--;
+	}
+
+	else if(yPosition==yTarget)
+	{
+		if(xPosition<xTarget)
+			xPosition++;
+		else
+			xPosition--;
+	}
+
+	else if(xPosition<xTarget)
+	{
+		if(yPosition<yTarget)
+		{
+			xPosition++;
+			yPosition++;
+		}
+
+		else
+		{
+			xPosition++;
+			yPosition--;
+		}
+	}
+
+	else if (xPosition>xTarget)
+	{
+		if(yPosition<yTarget)
+		{
+			xPosition--;
+			yPosition++;
+		}
+
+		else
+		{
+			xPosition--;
+			yPosition--;
 		}
 	}
 }
 
 Location Creature::getLocation()
 {
-	Location L(x,y,1);
+	//returns location vector of creatures position coordinates
+	Location L(xPosition, yPosition, 1);
 	return L;
 }
