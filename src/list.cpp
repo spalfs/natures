@@ -3,7 +3,7 @@
 List::List(Window m)
 {
   int i;
-  for(i=0;i<5;i++)
+  for(i=0;i<10;i++)
   {
     Creature X = Creature(m,"img/Cbasic.png");
     C.push_back(X);

@@ -22,7 +22,7 @@ int main()
 		L.Behavior();
 
 		main.Render();
-		SDL_Delay(15);
+		SDL_Delay(10);
 	}
 
 	main.Destroy();
