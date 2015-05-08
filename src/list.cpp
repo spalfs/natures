@@ -3,12 +3,8 @@
 List::List(Window m) //Constructor
 {
   int i;
-<<<<<<< HEAD
+
   for(i=0;i<10;i++)
-=======
-  //Creates 5 creatures, inserts them into vector C
-  for(i=0;i<5;i++)
->>>>>>> c63d77ddddb69ef0f641d90a8c3922fdc356224c
   {
     Creature X(m,"img/Cbasic.png");
     C.push_back(X);
