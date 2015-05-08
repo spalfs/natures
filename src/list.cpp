@@ -57,7 +57,7 @@ void List::Behavior()
     if(C[i].getHealth()==0)
     {
       Location z = C[i].getLocation();
-      R.push_back(Resource(main,"img/Cdead.png",z));
+      R.push_back(Resource(*main,"img/Cdead.png",z));
       C.erase(C.begin()+i);
     }
     
