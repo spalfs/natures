@@ -10,74 +10,99 @@ Creature::Creature(Window m, std::string s) //Constructor
 	//initializes random start coordinates for creature, target position is equivalent to it's position
 	yPosition=yTarget=rand()%800;
 	xPosition=xTarget=rand()%1200;
+	hasTarget = false;
+	n=0;
 }
 
 int Creature::Behavior()
 {
 	health-=1; //Decrements health each time a behavior is executed
-	this->Priority(); //Checks which action has priority (doesn't really do this right now)
+
+	this->Priority();
 
 	if(this->Action())
 	{
-		health+=10;
-		return 2;
+		if(nR.size())
+		{
+			nR[n]->eat();
+			if(health<500)
+				health+=10;
+		}
 	}
+
 	return 0;
 }
 
 void Creature::Priority()
 {
-	//Traverses location vector, if object at [i] is resource (2), then creature's target coordinates are set
-	int i;
-	for(i=0;i<location.size();i++)
+	double d; // lol
+
+	for(int i = 0; i < nR.size(); i++)
 	{
-		if(location[i].type==2)
+		if(!i)
+			d = Distance(this->getLocation(),nR[0]->getLocation());
+
+		if(d>Distance(this->getLocation(),nR[i]->getLocation()))
 		{
-			xTarget = location[i].x;
-			yTarget = location[i].y;
+			d=Distance(this->getLocation(),nR[i]->getLocation());
+			n=i;
 		}
 	}
+
+	if(nR.size())
+	{
+		xTarget = nR[n]->getLocation().x;
+		yTarget = nR[n]->getLocation().y;
+		hasTarget = true;
+	}
+	else
+		hasTarget = false;
 }
 
 bool Creature::Action()
 {
 	//If the distance is close, will return an bool
-
 	//if(xPosition == xTarget && yPosition == yTarget)
 	//	return false;
 
-	if(sqrt(pow(xPosition - xTarget, 2) + pow(yPosition - yTarget, 2)) < 2)
-		return true;
+	if(nR.size())
+		if(5 > Distance(this->getLocation(),nR[n]->getLocation()))
+		{
+			if(hasTarget)
+				return true;
+			else
+				return false;
+		}
 
 	//Makes moves towards target coordinates
 	if(xPosition==xTarget)
 	{
 		if(yPosition<yTarget)
-			yPosition++;
+			yPosition+=speed;
 		else
-			yPosition--;
+			yPosition-=speed;
 	}
 
 	else if(yPosition==yTarget)
 	{
 		if(xPosition<xTarget)
-			xPosition++;
+			xPosition+=speed;
 		else
-			xPosition--;
+			xPosition-=speed;
 	}
 
 	else if(xPosition<xTarget)
 	{
 		if(yPosition<yTarget)
 		{
-			xPosition++;
-			yPosition++;
+			xPosition+=speed;
+			yPosition+=speed;
 		}
 
 		else
 		{
-			xPosition++;
-			yPosition--;
+			xPosition+=speed;
+			yPosition-=speed;
 		}
 	}
 
@@ -85,16 +110,17 @@ bool Creature::Action()
 	{
 		if(yPosition<yTarget)
 		{
-			xPosition--;
-			yPosition++;
+			xPosition-=speed;
+			yPosition+=speed;
 		}
 
 		else
 		{
-			xPosition--;
-			yPosition--;
+			xPosition-=speed;
+			yPosition-=speed;
 		}
 	}
+
 	return false;
 }
 
@@ -103,4 +129,10 @@ Location Creature::getLocation()
 	//returns location object of the specific creature
 	Location L(xPosition, yPosition, 1);
 	return L;
+}
+
+double Creature::Distance(Location A, Location B)
+{
+  //computes distance between two points
+  return sqrt(pow(A.x - B.x, 2) + pow(A.y - B.y, 2));
 }

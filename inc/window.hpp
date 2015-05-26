@@ -13,6 +13,8 @@
 #include <chrono>
 #include <random>
 
+using namespace std;
+
 class Window
 {
 	public:

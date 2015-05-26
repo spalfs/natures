@@ -10,7 +10,7 @@ class Resource: public Entity
     Resource(Window m, std::string s);
     Resource(Window m, std::string s, Location z);
     Location getLocation();
-    void eat(){amount-=10;};
+    void eat();
     int getAmount(){return amount;};
 
   private:

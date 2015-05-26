@@ -28,3 +28,8 @@ Location Resource::getLocation() //Returns resource object
 	Location L(xPosition,yPosition,2);
 	return L;
 }
+
+void Resource::eat()
+{
+	amount-=10;
+}

@@ -4,18 +4,16 @@ List::List(Window m) //Constructor
 {
   int i;
 
-  for(i=0;i<10;i++)
+  for(i=0;i<25;i++)
   {
     Creature X(m,"img/Cbasic.png");
     C.push_back(X);
   }
 
-  //Creates 5 resources, inserts them into vector R; inserts locations of resources into vector L
-  for(i=0;i<5;i++)
+  for(i=0;i<100;i++)
   {
     Resource Y(m,"img/Rbasic.png");
     R.push_back(Y);
-    L.push_back(Y.getLocation());
   }
 
   main = m;
@@ -23,73 +21,34 @@ List::List(Window m) //Constructor
 
 void List::Place()
 {
-  int i;
-
-  //if any locations are creatures, erases them from vector L
-  for(i = 0;i < L.size(); i++)
-    if(L[i].type==1)
-      L.erase(L.begin()+i);
-
-  //places each creature on window, inserts their locations into vector L
-  for(i = 0; i < C.size(); i++)
-  {
-    C[i].Place();
-    L.push_back(C[i].getLocation());
-  }
+  //places each creature on window
+  for(vector<Creature>::iterator it = C.begin(); it!=C.end(); it++)
+    it->Place();
 
   //places all resources
-  for(i = 0; i < R.size(); i++)
+  for(int j = 0; j<R.size(); j++)
   {
-    R[i].Place();
+    if(R[j].getAmount()<=0)
+      R.erase(R.begin()+j);
+    else
+      R[j].Place();
   }
 }
 
 void List::Behavior()
 {
-  int i, j, k, l;
-  std::vector<Location> Z;
-
-  for(i = 0; i < C.size(); i++)
+  for(int i = 0; i<C.size(); i++)
   {
-    int o = C[i].Behavior();
+    C[i].Behavior();
 
-    if(o==1)
-    {
-      //If next to creature
-    }
+    vector<Resource*> N;
 
-    if(o==2)
-    {
-      //If next to resource
-      Location tmp = C[i].getLocation();
-      for(k=0;k<R.size();k++)
-      {
-        if(Distance(tmp,R[k].getLocation())<2)
-        {
-          R[k].eat();
-          if(R[k].getAmount()<=0)
-          {
-            R.erase(R.begin()+k);
-            for(l=0;l<L.size();l++)
-            {
-              if(L[l].x==R[k].getLocation().x&&L[l].y==R[k].getLocation().y) // NEED TO OPERATOR OVERLOAD FOR THIS
-              {
-                L.erase(L.begin()+l);
-                std::cout << "removing";
-              }
-            }
-          }
-        }
-      }
-    }
-
-    //if the distance between the creature and L[j] is less than 200, insert L[j] into vector Z.
-    for(j = 0; j < L.size(); j++)
-      if(200>(Distance(C[i].getLocation(),L[j])))
-        Z.push_back(L[j]);
-
-    C[i].giveKnown(Z); //sets creature's target location?
-    Z.clear(); //clear vector Z for next creature
+    for(int j = 0; j < R.size(); j++)
+      if(250>Distance(C[i].getLocation(),R[j].getLocation()))
+        N.push_back(&R[j]);
+    
+    C[i].give(N);
+    N.clear();
 
     // This kills the creature
     if(C[i].getHealth()<=0)
