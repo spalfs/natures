@@ -4,7 +4,7 @@ List::List(Window m) //Constructor
 {
   int i;
 
-  for(i=0;i<25;i++)
+  for(i=0;i<3;i++)
   {
     Creature X(m,"img/Cbasic.png");
     C.push_back(X);
@@ -25,6 +25,14 @@ void List::Place()
   for(vector<Creature>::iterator it = C.begin(); it!=C.end(); it++)
     it->Place();
 
+  /*
+  if(R.size()<15)
+  {
+    Resource Y(m,"img/Rbasic.png");
+    R.push_back(Y);
+  }
+  */
+
   //places all resources
   for(int j = 0; j<R.size(); j++)
   {
@@ -44,11 +52,23 @@ void List::Behavior()
     vector<Resource*> N;
 
     for(int j = 0; j < R.size(); j++)
-      if(250>Distance(C[i].getLocation(),R[j].getLocation()))
+      if(C[i].getBestSense()>Distance(C[i].getLocation(),R[j].getLocation()))
         N.push_back(&R[j]);
-    
-    C[i].give(N);
+
+    C[i].giveR(N);
     N.clear();
+
+    vector<Creature*> M;
+    for(int j = 0; j < C.size(); j++)
+    {
+      if(j==i)
+        continue;
+      else if(C[i].getBestSense()>Distance(C[i].getLocation(),C[j].getLocation()))
+        M.push_back(&C[j]);
+    }
+
+    C[i].giveC(M);
+    M.clear();
 
     // This kills the creature
     if(C[i].getHealth()<=0)

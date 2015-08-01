@@ -4,13 +4,16 @@ Creature::Creature(Window m, std::string s) //Constructor
 {
 	texture = loadTexture(s, m);
 	renderer = m.getRenderer();
-	health = 100;
+	health = 500;
+	maxHealth = 1000;
 	hunger = 0;
 
 	//initializes random start coordinates for creature, target position is equivalent to it's position
 	yPosition=yTarget=rand()%800;
 	xPosition=xTarget=rand()%1200;
 	hasTarget = false;
+	wandering = false;
+	able = true;
 	n=0;
 }
 
@@ -25,7 +28,7 @@ int Creature::Behavior()
 		if(nR.size())
 		{
 			nR[n]->eat();
-			if(health<500)
+			if(health<maxHealth)
 				health+=10;
 		}
 	}
@@ -37,10 +40,15 @@ void Creature::Priority()
 {
 	double d; // lol
 
+	// Gets location for closest resource
 	for(int i = 0; i < nR.size(); i++)
 	{
-		if(!i)
+		if(i==0)
+		{
 			d = Distance(this->getLocation(),nR[0]->getLocation());
+			n = 0;
+			continue;
+		}
 
 		if(d>Distance(this->getLocation(),nR[i]->getLocation()))
 		{
@@ -49,14 +57,37 @@ void Creature::Priority()
 		}
 	}
 
-	if(nR.size())
+	if(nR.size()==0)
+		hasTarget=false;
+
+	// If there is available targets and the unit doesnt have a target, assign the closest one.
+	//cout << "size: " << nR.size() << endl;
+	//cout << "hastarget: "<< hasTarget << endl;
+	if(nR.size()>0&&!hasTarget)
 	{
 		xTarget = nR[n]->getLocation().x;
 		yTarget = nR[n]->getLocation().y;
 		hasTarget = true;
+		wandering = false;
 	}
-	else
-		hasTarget = false;
+	// If there is not available targets and doesnt have a target, set a random location as a target
+	else if(nR.size()==0&&!hasTarget)
+	{
+		if(!wandering)
+		{
+			xTarget = rand()%1200;
+			yTarget = rand()%800;
+			wandering = true;
+			hasTarget = false;
+		}
+		else
+		{
+			Location L(xTarget,yTarget,1);
+			if(Distance(this->getLocation(),L)<5)
+				wandering = false;
+			hasTarget = false;
+		}
+	}
 }
 
 bool Creature::Action()
@@ -69,7 +100,10 @@ bool Creature::Action()
 		if(5 > Distance(this->getLocation(),nR[n]->getLocation()))
 		{
 			if(hasTarget)
+			{
+				hasTarget = false;
 				return true;
+			}
 			else
 				return false;
 		}
@@ -135,4 +169,9 @@ double Creature::Distance(Location A, Location B)
 {
   //computes distance between two points
   return sqrt(pow(A.x - B.x, 2) + pow(A.y - B.y, 2));
+}
+
+bool Creature::doesItHaveTarget()
+{
+	return hasTarget;
 }
