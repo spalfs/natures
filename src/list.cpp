@@ -1,6 +1,6 @@
 #include "list.hpp"
 
-List::List(Window m) //Constructor
+List::List(Window m)
 {
   int i;
 
@@ -20,11 +20,9 @@ List::List(Window m) //Constructor
 }
 
 void List::Place()
-{
-  //places each creature on window
+{ 
   for(vector<Creature>::iterator it = C.begin(); it!=C.end(); it++)
     it->Place();
-
 
   for(vector<Resource>::iterator it = R.begin(); it!=R.end(); it++){
     if(it->getAmount()<=0)

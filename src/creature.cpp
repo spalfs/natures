@@ -157,12 +157,3 @@ bool Creature::Action()
 
 	return false;
 }
-
-Location Creature::getLocation()
-{
-	//returns location object of the specific creature
-	//Location L(xPosition, yPosition, 1);
-	return L;
-}
-
-

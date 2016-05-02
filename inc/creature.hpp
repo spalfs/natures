@@ -12,10 +12,10 @@ class Creature: public Entity
     int Behavior();
     bool Action();
     void Priority();
-    Location getLocation();
     void giveR(vector<Resource*> n){nR=n;};
     void giveC(vector<Creature*> n){nC=n;};
-    
+   
+    Location getLocation(){return L;};
     double Distance(Location A, Location B){return sqrt(pow(A.x-B.x,2)+pow(A.y-B.y,2));};
     int getHealth(){return health;};
     bool doesItHaveTarget(){return hasTarget;};
