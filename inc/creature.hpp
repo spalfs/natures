@@ -15,28 +15,29 @@ class Creature: public Entity
     Location getLocation();
     void giveR(vector<Resource*> n){nR=n;};
     void giveC(vector<Creature*> n){nC=n;};
+    
+    double Distance(Location A, Location B){return sqrt(pow(A.x-B.x,2)+pow(A.y-B.y,2));};
     int getHealth(){return health;};
-    double Distance(Location A, Location B);
-    bool doesItHaveTarget();
+    bool doesItHaveTarget(){return hasTarget;};
     int getBestSense(){return bestSense;};
 
   private:
-    int xTarget; //x-coordinate of creature's target position
-    int yTarget; //y-coordinate of creature's target position
+    int xTarget; 
+    int yTarget; 
 
     bool hasTarget;
     bool wandering;
 
-    int health; //health of a creature (0-100)
+    int health; 
     int maxHealth;
-    int hunger; //value associated with a creatures want to find food (0-100)
-    int speed = 1;
-    bool able; // ability to reproduce
-    int bestSense =  100; // Distance it can see/smell/hear
+    int hunger; 
+    int speed = 2;
+    bool able;     
+    int bestSense = 100; 
 
     vector<Resource*> nR; //vector containing resources near the creature
     vector<Creature*> nC; //vector containing creatures near the creature
-    int n; // counter for which place in resource array is targeted
+    int n; 
 };
 
 #endif

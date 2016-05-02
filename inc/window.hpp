@@ -1,7 +1,7 @@
 #ifndef window_h
 #define window_h
 
-//Theres alot here that are probs not used needs cleaning
+//Theres alot here that are probs not used, needs cleaning
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <string>
@@ -19,7 +19,7 @@ class Window
 {
 	public:
 		Window();
-		Window(std::string){};
+		Window(string){};
 		void Destroy();
 
 		void Clear();

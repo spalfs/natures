@@ -17,8 +17,8 @@ class List
 	private:
 		//vectors containing objects of each type
 		Window main = Window("no");//will be needed for adding R's and C's after constructor.
-		std::vector<Resource> R;
-		std::vector<Creature> C;
+		vector<Resource> R;
+		vector<Creature> C;
 };
 
 #endif

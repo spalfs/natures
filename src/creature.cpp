@@ -164,13 +164,4 @@ Location Creature::getLocation()
 	return L;
 }
 
-double Creature::Distance(Location A, Location B)
-{
-  //computes distance between two points
-  return sqrt(pow(A.x - B.x, 2) + pow(A.y - B.y, 2));
-}
 
-bool Creature::doesItHaveTarget()
-{
-	return hasTarget;
-}

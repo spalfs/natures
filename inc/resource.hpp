@@ -14,7 +14,7 @@ class Resource: public Entity
     int getAmount(){return amount;};
 
   private:
-    int amount; //value associated with the amount of whatever (food, etc) left in the resource
+    int amount;
 };
 
 #endif
