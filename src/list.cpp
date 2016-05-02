@@ -34,44 +34,33 @@ void List::Place()
 
 void List::Behavior()
 {
-  for(int i = 0; i<C.size(); i++)
-  {
-    C[i].Behavior();
+    for(vector<Creature>::iterator it = C.begin(); it!=C.end(); it++){
+        it->Behavior();
 
-    vector<Resource*> N;
+        vector<Resource*> N;
+        for(vector <Resource>::iterator jt = R.begin(); jt!=R.end(); jt++){
+            if( it->getBestSense() > Distance(it->getLocation(),jt->getLocation()) )
+                N.push_back(&(*jt));
+        }
+        it->giveR(N);
+        
+        vector<Creature*> M;
+        for(vector <Creature>::iterator jt = C.begin(); jt!=C.end(); jt++){
+            if( jt == it)
+                continue;
+            else if( it->getBestSense() > Distance(it->getLocation(),jt->getLocation()) )
+                M.push_back(&(*jt));
+        }
+        it->giveC(M);
+        
+        M.clear();
+        N.clear();
 
-    for(int j = 0; j < R.size(); j++)
-      if(C[i].getBestSense()>Distance(C[i].getLocation(),R[j].getLocation()))
-        N.push_back(&R[j]);
-
-    C[i].giveR(N);
-    N.clear();
-
-    vector<Creature*> M;
-    for(int j = 0; j < C.size(); j++)
-    {
-      if(j==i)
-        continue;
-      else if(C[i].getBestSense()>Distance(C[i].getLocation(),C[j].getLocation()))
-        M.push_back(&C[j]);
+        if(it->getHealth()<=0){
+            Location z = it->getLocation();
+            Resource r = Resource(main,"img/Cdead.png",z);
+            R.push_back(r);
+            C.erase(it--);
+        }
     }
-
-    C[i].giveC(M);
-    M.clear();
-
-    // This kills the creature
-    if(C[i].getHealth()<=0)
-    {
-      Location z = C[i].getLocation();
-      Resource r = Resource(main,"img/Cdead.png",z);
-      R.push_back(r);
-      C.erase(C.begin()+i);
-    }
-  }
-}
-
-double List::Distance(Location A, Location B)
-{
-  //computes distance between two points
-  return sqrt(pow(A.x - B.x, 2) + pow(A.y - B.y, 2));
 }
