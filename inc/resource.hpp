@@ -9,8 +9,9 @@ class Resource: public Entity
   public:
     Resource(Window m, std::string s);
     Resource(Window m, std::string s, Location z);
-    Location getLocation();
     void eat();
+
+    Location getLocation(){return L;};
     int getAmount(){return amount;};
 
   private:

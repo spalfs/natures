@@ -14,7 +14,8 @@ class Entity
         Location L;
 		int height, width;  //Dimensions of image on window
 		int degrees = 0;
-		SDL_Texture* texture;
+		int type = 0;
+        SDL_Texture* texture;
 		SDL_Renderer* renderer;
 };
 

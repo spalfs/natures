@@ -31,8 +31,7 @@ void Timer::Pause()
 
 void Timer::unPause()
 {
-    if (paused)
-    {
+    if (paused){
         paused = false;
         startTicks = SDL_GetTicks() - pausedTicks;
         pausedTicks = 0;
@@ -41,8 +40,7 @@ void Timer::unPause()
 
 int Timer::getTicks()
 {
-    if(started)
-    {
+    if(started){
         if (paused)
             return pausedTicks;
         else

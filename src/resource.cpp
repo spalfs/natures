@@ -24,12 +24,6 @@ Resource::Resource(Window m, std::string s, Location z)
     amount = 100;
 }
 
-Location Resource::getLocation() 
-{
-	//Location L(xPosition,yPosition,2);
-	return L;
-}
-
 void Resource::eat()
 {
 	amount-=10;

@@ -31,12 +31,14 @@ class Creature: public Entity
     int health; 
     int maxHealth;
     int hunger; 
-    int speed = 2;
+    int speed = 1;
     bool able;     
     int bestSense = 100; 
 
     vector<Resource*> nR; //vector containing resources near the creature
     vector<Creature*> nC; //vector containing creatures near the creature
+    vector<Entity*> N;
+
     int n; 
 };
 
