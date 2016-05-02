@@ -7,7 +7,7 @@ Resource::Resource(Window m, std::string s)
 
 	L.y = rand()%800;
 	L.x = rand()%1200;
-    L.type = 2;
+    type = 2;
 
 	amount = 100;
 }
@@ -19,7 +19,7 @@ Resource::Resource(Window m, std::string s, Location z)
 
 	L.y = z.y;
 	L.x = z.x;
-    L.type = 2;
+    type = 2;
 	
     amount = 100;
 }

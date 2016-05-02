@@ -10,7 +10,8 @@ Creature::Creature(Window m, std::string s)
 
 	L.y=yTarget=rand()%800;
 	L.x=xTarget=rand()%1200;
-	
+    type = 1;
+
     hasTarget = false;
 	wandering = false;
 	able = true;
@@ -23,16 +24,13 @@ int Creature::Behavior()
 
 	this->Priority();
 
-	if(this->Action())
-	{
-		if(nR.size())
-		{
+	if(this->Action()){
+		if(nR.size()){
 			nR[n]->eat();
 			if(health<maxHealth)
 				health+=10;
 		}
 	}
-
 	return 0;
 }
 
@@ -82,7 +80,7 @@ void Creature::Priority()
 		}
 		else
 		{
-			Location L(xTarget,yTarget,1);
+			Location L(xTarget,yTarget);
 			if(Distance(this->getLocation(),L)<5)
 				wandering = false;
 			hasTarget = false;

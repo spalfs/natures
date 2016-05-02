@@ -9,6 +9,7 @@ class Entity
 	public:
 		void Place();
 		SDL_Texture* loadTexture(std::string path, Window main);
+        int getType(){return type;};
 
 	protected:
         Location L;
