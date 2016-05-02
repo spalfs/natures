@@ -1,4 +1,4 @@
-OBJS = src/*.cpp
+OBJS = src/*cpp
 DEPS = inc/
 
 CC = g++

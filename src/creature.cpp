@@ -1,6 +1,6 @@
 #include "creature.hpp"
 
-Creature::Creature(Window m, std::string s) //Constructor
+Creature::Creature(Window m, std::string s)
 {
 	texture = loadTexture(s, m);
 	renderer = m.getRenderer();
@@ -8,7 +8,6 @@ Creature::Creature(Window m, std::string s) //Constructor
 	maxHealth = 1000;
 	hunger = 0;
 
-	//initializes random start coordinates for creature, target position is equivalent to it's position
 	yPosition=yTarget=rand()%800;
 	xPosition=xTarget=rand()%1200;
 	hasTarget = false;
@@ -19,7 +18,7 @@ Creature::Creature(Window m, std::string s) //Constructor
 
 int Creature::Behavior()
 {
-	health-=1; //Decrements health each time a behavior is executed
+	health-=1;
 
 	this->Priority();
 
@@ -38,7 +37,7 @@ int Creature::Behavior()
 
 void Creature::Priority()
 {
-	double d; // lol
+	double d;
 
 	// Gets location for closest resource
 	for(int i = 0; i < nR.size(); i++)

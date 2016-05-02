@@ -6,8 +6,12 @@ int main()
 	List L(main);
 	Event e;
 
+    Timer fps;
+
 	while(e.gRun())
 	{
+        fps.Start();
+
 		while(e.Poll())
 		{
 			if(e.gEventType() == SDL_QUIT)
@@ -22,7 +26,9 @@ int main()
 		L.Behavior();
 
 		main.Render();
-		//SDL_Delay(10);
+		
+        if(fps.getTicks() < (1000 / 60))
+            SDL_Delay((1000 / 60) - fps.getTicks());
 	}
 
 	main.Destroy();

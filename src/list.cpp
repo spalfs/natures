@@ -4,7 +4,7 @@ List::List(Window m) //Constructor
 {
   int i;
 
-  for(i=0;i<3;i++)
+  for(i=0;i<10;i++)
   {
     Creature X(m,"img/Cbasic.png");
     C.push_back(X);
@@ -25,22 +25,13 @@ void List::Place()
   for(vector<Creature>::iterator it = C.begin(); it!=C.end(); it++)
     it->Place();
 
-  /*
-  if(R.size()<15)
-  {
-    Resource Y(m,"img/Rbasic.png");
-    R.push_back(Y);
-  }
-  */
 
-  //places all resources
-  for(int j = 0; j<R.size(); j++)
-  {
-    if(R[j].getAmount()<=0)
-      R.erase(R.begin()+j);
+  for(vector<Resource>::iterator it = R.begin(); it!=R.end(); it++){
+    if(it->getAmount()<=0)
+        R.erase(it--);
     else
-      R[j].Place();
-  }
+        it->Place();
+  } 
 }
 
 void List::Behavior()

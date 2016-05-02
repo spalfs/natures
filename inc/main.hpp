@@ -8,5 +8,6 @@
 #include "resource.hpp"
 #include "list.hpp"
 #include "location.hpp"
+#include "timer.hpp"
 
 #endif

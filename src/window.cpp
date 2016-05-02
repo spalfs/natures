@@ -1,6 +1,6 @@
 #include "window.hpp"
 
-Window::Window() //Constructor
+Window::Window() 
 {
 	SDL_Init(SDL_INIT_VIDEO);
 	main = SDL_CreateWindow("main",SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED,1280,800,SDL_WINDOW_SHOWN);
@@ -8,19 +8,19 @@ Window::Window() //Constructor
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 }
 
-void Window::Destroy() //Kills window
+void Window::Destroy()
 {
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(main);
 	SDL_Quit();
 }
 
-void Window::Clear() //Clears renderer
+void Window::Clear() 
 {
 	SDL_RenderClear(renderer);
 }
 
-void Window::Render() //Brings image forward
+void Window::Render() 
 {
 	SDL_RenderPresent(renderer);
 }
