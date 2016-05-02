@@ -2,7 +2,7 @@
 
 void Entity::Place()
 {
-	SDL_Rect rect = {xPosition, yPosition, width/8, height/8};
+	SDL_Rect rect = {L.x, L.y, width/8, height/8};
 	SDL_RenderCopyEx(renderer,texture,NULL,&rect,degrees,NULL,SDL_FLIP_NONE);
 }
 

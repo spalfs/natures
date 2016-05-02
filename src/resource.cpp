@@ -5,8 +5,9 @@ Resource::Resource(Window m, std::string s)
 	texture = loadTexture(s, m);
 	renderer = m.getRenderer();
 
-	yPosition = rand()%800;
-	xPosition = rand()%1200;
+	L.y = rand()%800;
+	L.x = rand()%1200;
+    L.type = 2;
 
 	amount = 100;
 }
@@ -16,15 +17,16 @@ Resource::Resource(Window m, std::string s, Location z)
 	texture = loadTexture(s, m);
 	renderer = m.getRenderer();
 
-	yPosition = z.y;
-	xPosition = z.x;
-
-	amount = 100;
+	L.y = z.y;
+	L.x = z.x;
+    L.type = 2;
+	
+    amount = 100;
 }
 
 Location Resource::getLocation() 
 {
-	Location L(xPosition,yPosition,2);
+	//Location L(xPosition,yPosition,2);
 	return L;
 }
 

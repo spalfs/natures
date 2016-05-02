@@ -11,9 +11,8 @@ class Entity
 		SDL_Texture* loadTexture(std::string path, Window main);
 
 	protected:
-        //Location L;
-		int xPosition, yPosition; //Coordinates of entity on window
-		int height, width;        //Dimensions of image on window
+        Location L;
+		int height, width;  //Dimensions of image on window
 		int degrees = 0;
 		SDL_Texture* texture;
 		SDL_Renderer* renderer;

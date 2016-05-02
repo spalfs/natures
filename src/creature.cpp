@@ -8,9 +8,10 @@ Creature::Creature(Window m, std::string s)
 	maxHealth = 1000;
 	hunger = 0;
 
-	yPosition=yTarget=rand()%800;
-	xPosition=xTarget=rand()%1200;
-	hasTarget = false;
+	L.y=yTarget=rand()%800;
+	L.x=xTarget=rand()%1200;
+	
+    hasTarget = false;
 	wandering = false;
 	able = true;
 	n=0;
@@ -108,49 +109,49 @@ bool Creature::Action()
 		}
 
 	//Makes moves towards target coordinates
-	if(xPosition==xTarget)
+	if(L.x==xTarget)
 	{
-		if(yPosition<yTarget)
-			yPosition+=speed;
+		if(L.y<yTarget)
+			L.y+=speed;
 		else
-			yPosition-=speed;
+			L.y-=speed;
 	}
 
-	else if(yPosition==yTarget)
+	else if(L.y==yTarget)
 	{
-		if(xPosition<xTarget)
-			xPosition+=speed;
+		if(L.x<xTarget)
+			L.x+=speed;
 		else
-			xPosition-=speed;
+			L.x-=speed;
 	}
 
-	else if(xPosition<xTarget)
+	else if(L.x<xTarget)
 	{
-		if(yPosition<yTarget)
+		if(L.y<yTarget)
 		{
-			xPosition+=speed;
-			yPosition+=speed;
+			L.x+=speed;
+			L.y+=speed;
 		}
 
 		else
 		{
-			xPosition+=speed;
-			yPosition-=speed;
+			L.x+=speed;
+			L.y-=speed;
 		}
 	}
 
-	else if (xPosition>xTarget)
+	else if (L.x>xTarget)
 	{
-		if(yPosition<yTarget)
+		if(L.y<yTarget)
 		{
-			xPosition-=speed;
-			yPosition+=speed;
+			L.x-=speed;
+			L.y+=speed;
 		}
 
 		else
 		{
-			xPosition-=speed;
-			yPosition-=speed;
+			L.x-=speed;
+			L.y-=speed;
 		}
 	}
 
@@ -160,7 +161,7 @@ bool Creature::Action()
 Location Creature::getLocation()
 {
 	//returns location object of the specific creature
-	Location L(xPosition, yPosition, 1);
+	//Location L(xPosition, yPosition, 1);
 	return L;
 }
 
