@@ -12,7 +12,7 @@ class Creature: public Entity
     void Behavior();
     void Action();
     void Priority();
-    void giveN(vector<Entity*> n){N = n;};
+    void giveN(list<Entity*> n){N = n;};
  
     Location getLocation(){return L;};
     double Distance(Location A, Location B){return sqrt(pow(A.x-B.x,2)+pow(A.y-B.y,2));};
@@ -22,8 +22,6 @@ class Creature: public Entity
 
   private:
     bool hasTarget;
-    bool wandering;
-
     int health; 
     int maxHealth;
     int hunger; 
@@ -31,10 +29,8 @@ class Creature: public Entity
     bool able;     
     int bestSense = 100; 
     
-    vector<Entity*> N;
-    Entity *target;
-
-    int n; 
+    list<Entity*> N;
+    Entity *target; 
 };
 
 #endif

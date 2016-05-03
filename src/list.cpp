@@ -21,10 +21,10 @@ List::List(Window m)
 
 void List::Place()
 { 
-  for(vector<Creature>::iterator it = C.begin(); it!=C.end(); it++)
+  for(list<Creature>::iterator it = C.begin(); it!=C.end(); it++)
     it->Place();
 
-  for(vector<Resource>::iterator it = R.begin(); it!=R.end(); it++){
+  for(list<Resource>::iterator it = R.begin(); it!=R.end(); it++){
     if(it->getAmount()<=0)
         R.erase(it--);
     else
@@ -34,9 +34,9 @@ void List::Place()
 
 void List::Behavior()
 {
-    for(vector<Creature>::iterator it = C.begin(); it!=C.end(); it++){
+    for(list<Creature>::iterator it = C.begin(); it!=C.end(); it++){
         
-        vector<Entity*> N = getNear(*it);
+        list<Entity*> N = getNear(*it); 
         it->giveN(N); 
         
         it->Behavior();
@@ -50,16 +50,16 @@ void List::Behavior()
     }
 }
 
-vector<Entity*> List::getNear(Creature nC)
+list<Entity*> List::getNear(Creature nC)
 {
-    vector<Entity*> N;
+    list<Entity*> N;
 
-    for(vector <Resource>::iterator it = R.begin(); it!=R.end(); it++){
+    for(list <Resource>::iterator it = R.begin(); it!=R.end(); it++){
         if( nC.getBestSense() > Distance(nC.getLocation(),it->getLocation()) )
             N.push_back(&(*it));
     }
        
-    for(vector <Creature>::iterator it = C.begin(); it!=C.end(); it++){
+    for(list <Creature>::iterator it = C.begin(); it!=C.end(); it++){
         if( &nC == &(*it))
             continue;
         else if( nC.getBestSense() > Distance(nC.getLocation(),it->getLocation()) )
