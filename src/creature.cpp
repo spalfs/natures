@@ -27,7 +27,7 @@ void Creature::Behavior()
 }
 
 void Creature::Priority()
-{	
+{	 
     for(list <Entity*>::iterator it = N.begin(); it!=N.end(); it++){
        if((*it)->getType() == 2){ 
            if(!hasTarget){
@@ -62,8 +62,12 @@ void Creature::Action()
             hasTarget = false; 
         }
     }
-    else
-        Move(wTarget);
+    else{
+        if(Distance(L,wTarget)<5)
+            wander = false;
+        else
+            Move(wTarget);
+    }
 }
 
 void Creature::Move(Location l)

@@ -13,6 +13,7 @@
 #include <chrono>
 #include <random>
 #include <list>
+#include <algorithm>
 
 
 using namespace std;

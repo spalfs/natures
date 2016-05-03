@@ -2,6 +2,7 @@
 
 int main()
 {
+    srand(time(NULL));
 	Window main;
 	List L(main);
 	Event e;
