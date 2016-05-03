@@ -12,8 +12,9 @@ class Creature: public Entity
     void Behavior();
     void Action();
     void Priority();
+    void Move(Location l);
     void giveN(list<Entity*> n){N = n;};
- 
+    
     Location getLocation(){return L;};
     double Distance(Location A, Location B){return sqrt(pow(A.x-B.x,2)+pow(A.y-B.y,2));};
     int getHealth(){return health;};
@@ -22,6 +23,8 @@ class Creature: public Entity
 
   private:
     bool hasTarget;
+    bool wander;
+    Location wTarget;
     int health; 
     int maxHealth;
     int hunger; 

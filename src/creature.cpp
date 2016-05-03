@@ -13,7 +13,8 @@ Creature::Creature(Window m, std::string s)
     type = 1;
 
     hasTarget = false;
-	able = true;
+	wander = false;
+    able = true;
 }
 
 void Creature::Behavior()
@@ -32,73 +33,71 @@ void Creature::Priority()
            if(!hasTarget){
                 target = *it;
                 hasTarget = true; 
+                wander = false;
            }
            else
                break;
        }
     }
+
+    if(!hasTarget&&!wander){
+        wander = true;
+        wTarget = Location(rand()%1200,rand()%800);
+    }
+
+
 }
 
 void Creature::Action()
 {	
-    //cout << "My coords:" << L.x << "," << L.y << endl; 
-    cout << "Mytcoords:" << target->getLocation().x << "," << target->getLocation().y << endl << endl; 
-
 	if(hasTarget){ 
         if(Distance(L,target->getLocation())<5){
             target->eat();
-            health+=1000; 
+            health+=10; 
         }
-        if(target->getAmount()==0){
-            hasTarget = false;
-            cout << "done\n";
+        else
+            Move(target->getLocation());
+
+        if(target->getAmount()<=0){
+            hasTarget = false; 
         }
-    } 
+    }
+    else
+        Move(wTarget);
+}
 
-	//Makes moves towards target coordinates
-	if(L.x==target->getLocation().x)
-	{
-		if(L.y<target->getLocation().y)
-			L.y+=speed;
+void Creature::Move(Location l)
+{
+    if( L.x == l.x ){
+		if( L.y < l.y )
+		    L.y+=speed;
 		else
 			L.y-=speed;
 	}
-
-	else if(L.y==target->getLocation().y)
-	{
-		if(L.x<target->getLocation().x)
+	else if( L.y == l.y ){
+		if( L.x < l.x )
 			L.x+=speed;
 		else
 			L.x-=speed;
 	}
-
-	else if(L.x<target->getLocation().x)
-	{
-		if(L.y<target->getLocation().y)
-		{
+	else if( L.x < l.x ){
+		if( L.y < l.y ){
 			L.x+=speed;
 			L.y+=speed;
 		}
-
-		else
-		{
+		else{
 			L.x+=speed;
 			L.y-=speed;
 		}
 	}
-
-	else if (L.x>target->getLocation().x)
-	{
-		if(L.y<target->getLocation().y)
-		{
+	else if ( L.x > l.x ){
+		if( L.y < l.y ){
 			L.x-=speed;
 			L.y+=speed;
 		}
-
-		else
-		{
+		else{
 			L.x-=speed;
 			L.y-=speed;
 		}
-	}	
+	}
 }
