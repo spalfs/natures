@@ -9,12 +9,11 @@ class Creature: public Entity
 {
   public:
     Creature(Window m, std::string s);
-    int Behavior();
-    bool Action();
+    void Behavior();
+    void Action();
     void Priority();
-    void giveR(vector<Resource*> n){nR=n;};
-    void giveC(vector<Creature*> n){nC=n;};
-   
+    void giveN(vector<Entity*> n){N = n;};
+ 
     Location getLocation(){return L;};
     double Distance(Location A, Location B){return sqrt(pow(A.x-B.x,2)+pow(A.y-B.y,2));};
     int getHealth(){return health;};
@@ -22,9 +21,6 @@ class Creature: public Entity
     int getBestSense(){return bestSense;};
 
   private:
-    int xTarget; 
-    int yTarget; 
-
     bool hasTarget;
     bool wandering;
 
@@ -34,10 +30,9 @@ class Creature: public Entity
     int speed = 1;
     bool able;     
     int bestSense = 100; 
-
-    vector<Resource*> nR; //vector containing resources near the creature
-    vector<Creature*> nC; //vector containing creatures near the creature
+    
     vector<Entity*> N;
+    Entity *target;
 
     int n; 
 };

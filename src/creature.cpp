@@ -8,8 +8,8 @@ Creature::Creature(Window m, std::string s)
 	maxHealth = 1000;
 	hunger = 0;
 
-	L.y=yTarget=rand()%800;
-	L.x=xTarget=rand()%1200;
+	L.y=rand()%800;
+	L.x=rand()%1200;
     type = 1;
 
     hasTarget = false;
@@ -18,114 +18,62 @@ Creature::Creature(Window m, std::string s)
 	n=0;
 }
 
-int Creature::Behavior()
+void Creature::Behavior()
 {
-	health-=1;
+	//health-=1; 
 
 	this->Priority();
 
-	if(this->Action()){
-		if(nR.size()){
-			nR[n]->eat();
-			if(health<maxHealth)
-				health+=10;
-		}
-	}
-	return 0;
+	this->Action();
 }
 
 void Creature::Priority()
-{
-	double d;
-
-	// Gets location for closest resource
-	for(int i = 0; i < nR.size(); i++)
-	{
-		if(i==0)
-		{
-			d = Distance(this->getLocation(),nR[0]->getLocation());
-			n = 0;
-			continue;
-		}
-
-		if(d>Distance(this->getLocation(),nR[i]->getLocation()))
-		{
-			d=Distance(this->getLocation(),nR[i]->getLocation());
-			n=i;
-		}
-	}
-
-	if(nR.size()==0)
-		hasTarget=false;
-
-	// If there is available targets and the unit doesnt have a target, assign the closest one.
-	//cout << "size: " << nR.size() << endl;
-	//cout << "hastarget: "<< hasTarget << endl;
-	if(nR.size()>0&&!hasTarget)
-	{
-		xTarget = nR[n]->getLocation().x;
-		yTarget = nR[n]->getLocation().y;
-		hasTarget = true;
-		wandering = false;
-	}
-	// If there is not available targets and doesnt have a target, set a random location as a target
-	else if(nR.size()==0&&!hasTarget)
-	{
-		if(!wandering)
-		{
-			xTarget = rand()%1200;
-			yTarget = rand()%800;
-			wandering = true;
-			hasTarget = false;
-		}
-		else
-		{
-			Location L(xTarget,yTarget);
-			if(Distance(this->getLocation(),L)<5)
-				wandering = false;
-			hasTarget = false;
-		}
-	}
+{	
+    for(vector <Entity*>::iterator it = N.begin(); it!=N.end(); it++){
+       if((*it)->getType() == 2){
+           if(!hasTarget){
+                target = *it;
+                wandering = false;
+                hasTarget = true; 
+           }
+           else
+               break;
+       }
+    }
 }
 
-bool Creature::Action()
-{
-	//If the distance is close, will return an bool
-	//if(xPosition == xTarget && yPosition == yTarget)
-	//	return false;
+void Creature::Action()
+{	
 
-	if(nR.size())
-		if(5 > Distance(this->getLocation(),nR[n]->getLocation()))
-		{
-			if(hasTarget)
-			{
-				hasTarget = false;
-				return true;
-			}
-			else
-				return false;
-		}
+	if(hasTarget){ 
+        if(Distance(L,target->getLocation())<5){
+            target->eat();
+            health+=1000; 
+        }
+        if(target->getAmount()==0)
+            hasTarget = false;
+    } 
 
 	//Makes moves towards target coordinates
-	if(L.x==xTarget)
+	if(L.x==target->getLocation().x)
 	{
-		if(L.y<yTarget)
+		if(L.y<target->getLocation().y)
 			L.y+=speed;
 		else
 			L.y-=speed;
 	}
 
-	else if(L.y==yTarget)
+	else if(L.y==target->getLocation().y)
 	{
-		if(L.x<xTarget)
+		if(L.x<target->getLocation().x)
 			L.x+=speed;
 		else
 			L.x-=speed;
 	}
 
-	else if(L.x<xTarget)
+	else if(L.x<target->getLocation().x)
 	{
-		if(L.y<yTarget)
+		if(L.y<target->getLocation().y)
 		{
 			L.x+=speed;
 			L.y+=speed;
@@ -138,9 +86,9 @@ bool Creature::Action()
 		}
 	}
 
-	else if (L.x>xTarget)
+	else if (L.x>target->getLocation().x)
 	{
-		if(L.y<yTarget)
+		if(L.y<target->getLocation().y)
 		{
 			L.x-=speed;
 			L.y+=speed;
@@ -151,7 +99,5 @@ bool Creature::Action()
 			L.x-=speed;
 			L.y-=speed;
 		}
-	}
-
-	return false;
+	}	
 }

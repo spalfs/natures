@@ -4,7 +4,7 @@ List::List(Window m)
 {
   int i;
 
-  for(i=0;i<10;i++)
+  for(i=0;i<2;i++)
   {
     Creature X(m,"img/Cbasic.png");
     C.push_back(X);
@@ -35,27 +35,12 @@ void List::Place()
 void List::Behavior()
 {
     for(vector<Creature>::iterator it = C.begin(); it!=C.end(); it++){
+        
+        vector<Entity*> N = getNear(*it);
+        it->giveN(N); 
+        
         it->Behavior();
-
-        vector<Resource*> N;
-        for(vector <Resource>::iterator jt = R.begin(); jt!=R.end(); jt++){
-            if( it->getBestSense() > Distance(it->getLocation(),jt->getLocation()) )
-                N.push_back(&(*jt));
-        }
-        it->giveR(N);
-        
-        vector<Creature*> M;
-        for(vector <Creature>::iterator jt = C.begin(); jt!=C.end(); jt++){
-            if( jt == it)
-                continue;
-            else if( it->getBestSense() > Distance(it->getLocation(),jt->getLocation()) )
-                M.push_back(&(*jt));
-        }
-        it->giveC(M);
-        
-        M.clear();
-        N.clear();
-
+         
         if(it->getHealth()<=0){
             Location z = it->getLocation();
             Resource r = Resource(main,"img/Cdead.png",z);
@@ -64,3 +49,24 @@ void List::Behavior()
         }
     }
 }
+
+vector<Entity*> List::getNear(Creature nC)
+{
+    vector<Entity*> N;
+
+    for(vector <Resource>::iterator it = R.begin(); it!=R.end(); it++){
+        if( nC.getBestSense() > Distance(nC.getLocation(),it->getLocation()) )
+            N.push_back(&(*it));
+    }
+       
+    for(vector <Creature>::iterator it = C.begin(); it!=C.end(); it++){
+        if( &nC == &(*it))
+            continue;
+        else if( nC.getBestSense() > Distance(nC.getLocation(),it->getLocation()) )
+            N.push_back(&(*it));
+    }
+               
+    return N;
+}
+
+

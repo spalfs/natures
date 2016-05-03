@@ -9,7 +9,10 @@ class Entity
 	public:
 		void Place();
 		SDL_Texture* loadTexture(std::string path, Window main);
+        Location getLocation(){return L;};
         int getType(){return type;};
+        virtual void eat(void) {};
+        virtual int getAmount(void) {}; 
 
 	protected:
         Location L;
