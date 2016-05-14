@@ -12,6 +12,7 @@ class Creature: public Entity
     void Behavior();
     void Action();
     void Priority();
+    void setTarget();
     void Move(Location l);
     void giveN(list<Entity*> n){N = n;};
     
@@ -27,7 +28,7 @@ class Creature: public Entity
     Location wTarget;
     int health; 
     int maxHealth;
-    int hunger; 
+    bool hungry; 
     int speed = 1;
     bool able;     
     int bestSense = 100; 

@@ -6,12 +6,12 @@ Creature::Creature(Window m, std::string s)
 	renderer = m.getRenderer();
 	health = 500;
 	maxHealth = 1000;
-	hunger = 0;
 
 	L.y=rand()%800;
 	L.x=rand()%1200;
     type = 1;
 
+    hungry = false;
     hasTarget = false;
 	wander = false;
     able = true;
@@ -23,13 +23,27 @@ void Creature::Behavior()
 
 	this->Priority();
 
+    this->setTarget();
+
 	this->Action();
 }
 
 void Creature::Priority()
 {	 
+    if(health < maxHealth/2){
+        hungry = true;
+        able = false;
+    }
+    else{
+        hungry = false;
+        able = true;
+    }
+}
+
+void Creature::setTarget()
+{
     for(list <Entity*>::iterator it = N.begin(); it!=N.end(); it++){
-       if((*it)->getType() == 2){ 
+       if((*it)->getType() == 2 && hungry){ 
            if(!hasTarget){
                 target = *it;
                 hasTarget = true; 
@@ -44,9 +58,8 @@ void Creature::Priority()
         wander = true;
         wTarget = Location(rand()%1200,rand()%800);
     }
-
-
 }
+
 
 void Creature::Action()
 {	
@@ -73,7 +86,7 @@ void Creature::Action()
 void Creature::Move(Location l)
 {
     if( L.x == l.x ){
-		if( L.y < l.y )
+        if( L.y < l.y )
 		    L.y+=speed;
 		else
 			L.y-=speed;

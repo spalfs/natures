@@ -4,14 +4,12 @@ List::List(Window m)
 {
   int i;
 
-  for(i=0;i<10;i++)
-  {
+  for(i=0;i<10;i++){
     Creature X(m,"img/Cbasic.png");
     C.push_back(X);
   }
 
-  for(i=0;i<100;i++)
-  {
+  for(i=0;i<100;i++){
     Resource Y(m,"img/Rbasic.png");
     R.push_back(Y);
   }
