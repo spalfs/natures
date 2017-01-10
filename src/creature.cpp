@@ -1,16 +1,18 @@
 #include "creature.hpp"
 
-Creature::Creature(Window m, std::string s)
+Creature::Creature(Window m, int size)
 {
-	texture = loadTexture(s, m);
-	renderer = m.getRenderer();
-	health = 500;
-	maxHealth = 1000;
-
-	L.y=rand()%800;
-	L.x=rand()%1200;
+    Init(m);
     type = 1;
+    
+    rect.h = rect.w = size;
+    
+    L.x = rect.x;
+    L.y = rect.y;
 
+    health = 500;
+	maxHealth = 1000;
+    
     hungry = false;
     hasTarget = false;
 	wander = false;
@@ -42,6 +44,9 @@ void Creature::Priority()
 
 void Creature::setTarget()
 {
+    if(hasTarget)
+        return;
+
     for(list <Entity*>::iterator it = N.begin(); it!=N.end(); it++){
        if((*it)->getType() == 2 && hungry){ 
            if(!hasTarget){
@@ -117,4 +122,6 @@ void Creature::Move(Location l)
 			L.y-=speed;
 		}
 	}
+    rect.x = L.x;
+    rect.y = L.y;
 }

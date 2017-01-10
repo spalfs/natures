@@ -1,27 +1,29 @@
 #include "resource.hpp"
 
-Resource::Resource(Window m, std::string s)
-{
-	texture = loadTexture(s, m);
-	renderer = m.getRenderer();
-
-	L.y = rand()%800;
-	L.x = rand()%1200;
+Resource::Resource(Window m, int size)
+{	
+    Init(m);
     type = 2;
+
+    rect.h = rect.w = size;
+    
+    L.x = rect.x;
+    L.y = rect.y;
 
 	amount = 100;
 }
 
-Resource::Resource(Window m, std::string s, Location z)
+Resource::Resource(Window m, int size, Location z)
 {
-	texture = loadTexture(s, m);
-	renderer = m.getRenderer();
-
-	L.y = z.y;
-	L.x = z.x;
+    Init(m,z);
     type = 2;
-	
-    amount = 100;
+    
+    rect.h = rect.w = size;
+    
+    L.x = rect.x;
+    L.y = rect.y;
+
+    amount = 200;
 }
 
 void Resource::eat()

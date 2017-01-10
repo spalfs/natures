@@ -5,12 +5,12 @@ List::List(Window m)
   int i;
 
   for(i=0;i<10;i++){
-    Creature X(m,"img/Cbasic.png");
+    Creature X(m,10);
     C.push_back(X);
   }
 
   for(i=0;i<100;i++){
-    Resource Y(m,"img/Rbasic.png");
+    Resource Y(m,5);
     R.push_back(Y);
   }
 
@@ -41,7 +41,8 @@ void List::Behavior()
          
         if(it->getHealth()<=0){
             Location z = it->getLocation();
-            Resource r = Resource(main,"img/Cdead.png",z);
+            SDL_Rect rect = it->getRect();
+            Resource r = Resource(main,rect.w,z);
             R.push_back(r);
             C.erase(it--);
         }

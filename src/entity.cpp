@@ -1,18 +1,27 @@
 #include "entity.hpp"
 
-void Entity::Place()
+void Entity::Init(Window m)
 {
-	SDL_Rect rect = {L.x, L.y, width/8, height/8};
-	SDL_RenderCopyEx(renderer,texture,NULL,&rect,degrees,NULL,SDL_FLIP_NONE);
+    renderer = m.getRenderer();
+    rect.y = rand()%640;
+    rect.x = rand()%1080;
 }
 
-SDL_Texture* Entity::loadTexture(string path, Window main)
+void Entity::Init(Window m, Location z)
 {
-	SDL_Surface* surface = IMG_Load(path.c_str());
-	SDL_SetColorKey(surface, SDL_TRUE, SDL_MapRGB(surface->format, 255, 255, 255));
-	height = surface->h;
-	width = surface->w;
-	SDL_Texture* texture = SDL_CreateTextureFromSurface(main.getRenderer(),surface);
-	SDL_FreeSurface(surface);
-	return texture;
+    renderer = m.getRenderer();
+    rect.y = z.y;
+    rect.x = z.x;
+}
+
+void Entity::Place()
+{
+    if(type == 1)
+        SDL_SetRenderDrawColor(renderer,255,0,255,255);
+    else
+        SDL_SetRenderDrawColor(renderer,0,255,0,255);
+
+    SDL_RenderDrawRect(renderer, &rect);
+    
+    SDL_SetRenderDrawColor(renderer,0,0,0,255);
 }

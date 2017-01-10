@@ -7,19 +7,21 @@
 class Entity
 {
 	public:
+        void Init(Window m);
+        void Init(Window m, Location z);
 		void Place();
-		SDL_Texture* loadTexture(std::string path, Window main);
-        Location getLocation(){return L;};
+
         int getType(){return type;};
-        virtual void eat(void) {};
-        virtual int getAmount(void) {}; 
+        Location getLocation(){return L;};
+        SDL_Rect getRect(){return rect;};
+        
+        virtual void eat(void){};
+        virtual int getAmount(void){}; 
 
 	protected:
-        Location L;
-		int height, width;  //Dimensions of image on window
-		int degrees = 0;
 		int type = 0;
-        SDL_Texture* texture;
+        SDL_Rect rect;
+        Location L;
 		SDL_Renderer* renderer;
 };
 

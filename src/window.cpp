@@ -3,7 +3,7 @@
 Window::Window() 
 {
 	SDL_Init(SDL_INIT_VIDEO);
-	main = SDL_CreateWindow("main",SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED,1280,800,SDL_WINDOW_SHOWN);
+	main = SDL_CreateWindow("main",SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED,1080,640,SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(main,-1,SDL_RENDERER_ACCELERATED);
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 }
