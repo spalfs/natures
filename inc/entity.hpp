@@ -19,7 +19,7 @@ class Entity
         virtual int getAmount(void){}; 
 
 	protected:
-		int type = 0;
+		int type;
         SDL_Rect rect;
         Location L;
 		SDL_Renderer* renderer;

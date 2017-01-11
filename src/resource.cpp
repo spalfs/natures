@@ -10,7 +10,7 @@ Resource::Resource(Window m, int size)
     L.x = rect.x;
     L.y = rect.y;
 
-	amount = 100;
+	amount = RESOURCE_AMOUNT;
 }
 
 Resource::Resource(Window m, int size, Location z)
@@ -23,7 +23,7 @@ Resource::Resource(Window m, int size, Location z)
     L.x = rect.x;
     L.y = rect.y;
 
-    amount = 200;
+    amount = RESOURCE_AMOUNT;
 }
 
 void Resource::eat()

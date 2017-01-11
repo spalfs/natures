@@ -1,7 +1,7 @@
 #ifndef event_h
 #define event_h
 
-#include "window.hpp"
+#include <SDL2/SDL.h>
 
 class Event
 {

@@ -10,8 +10,8 @@ Creature::Creature(Window m, int size)
     L.x = rect.x;
     L.y = rect.y;
 
-    health = 500;
-	maxHealth = 1000;
+    health = CREATURE_START_HEALTH;
+	maxHealth = CREATURE_MAX_HEALTH;
     
     hungry = false;
     hasTarget = false;
@@ -61,7 +61,7 @@ void Creature::setTarget()
 
     if(!hasTarget&&!wander){
         wander = true;
-        wTarget = Location(rand()%1200,rand()%800);
+        wTarget = Location(rand()%WINDOW_X,rand()%WINDOW_Y);
     }
 }
 
@@ -69,7 +69,7 @@ void Creature::setTarget()
 void Creature::Action()
 {	
 	if(hasTarget){ 
-        if(Distance(L,target->getLocation())<5){
+        if(Distance(L,target->getLocation())<reach){
             target->eat();
             health+=10; 
         }

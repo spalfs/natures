@@ -1,10 +1,13 @@
 #ifndef list_h
 #define list_h
 
+#include <list>
+
 #include "creature.hpp"
 #include "resource.hpp"
 #include "window.hpp"
 #include "location.hpp"
+#include "constants.hpp"
 
 class List
 {

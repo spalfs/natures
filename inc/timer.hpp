@@ -1,7 +1,7 @@
 #ifndef timer_h
 #define timer_h
 
-#include "window.hpp"
+#include <SDL2/SDL.h>
 
 class Timer
 {

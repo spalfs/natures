@@ -1,20 +1,10 @@
 #ifndef window_h
 #define window_h
 
-//Theres alot here that are probs not used, needs cleaning
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <string>
-#include <cmath>
-#include <stdlib.h>
-#include <time.h>
-#include <iostream>
-#include <vector>
-#include <chrono>
-#include <random>
-#include <list>
 #include <algorithm>
 
+#include "constants.hpp"
 
 using namespace std;
 

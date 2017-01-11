@@ -3,8 +3,8 @@
 void Entity::Init(Window m)
 {
     renderer = m.getRenderer();
-    rect.y = rand()%640;
-    rect.x = rand()%1080;
+    rect.y = rand()%WINDOW_Y;
+    rect.x = rand()%WINDOW_X;
 }
 
 void Entity::Init(Window m, Location z)
@@ -21,7 +21,7 @@ void Entity::Place()
     else
         SDL_SetRenderDrawColor(renderer,0,255,0,255);
 
-    SDL_RenderDrawRect(renderer, &rect);
+    SDL_RenderFillRect(renderer, &rect);
     
-    SDL_SetRenderDrawColor(renderer,0,0,0,255);
+    SDL_SetRenderDrawColor(renderer,0,0,0,0);
 }

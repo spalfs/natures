@@ -1,9 +1,12 @@
 #ifndef creature_h
 #define creature_h
 
-#include "entity.hpp"
-#include "resource.hpp"
+#include <SDL2/SDL.h>
+#include <list>
+
 #include "location.hpp"
+#include "entity.hpp"
+#include "constants.hpp"
 
 class Creature: public Entity
 {
@@ -27,11 +30,12 @@ class Creature: public Entity
     bool wander;
     Location wTarget;
     int health; 
+    int reach = CREATURE_REACH;
     int maxHealth;
     bool hungry; 
-    int speed = 1;
+    int speed = CREATURE_SPEED;
     bool able;     
-    int bestSense = 100;
+    int bestSense = CREATURE_BEST_SENSE;
     
     list<Entity*> N;
     Entity *target; 

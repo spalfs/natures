@@ -4,13 +4,13 @@ List::List(Window m)
 {
   int i;
 
-  for(i=0;i<10;i++){
-    Creature X(m,10);
+  for(i=0;i<CREATURES;i++){
+    Creature X(m,CREATURE_SIZE);
     C.push_back(X);
   }
 
-  for(i=0;i<100;i++){
-    Resource Y(m,5);
+  for(i=0;i<RESOURCES;i++){
+    Resource Y(m,RESOURCE_SIZE);
     R.push_back(Y);
   }
 
