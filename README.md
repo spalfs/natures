@@ -1,4 +1,4 @@
 Nature's Course
 
 For librarys ~
-sudo apt-get install libsdl*
+apt install libsdl2-dev
