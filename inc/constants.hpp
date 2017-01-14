@@ -3,6 +3,7 @@
 
 const int CREATURES             = 10;
 const int RESOURCES             = 100;
+const int MINIMUM_RESOURCES     = 90;
 const int WINDOW_X              = 1080;
 const int WINDOW_Y              = 640;
 

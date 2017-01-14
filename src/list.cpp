@@ -2,23 +2,21 @@
 
 List::List(Window m)
 {
+  main = m;
+
   int i;
-
   SDL_Rect Rect = {0,0,CREATURE_SIZE,CREATURE_SIZE};
-
   for(i=0;i<CREATURES;i++){
-    Creature X(m,Rect);
+    Creature X(main,Rect);
     C.push_back(X);
   }
 
   Rect = {0,0,RESOURCE_SIZE,RESOURCE_SIZE};
-
   for(i=0;i<RESOURCES;i++){
-    Resource Y(m,Rect);
+    Resource Y(main,Rect);
     R.push_back(Y);
   }
 
-  main = m;
 }
 
 void List::Place()
@@ -49,6 +47,12 @@ void List::Behavior()
             R.push_back(r);
             C.erase(it--);
         }
+    }
+
+    SDL_Rect Rect = {0,0,RESOURCE_SIZE,RESOURCE_SIZE};
+    while(R.size() < MINIMUM_RESOURCES){
+        Resource Y(main,Rect);
+        R.push_back(Y);
     }
 }
 
