@@ -1,29 +1,17 @@
 #include "resource.hpp"
 
-Resource::Resource(Window m, int size)
+Resource::Resource(Window m, SDL_Rect R)
 {	
-    Init(m);
+    renderer = m.getRenderer();
     type = 2;
-
-    rect.h = rect.w = size;
+    rect = R;
     
-    L.x = rect.x;
-    L.y = rect.y;
+    if(rect.x == 0 && rect.y == 0){
+        rect.x = rand()%WINDOW_X;
+        rect.y = rand()%WINDOW_Y;
+    }
 
 	amount = RESOURCE_AMOUNT;
-}
-
-Resource::Resource(Window m, int size, Location z)
-{
-    Init(m,z);
-    type = 2;
-    
-    rect.h = rect.w = size;
-    
-    L.x = rect.x;
-    L.y = rect.y;
-
-    amount = RESOURCE_AMOUNT;
 }
 
 void Resource::eat()

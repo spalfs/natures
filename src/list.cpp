@@ -4,13 +4,17 @@ List::List(Window m)
 {
   int i;
 
+  SDL_Rect Rect = {0,0,CREATURE_SIZE,CREATURE_SIZE};
+
   for(i=0;i<CREATURES;i++){
-    Creature X(m,CREATURE_SIZE);
+    Creature X(m,Rect);
     C.push_back(X);
   }
 
+  Rect = {0,0,RESOURCE_SIZE,RESOURCE_SIZE};
+
   for(i=0;i<RESOURCES;i++){
-    Resource Y(m,RESOURCE_SIZE);
+    Resource Y(m,Rect);
     R.push_back(Y);
   }
 
@@ -40,9 +44,8 @@ void List::Behavior()
         it->Behavior();
          
         if(it->getHealth()<=0){
-            Location z = it->getLocation();
-            SDL_Rect rect = it->getRect();
-            Resource r = Resource(main,rect.w,z);
+            SDL_Rect Rect = it->getRect();
+            Resource r = Resource(main,Rect);
             R.push_back(r);
             C.erase(it--);
         }
@@ -54,14 +57,14 @@ list<Entity*> List::getNear(Creature nC)
     list<Entity*> N;
 
     for(list <Resource>::iterator it = R.begin(); it!=R.end(); it++){
-        if( nC.getBestSense() > Distance(nC.getLocation(),it->getLocation()) )
+        if( nC.getBestSense() > Distance(nC.getRect(),it->getRect()) )
             N.push_back(&(*it));
     }
        
     for(list <Creature>::iterator it = C.begin(); it!=C.end(); it++){
         if( &nC == &(*it))
             continue;
-        else if( nC.getBestSense() > Distance(nC.getLocation(),it->getLocation()) )
+        else if( nC.getBestSense() > Distance(nC.getRect(),it->getRect()) )
             N.push_back(&(*it));
     }
                

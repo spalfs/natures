@@ -1,22 +1,26 @@
 #include "creature.hpp"
 
-Creature::Creature(Window m, int size)
+Creature::Creature(Window m, SDL_Rect R)
 {
-    Init(m);
+    renderer = m.getRenderer();
     type = 1;
+    rect = R; 
     
-    rect.h = rect.w = size;
-    
-    L.x = rect.x;
-    L.y = rect.y;
+    if(rect.x == 0 && rect.y == 0){
+        rect.x = rand()%WINDOW_X;
+        rect.y = rand()%WINDOW_Y;
+    }
 
-    health = CREATURE_START_HEALTH;
-	maxHealth = CREATURE_MAX_HEALTH;
-    
-    hungry = false;
-    hasTarget = false;
-	wander = false;
-    able = true;
+    health      = CREATURE_START_HEALTH;
+	maxHealth   = CREATURE_MAX_HEALTH;
+    reach       = CREATURE_REACH;
+    speed       = CREATURE_SPEED;
+    bestSense   = CREATURE_BEST_SENSE;
+
+    hungry      = false;
+    hasTarget   = false;
+	wander      = false;
+    able        = true;
 }
 
 void Creature::Behavior()
@@ -61,7 +65,8 @@ void Creature::setTarget()
 
     if(!hasTarget&&!wander){
         wander = true;
-        wTarget = Location(rand()%WINDOW_X,rand()%WINDOW_Y);
+        SDL_Rect r = {rand()%WINDOW_X, rand()%WINDOW_Y, 0, 0};
+        wTarget = r; 
     }
 }
 
@@ -69,59 +74,57 @@ void Creature::setTarget()
 void Creature::Action()
 {	
 	if(hasTarget){ 
-        if(Distance(L,target->getLocation())<reach){
+        if(Distance(rect,target->getRect())<reach){
             target->eat();
             health+=10; 
         }
         else
-            Move(target->getLocation());
+            Move(target->getRect());
 
         if(target->getAmount()<=0){
             hasTarget = false; 
         }
     }
     else{
-        if(Distance(L,wTarget)<5)
+        if(Distance(rect,wTarget)<5)
             wander = false;
         else
             Move(wTarget);
     }
 }
 
-void Creature::Move(Location l)
+void Creature::Move(SDL_Rect R)
 {
-    if( L.x == l.x ){
-        if( L.y < l.y )
-		    L.y+=speed;
+    if( rect.x == R.x ){
+        if( rect.y < R.y )
+		    rect.y+=speed;
 		else
-			L.y-=speed;
+			rect.y-=speed;
 	}
-	else if( L.y == l.y ){
-		if( L.x < l.x )
-			L.x+=speed;
+	else if( rect.y == R.y ){
+		if( rect.x < R.x )
+			rect.x+=speed;
 		else
-			L.x-=speed;
+			rect.x-=speed;
 	}
-	else if( L.x < l.x ){
-		if( L.y < l.y ){
-			L.x+=speed;
-			L.y+=speed;
+	else if( rect.x < R.x ){
+		if( rect.y < R.y ){
+			rect.x+=speed;
+			rect.y+=speed;
 		}
 		else{
-			L.x+=speed;
-			L.y-=speed;
+			rect.x+=speed;
+			rect.y-=speed;
 		}
 	}
-	else if ( L.x > l.x ){
-		if( L.y < l.y ){
-			L.x-=speed;
-			L.y+=speed;
+	else if ( rect.x > R.x ){
+		if( rect.y < R.y ){
+			rect.x-=speed;
+			rect.y+=speed;
 		}
 		else{
-			L.x-=speed;
-			L.y-=speed;
+			rect.x-=speed;
+			rect.y-=speed;
 		}
 	}
-    rect.x = L.x;
-    rect.y = L.y;
 }

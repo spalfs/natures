@@ -1,19 +1,5 @@
 #include "entity.hpp"
 
-void Entity::Init(Window m)
-{
-    renderer = m.getRenderer();
-    rect.y = rand()%WINDOW_Y;
-    rect.x = rand()%WINDOW_X;
-}
-
-void Entity::Init(Window m, Location z)
-{
-    renderer = m.getRenderer();
-    rect.y = z.y;
-    rect.x = z.x;
-}
-
 void Entity::Place()
 {
     if(type == 1)

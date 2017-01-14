@@ -4,23 +4,21 @@
 #include <SDL2/SDL.h>
 #include <list>
 
-#include "location.hpp"
 #include "entity.hpp"
 #include "constants.hpp"
 
 class Creature: public Entity
 {
   public:
-    Creature(Window m, int size);
+    Creature(Window m, SDL_Rect R);
     void Behavior();
     void Action();
     void Priority();
     void setTarget();
-    void Move(Location l);
+    void Move(SDL_Rect R);
 
     void giveN(list<Entity*> n){N = n;};
-    Location getLocation(){return L;};
-    double Distance(Location A, Location B){return sqrt(pow(A.x-B.x,2)+pow(A.y-B.y,2));};
+    double Distance(SDL_Rect A, SDL_Rect B){return sqrt(pow(A.x-B.x,2)+pow(A.y-B.y,2));};
     int getHealth(){return health;};
     bool doesItHaveTarget(){return hasTarget;};
     int getBestSense(){return bestSense;};
@@ -28,14 +26,15 @@ class Creature: public Entity
   private:
     bool hasTarget;
     bool wander;
-    Location wTarget;
+    SDL_Rect wTarget;
+    
     int health; 
-    int reach = CREATURE_REACH;
+    int reach;
     int maxHealth;
     bool hungry; 
-    int speed = CREATURE_SPEED;
+    int speed;
     bool able;     
-    int bestSense = CREATURE_BEST_SENSE;
+    int bestSense;
     
     list<Entity*> N;
     Entity *target; 
