@@ -17,24 +17,29 @@ class Creature: public Entity
     void setTarget();
     void Move(SDL_Rect R);
 
-    void giveN(list<Entity*> n){N = n;};
-    double Distance(SDL_Rect A, SDL_Rect B){return sqrt(pow(A.x-B.x,2)+pow(A.y-B.y,2));};
-    int getHealth(){return health;};
-    bool doesItHaveTarget(){return hasTarget;};
-    int getBestSense(){return bestSense;};
+    void    giveN(list<Entity*> n){N = n;};
+    double  Distance(SDL_Rect A, SDL_Rect B){return sqrt(pow(A.x-B.x,2)+pow(A.y-B.y,2));};
+    int     getHealth(){return health;};
+    bool    doesItHaveTarget(){return hasTarget;};
+    int     getBestSense(){return bestSense;};
 
   private:
-    bool hasTarget;
-    bool wander;
+    bool     hasTarget;
+    bool     wander;
     SDL_Rect wTarget;
     
-    int health; 
-    int reach;
-    int maxHealth;
-    bool hungry; 
-    int speed;
-    bool able;     
-    int bestSense;
+    int     health; 
+    int     reach;
+    int     maxHealth;
+    int     speed;
+    int     bestSense;
+    int     bite;
+    int     amountAte;
+    int     amountToGrow;
+
+    bool    hungry; 
+    bool    gender;
+    bool    able;     
     
     list<Entity*> N;
     Entity *target; 

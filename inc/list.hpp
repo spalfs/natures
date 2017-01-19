@@ -15,6 +15,7 @@ class List
 		List(Window m);
 		void Behavior();
 		void Place();
+        void Remove();
 		double Distance(SDL_Rect A, SDL_Rect B){return sqrt(pow(A.x-B.x,2)+pow(A.y-B.y,2));};    
         list<Entity*> getNear(Creature C);
 

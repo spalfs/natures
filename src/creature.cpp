@@ -3,7 +3,6 @@
 Creature::Creature(Window m, SDL_Rect R)
 {
     renderer = m.getRenderer();
-    type = 1;
     rect = R; 
     
     if(rect.x == 0 && rect.y == 0){
@@ -11,12 +10,16 @@ Creature::Creature(Window m, SDL_Rect R)
         rect.y = rand()%WINDOW_Y;
     }
 
+    type        = CREATURE_TYPE;
     health      = CREATURE_START_HEALTH;
-	maxHealth   = CREATURE_MAX_HEALTH;
+    maxHealth   = CREATURE_MAX_HEALTH;
     reach       = CREATURE_REACH;
     speed       = CREATURE_SPEED;
     bestSense   = CREATURE_BEST_SENSE;
+    bite        = CREATURE_BITE;
+    amountToGrow= CREATURE_AMOUNT_TO_GROW;
 
+    gender      = rand() % 2;
     hungry      = false;
     hasTarget   = false;
 	wander      = false;
@@ -29,7 +32,8 @@ void Creature::Behavior()
 
 	this->Priority();
 
-    this->setTarget();
+    if(!hasTarget)
+        this->setTarget();
 
 	this->Action();
 }
@@ -48,19 +52,13 @@ void Creature::Priority()
 
 void Creature::setTarget()
 {
-    if(hasTarget)
-        return;
-
     for(list <Entity*>::iterator it = N.begin(); it!=N.end(); it++){
-       if((*it)->getType() == 2 && hungry){ 
-           if(!hasTarget){
-                target = *it;
-                hasTarget = true; 
-                wander = false;
-           }
-           else
-               break;
-       }
+        if( (*it)->getType() == RESOURCE_TYPE && hungry){ 
+            target = *it;
+            hasTarget = true;
+            wander = false;
+            break;
+        } 
     }
 
     if(!hasTarget&&!wander){
@@ -73,10 +71,15 @@ void Creature::setTarget()
 
 void Creature::Action()
 {	
-	if(hasTarget){ 
-        if(Distance(rect,target->getRect())<reach){
-            target->eat();
-            health+=10; 
+    if(hasTarget){ 
+        if( Distance(rect,target->getRect() ) < reach ){
+            target->eat(bite);
+            health+=bite;
+            amountAte++;
+            if(rect.w <= CREATURE_SIZE_MAX && amountToGrow <= amountAte){
+                amountAte = 0;
+                rect.w = rect.h = rect.w + 1;
+            }
         }
         else
             Move(target->getRect());
@@ -86,7 +89,7 @@ void Creature::Action()
         }
     }
     else{
-        if(Distance(rect,wTarget)<5)
+        if(Distance(rect,wTarget) < reach)
             wander = false;
         else
             Move(wTarget);

@@ -11,7 +11,7 @@ class Entity
         int getType(){return type;};
         SDL_Rect getRect(){return rect;};
         
-        virtual void eat(void){};
+        virtual void eat(int bite){};
         virtual int getAmount(void){}; 
 
 	protected:

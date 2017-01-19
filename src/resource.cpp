@@ -3,7 +3,7 @@
 Resource::Resource(Window m, SDL_Rect R)
 {	
     renderer = m.getRenderer();
-    type = 2;
+    type = RESOURCE_TYPE;
     rect = R;
     
     if(rect.x == 0 && rect.y == 0){
@@ -11,10 +11,24 @@ Resource::Resource(Window m, SDL_Rect R)
         rect.y = rand()%WINDOW_Y;
     }
 
-	amount = RESOURCE_AMOUNT;
+	amount      = RESOURCE_AMOUNT_START;
+    growAmount  = RESOURCE_GROW;
 }
 
-void Resource::eat()
+void Resource::eat(int bite)
 {
-	amount-=10;
+	amount-=bite;
+}
+
+void Resource::grow()
+{
+    if(amount < RESOURCE_AMOUNT_MAX)
+        amount+=growAmount; 
+    
+    rect.h = rect.w = map(amount,0,RESOURCE_AMOUNT_MAX,0,RESOURCE_SIZE_MAX);
+}
+
+int Resource::map(int x, int inMin, int inMax, int outMin, int outMax)
+{
+    return (x-inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
 }

@@ -22,9 +22,10 @@ int main()
 		}
 
 		main.Clear();
-
+        
+        L.Remove();
+        L.Behavior();
 		L.Place();
-		L.Behavior();
 
 		main.Render();
 		
