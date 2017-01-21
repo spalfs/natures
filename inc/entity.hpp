@@ -12,10 +12,14 @@ class Entity
         SDL_Rect getRect(){return rect;};
         
         virtual void eat(int bite){};
-        virtual int getAmount(void){}; 
+        virtual void impregnate(void){};
+        virtual bool getGender(void){};
+        virtual int  getAmount(void){}; 
 
 	protected:
 		int type;
+        int gender;
+        bool pregnate;
         SDL_Rect rect;
 		SDL_Renderer* renderer;
 };

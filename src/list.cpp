@@ -40,6 +40,13 @@ void List::Behavior()
         list<Entity*> N = getNear(*it); 
         it->giveN(N); 
         it->Behavior();
+        if(it->getPregnancyReady()){
+            SDL_Rect Rect = it->getRect();
+            Rect.h = Rect.w = CREATURE_SIZE_START; 
+            Creature X(main,Rect);
+            C.push_back(X);
+            it->hadPregnancy();
+        }
     }
     
     for(list<Resource>::iterator it = R.begin(); it!=R.end(); it++)

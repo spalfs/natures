@@ -11,7 +11,7 @@ class Timer
     void Stop();
     void Pause();
     void unPause();
-    int getTicks();
+    int  getTicks();
     bool isStarted(){return started;};
     bool isPaused(){return paused;};
 

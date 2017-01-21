@@ -6,28 +6,32 @@
 
 #include "entity.hpp"
 #include "constants.hpp"
+#include "functions.hpp"
 
 class Creature: public Entity
 {
   public:
     Creature(Window m, SDL_Rect R);
-    void Behavior();
-    void Action();
-    void Priority();
-    void setTarget();
-    void Move(SDL_Rect R);
-
+    void    Behavior();
+    void    Action();
+    void    Priority();
+    void    setTarget();
+    void    checkTarget();
+    void    Move(SDL_Rect R);
+    void    impregnate();
     void    giveN(list<Entity*> n){N = n;};
-    double  Distance(SDL_Rect A, SDL_Rect B){return sqrt(pow(A.x-B.x,2)+pow(A.y-B.y,2));};
-    int     getHealth(){return health;};
-    bool    doesItHaveTarget(){return hasTarget;};
-    int     getBestSense(){return bestSense;};
-
-  private:
-    bool     hasTarget;
-    bool     wander;
-    SDL_Rect wTarget;
     
+    int     getHealth(){return health;};
+    int     getBestSense(){return bestSense;};
+    bool    getGender(){return gender;};
+    bool    getPregnancyReady(){return pregnancyReady;};
+    void    hadPregnancy(){pregnate = pregnancyReady = false;};
+  
+  private:
+    SDL_Rect        wTarget;
+    Entity          *target;
+    list<Entity*>   N;
+
     int     health; 
     int     reach;
     int     maxHealth;
@@ -36,13 +40,14 @@ class Creature: public Entity
     int     bite;
     int     amountAte;
     int     amountToGrow;
+    int     pregnancyTime;
+    int     expectedPregnancyTime;
 
     bool    hungry; 
-    bool    gender;
+    bool    pregnancyReady;
     bool    able;     
-    
-    list<Entity*> N;
-    Entity *target; 
+    bool    hasTarget;
+    bool    wander;
 };
 
 #endif
