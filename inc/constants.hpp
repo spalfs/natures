@@ -3,7 +3,7 @@
 
 const int CREATURES                         = 10;
 const int RESOURCES                         = 100;
-const int MINIMUM_RESOURCES                 = 70;
+const int MINIMUM_RESOURCES                 = 80;
 const int WINDOW_X                          = 500;
 const int WINDOW_Y                          = 500;
 
@@ -20,6 +20,7 @@ const int CREATURE_SIZE_START               = 5;
 const int CREATURE_BITE                     = 10;
 const int CREATURE_AMOUNT_TO_GROW           = 50;
 const int CREATURE_EXPECTED_PREGNANCY_TIME  = 100;
+const int CREATURE_EXPECTED_AGE             = 100000;
 
 const int RESOURCE_SIZE_START               = 1;
 const int RESOURCE_SIZE_MAX                 = 4;

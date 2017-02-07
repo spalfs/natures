@@ -8,6 +8,7 @@ int main()
 	Event e;
 
     Timer fps;
+    int speed = 60;
 
 	while(e.gRun())
 	{
@@ -17,8 +18,11 @@ int main()
 		{
 			if(e.gEventType() == SDL_QUIT)
 				e.off();
-			//else if(e.gEventType() == SDL_KEYDOWN)
-			//	eventHandle(e.gEvent());
+			else if(e.gEventType() == SDL_KEYDOWN)
+                switch(e.gEvent().key.keysym.sym){
+                    case SDLK_RIGHT: speed+=30;                 break;
+                    case SDLK_LEFT : if(speed >30) speed-=30;   break;
+                }
 		}
 
 		main.Clear();
@@ -29,8 +33,8 @@ int main()
 
 		main.Render();
 		
-        if(fps.getTicks() < (1000 / 60))
-            SDL_Delay((1000 / 60) - fps.getTicks());
+        if(fps.getTicks() < (1000 / speed))
+            SDL_Delay((1000 / speed) - fps.getTicks());
 	}
 
 	main.Destroy();

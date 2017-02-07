@@ -42,6 +42,8 @@ class Creature: public Entity
     int     amountToGrow;
     int     pregnancyTime;
     int     expectedPregnancyTime;
+    int     age;
+    int     expectedAge;
 
     bool    hungry; 
     bool    pregnancyReady;

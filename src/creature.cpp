@@ -19,8 +19,10 @@ Creature::Creature(Window m, SDL_Rect R)
     bite                    = CREATURE_BITE;
     amountToGrow            = CREATURE_AMOUNT_TO_GROW;
     expectedPregnancyTime   = CREATURE_EXPECTED_PREGNANCY_TIME;
+    expectedAge             = CREATURE_EXPECTED_AGE;
 
     gender                  = rand() % 2;
+    age                     = 0;
     hungry                  = false;
     hasTarget               = false;
     wander                  = false;
@@ -48,6 +50,9 @@ void Creature::Behavior()
             pregnancyReady = true;
     }
 
+    age++;
+    if(age > expectedAge)
+        health = 0;
 }
 
 void Creature::Priority()
