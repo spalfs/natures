@@ -20,8 +20,9 @@ int main()
 				e.off();
 			else if(e.gEventType() == SDL_KEYDOWN)
                 switch(e.gEvent().key.keysym.sym){
-                    case SDLK_RIGHT: speed+=30;                 break;
-                    case SDLK_LEFT : if(speed >30) speed-=30;   break;
+                    case SDLK_q:        e.off();                    break;
+                    case SDLK_EQUALS:   speed+=30;                  break;
+                    case SDLK_MINUS:    if(speed >30) speed-=30;    break;
                 }
 		}
 
