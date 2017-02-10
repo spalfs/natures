@@ -10,5 +10,6 @@ ideas
 - carnivores / omnivores
 - click to add entities
 - randomly generate new types of creatures
-- speed up / down
+- gui speed up / down
 - all traits (speed, reach, size, etc) contained in DNA structure which is mixed with mate and passed to child
+- pick a c naming/coding standard and stick with it
