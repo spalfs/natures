@@ -38,7 +38,7 @@ void List::Remove()
 void List::Behavior()
 {
     for(std::list<Creature>::iterator it = C.begin(); it!=C.end(); it++){
-        std::list<Entity*> N = getNear(*it); 
+        std::vector<Entity*> N = getNear(*it); 
         it->giveN(N); 
         it->Behavior();
         
@@ -71,9 +71,9 @@ void List::Place()
         it->Place();
 }
 
-std::list<Entity*> List::getNear(Creature nC)
+std::vector<Entity*> List::getNear(Creature nC)
 {
-    std::list<Entity*> N;
+    std::vector<Entity*> N;
 
     for(std::list<Resource>::iterator it = R.begin(); it!=R.end(); it++)
         if( nC.getBestSense() > Distance(nC.getRect(),it->getRect()) )

@@ -2,7 +2,8 @@
 #define creature_h
 
 #include <SDL2/SDL.h>
-#include <list>
+#include <vector>
+#include <algorithm>
 
 #include "entity.hpp"
 #include "constants.hpp"
@@ -20,7 +21,7 @@ class Creature: public Entity
     void    checkTarget();
     void    Move(SDL_Rect R);
     void    impregnate();
-    void    giveN(std::list<Entity*> n){N = n;};
+    void    giveN(std::vector<Entity*> n){N = n;};
     
     Dna     getDNA(){return mine;};
     int     getHealth(){return health;};
@@ -32,7 +33,7 @@ class Creature: public Entity
   private:
     SDL_Rect            wTarget;
     Entity              *target;
-    std::list<Entity*>  N;
+    std::vector<Entity*>N;
     Dna                 mine;
 
     int     health; 

@@ -14,8 +14,11 @@ Creature::Creature(Window M, SDL_Rect R, Dna D)
     type            = CREATURE_TYPE;
     health          = mine.maxHealth/2;
     gender          = rand() % 2;
+    age             = 0;
+    pregnancyTime   = 0;
     able            = true;
     pregnancyReady  = false;
+    pregnate        = false;
 }
 
 void Creature::Behavior()
@@ -56,7 +59,8 @@ void Creature::Priority()
 
 void Creature::setTarget()
 {
-    for(std::list <Entity*>::iterator it = N.begin(); it!=N.end(); it++){
+    std::random_shuffle(N.begin(),N.end());
+    for(std::vector <Entity*>::iterator it = N.begin(); it!=N.end(); it++){
         if( (*it)->getType() == RESOURCE_TYPE && hungry){ 
             target = *it;
             hasTarget = true;
@@ -80,12 +84,11 @@ void Creature::setTarget()
 
 void Creature::checkTarget()
 {
-    for(std::list <Entity*>::iterator it = N.begin(); it!=N.end(); it++)
+    for(std::vector <Entity*>::iterator it = N.begin(); it!=N.end(); it++)
         if( target == *it )
             return;
     
     hasTarget = false;
-    return;
 }
 
 

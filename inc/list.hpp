@@ -3,6 +3,7 @@
 
 #include <SDL2/SDL.h>
 #include <list>
+#include <vector>
 
 #include "functions.hpp"
 #include "creature.hpp"
@@ -17,7 +18,7 @@ class List
 		void Behavior();
 		void Place();
         void Remove();
-        std::list<Entity*> getNear(Creature C);
+        std::vector<Entity*> getNear(Creature C);
 
 	private:
 		Window main = Window("do not create new window.");

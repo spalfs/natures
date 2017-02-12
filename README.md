@@ -11,5 +11,6 @@ ideas
 - click to add entities
 - randomly generate new types of creatures
 - gui speed up / down
-- all traits (speed, reach, size, etc) contained in DNA structure which is mixed with mate and passed to child
+- DNA which is mixed with mate and passed to child
 - pick a c naming/coding standard and stick with it
+- show framerate in gui
