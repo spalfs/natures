@@ -1,34 +1,21 @@
 #include "creature.hpp"
 
-Creature::Creature(Window m, SDL_Rect R)
+Creature::Creature(Window M, SDL_Rect R, Dna D)
 {
-    renderer                = m.getRenderer();
-    rect                    = R; 
+    renderer    = M.getRenderer();
+    rect        = R; 
+    mine        = D;
     
     if(rect.x == 0 && rect.y == 0){
-        rect.x              = rand()%WINDOW_X;
-        rect.y              = rand()%WINDOW_Y;
+        rect.x  = rand()%WINDOW_X;
+        rect.y  = rand()%WINDOW_Y;
     }
 
-    type                    = CREATURE_TYPE;
-    health                  = CREATURE_START_HEALTH;
-    maxHealth               = CREATURE_MAX_HEALTH;
-    reach                   = CREATURE_REACH;
-    speed                   = CREATURE_SPEED;
-    bestSense               = CREATURE_BEST_SENSE;
-    bite                    = CREATURE_BITE;
-    amountToGrow            = CREATURE_AMOUNT_TO_GROW;
-    expectedPregnancyTime   = CREATURE_EXPECTED_PREGNANCY_TIME;
-    expectedAge             = CREATURE_EXPECTED_AGE;
-
-    gender                  = rand() % 2;
-    age                     = 0;
-    hungry                  = false;
-    hasTarget               = false;
-    wander                  = false;
-    pregnate                = false;
-    pregnancyReady          = false;
-    able                    =  true;
+    type            = CREATURE_TYPE;
+    health          = mine.maxHealth/2;
+    gender          = rand() % 2;
+    able            = true;
+    pregnancyReady  = false;
 }
 
 void Creature::Behavior()
@@ -46,18 +33,18 @@ void Creature::Behavior()
 
     if(pregnate){
         pregnancyTime++;
-        if(pregnancyTime > expectedPregnancyTime)
+        if(pregnancyTime > mine.expectedPregnancyTime)
             pregnancyReady = true;
     }
 
     age++;
-    if(age > expectedAge)
+    if(age > mine.expectedAge)
         health = 0;
 }
 
 void Creature::Priority()
 {	 
-    if(health < maxHealth/2){
+    if(health < mine.maxHealth / 2){
         hungry = true;
         able = false;
     }
@@ -69,7 +56,7 @@ void Creature::Priority()
 
 void Creature::setTarget()
 {
-    for(list <Entity*>::iterator it = N.begin(); it!=N.end(); it++){
+    for(std::list <Entity*>::iterator it = N.begin(); it!=N.end(); it++){
         if( (*it)->getType() == RESOURCE_TYPE && hungry){ 
             target = *it;
             hasTarget = true;
@@ -93,7 +80,7 @@ void Creature::setTarget()
 
 void Creature::checkTarget()
 {
-    for(list <Entity*>::iterator it = N.begin(); it!=N.end(); it++)
+    for(std::list <Entity*>::iterator it = N.begin(); it!=N.end(); it++)
         if( target == *it )
             return;
     
@@ -105,18 +92,18 @@ void Creature::checkTarget()
 void Creature::Action()
 {	
     if(hasTarget){ 
-        if( Distance(rect,target->getRect()) < reach && target->getType() == RESOURCE_TYPE){
-            target->eat(bite);
-            health+=bite;
+        if( Distance(rect,target->getRect()) < mine.reach && target->getType() == RESOURCE_TYPE){
+            target->eat(mine.bite);
+            health+=mine.bite;
             amountAte++;
-            if(rect.w <= CREATURE_SIZE_MAX && amountToGrow <= amountAte){
+            if(rect.w <= mine.sizeMax && mine.amountToGrow <= amountAte){
                 amountAte = 0;
                 rect.w = rect.h = rect.w + 1;
             }
             if(target->getAmount()<=0)
                 hasTarget = false; 
         } 
-        else if( Distance(rect,target->getRect()) < reach && target->getType() == CREATURE_TYPE && target->getGender() != gender ){
+        else if( Distance(rect,target->getRect()) < mine.reach && target->getType() == CREATURE_TYPE && target->getGender() != gender ){
             target->impregnate();
             hasTarget = false;
         }
@@ -124,7 +111,7 @@ void Creature::Action()
             Move(target->getRect());    
     }
     else if(wander){
-        if(Distance(rect,wTarget) < reach)
+        if(Distance(rect,wTarget) < mine.reach)
             wander = false;
         else
             Move(wTarget);
@@ -135,34 +122,34 @@ void Creature::Move(SDL_Rect R)
 {
     if( rect.x == R.x ){
         if( rect.y < R.y )
-		    rect.y+=speed;
+		    rect.y+=mine.speed;
 		else
-			rect.y-=speed;
+			rect.y-=mine.speed;
 	}
 	else if( rect.y == R.y ){
 		if( rect.x < R.x )
-			rect.x+=speed;
+			rect.x+=mine.speed;
 		else
-			rect.x-=speed;
+			rect.x-=mine.speed;
 	}
 	else if( rect.x < R.x ){
 		if( rect.y < R.y ){
-			rect.x+=speed;
-			rect.y+=speed;
+			rect.x+=mine.speed;
+			rect.y+=mine.speed;
 		}
 		else{
-			rect.x+=speed;
-			rect.y-=speed;
+			rect.x+=mine.speed;
+			rect.y-=mine.speed;
 		}
 	}
 	else if ( rect.x > R.x ){
 		if( rect.y < R.y ){
-			rect.x-=speed;
-			rect.y+=speed;
+			rect.x-=mine.speed;
+			rect.y+=mine.speed;
 		}
 		else{
-			rect.x-=speed;
-			rect.y-=speed;
+			rect.x-=mine.speed;
+			rect.y-=mine.speed;
 		}
 	}
 }

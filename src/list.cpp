@@ -5,9 +5,10 @@ List::List(Window m)
   main = m;
 
   int i;
-  SDL_Rect Rect = {0,0,CREATURE_SIZE_START,CREATURE_SIZE_START};
+  Dna defaultDNA;
+  SDL_Rect Rect = {0,0,defaultDNA.sizeMax/5,defaultDNA.sizeMax/5};
   for(i=0;i<CREATURES;i++){
-    Creature X(main,Rect);
+    Creature X(main,Rect,defaultDNA);
     C.push_back(X);
   }
 
@@ -21,7 +22,7 @@ List::List(Window m)
 
 void List::Remove()
 {
-    for(list<Creature>::iterator it = C.begin(); it!=C.end(); it++)    
+    for(std::list<Creature>::iterator it = C.begin(); it!=C.end(); it++)    
         if(it->getHealth()<=0){
             SDL_Rect Rect = it->getRect();
             Resource r = Resource(main,Rect);
@@ -29,27 +30,29 @@ void List::Remove()
             C.erase(it--);
         }
     
-    for(list<Resource>::iterator it = R.begin(); it!=R.end(); it++)
+    for(std::list<Resource>::iterator it = R.begin(); it!=R.end(); it++)
         if(it->getAmount()<=0)
             R.erase(it--);
 }
 
 void List::Behavior()
 {
-    for(list<Creature>::iterator it = C.begin(); it!=C.end(); it++){
-        list<Entity*> N = getNear(*it); 
+    for(std::list<Creature>::iterator it = C.begin(); it!=C.end(); it++){
+        std::list<Entity*> N = getNear(*it); 
         it->giveN(N); 
         it->Behavior();
+        
         if(it->getPregnancyReady()){
+            Dna D  = it->getDNA();
             SDL_Rect Rect = it->getRect();
-            Rect.h = Rect.w = CREATURE_SIZE_START; 
-            Creature X(main,Rect);
+            Rect.h = Rect.w = D.sizeMax / 5; 
+            Creature X(main,Rect,D);
             C.push_back(X);
             it->hadPregnancy();
         }
     }
     
-    for(list<Resource>::iterator it = R.begin(); it!=R.end(); it++)
+    for(std::list<Resource>::iterator it = R.begin(); it!=R.end(); it++)
         it->grow(); 
 }
 
@@ -61,22 +64,22 @@ void List::Place()
         R.push_back(Y);
     }
 
-    for(list<Creature>::iterator it = C.begin(); it!=C.end(); it++)
+    for(std::list<Creature>::iterator it = C.begin(); it!=C.end(); it++)
         it->Place();
 
-    for(list<Resource>::iterator it = R.begin(); it!=R.end(); it++)
+    for(std::list<Resource>::iterator it = R.begin(); it!=R.end(); it++)
         it->Place();
 }
 
-list<Entity*> List::getNear(Creature nC)
+std::list<Entity*> List::getNear(Creature nC)
 {
-    list<Entity*> N;
+    std::list<Entity*> N;
 
-    for(list <Resource>::iterator it = R.begin(); it!=R.end(); it++)
+    for(std::list<Resource>::iterator it = R.begin(); it!=R.end(); it++)
         if( nC.getBestSense() > Distance(nC.getRect(),it->getRect()) )
             N.push_back(&(*it));
         
-    for(list <Creature>::iterator it = C.begin(); it!=C.end(); it++)
+    for(std::list<Creature>::iterator it = C.begin(); it!=C.end(); it++)
         if( &nC == &(*it))
             continue;
         else if( nC.getBestSense() > Distance(nC.getRect(),it->getRect()) )

@@ -17,12 +17,12 @@ class List
 		void Behavior();
 		void Place();
         void Remove();
-        list<Entity*> getNear(Creature C);
+        std::list<Entity*> getNear(Creature C);
 
 	private:
 		Window main = Window("do not create new window.");
-		list<Resource> R;
-		list<Creature> C;
+        std::list<Resource> R;
+        std::list<Creature> C;
 };
 
 #endif

@@ -6,13 +6,11 @@
 
 #include "constants.hpp"
 
-using namespace std;
-
 class Window
 {
 	public:
 		Window();
-		Window(string){};
+		Window(std::string){};
 		void Destroy();
 
 		void Clear();

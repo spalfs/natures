@@ -7,11 +7,12 @@
 #include "entity.hpp"
 #include "constants.hpp"
 #include "functions.hpp"
+#include "dna.hpp"
 
 class Creature: public Entity
 {
   public:
-    Creature(Window m, SDL_Rect R);
+    Creature(Window M, SDL_Rect R, Dna D);
     void    Behavior();
     void    Action();
     void    Priority();
@@ -19,31 +20,25 @@ class Creature: public Entity
     void    checkTarget();
     void    Move(SDL_Rect R);
     void    impregnate();
-    void    giveN(list<Entity*> n){N = n;};
+    void    giveN(std::list<Entity*> n){N = n;};
     
+    Dna     getDNA(){return mine;};
     int     getHealth(){return health;};
-    int     getBestSense(){return bestSense;};
+    int     getBestSense(){return mine.bestSense;};
     bool    getGender(){return gender;};
     bool    getPregnancyReady(){return pregnancyReady;};
     void    hadPregnancy(){pregnate = pregnancyReady = false;};
   
   private:
-    SDL_Rect        wTarget;
-    Entity          *target;
-    list<Entity*>   N;
+    SDL_Rect            wTarget;
+    Entity              *target;
+    std::list<Entity*>  N;
+    Dna                 mine;
 
     int     health; 
-    int     reach;
-    int     maxHealth;
-    int     speed;
-    int     bestSense;
-    int     bite;
     int     amountAte;
-    int     amountToGrow;
     int     pregnancyTime;
-    int     expectedPregnancyTime;
     int     age;
-    int     expectedAge;
 
     bool    hungry; 
     bool    pregnancyReady;
