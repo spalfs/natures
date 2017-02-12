@@ -12,3 +12,20 @@ Dna::Dna()
     expectedAge              = CREATURE_EXP_AGE;
     sizeMax                  = CREATURE_SIZE_MAX;
 }
+
+Dna Dna::combine(Dna D)
+{
+    Dna N;
+
+    N.maxHealth             = (this->maxHealth + D.maxHealth)/2; 
+    N.speed                 = (this->speed + D.speed)/2; 
+    N.reach                 = (this->reach + D.reach)/2; 
+    N.bestSense             = (this->bestSense + D.bestSense)/2; 
+    N.bite                  = (this->bite + D.bite)/2; 
+    N.amountToGrow          = (this->amountToGrow + D.amountToGrow)/2; 
+    N.expectedPregnancyTime = (this->expectedPregnancyTime + D.expectedPregnancyTime)/2; 
+    N.expectedAge           = (this->expectedAge + D.expectedAge)/2; 
+    N.sizeMax               = (this->sizeMax + D.sizeMax)/2; 
+
+    return N;
+}

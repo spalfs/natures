@@ -107,7 +107,7 @@ void Creature::Action()
                 hasTarget = false; 
         } 
         else if( Distance(rect,target->getRect()) < mine.reach && target->getType() == CREATURE_TYPE && target->getGender() != gender ){
-            target->impregnate();
+            target->impregnate(mine);
             hasTarget = false;
         }
         else
@@ -157,10 +157,11 @@ void Creature::Move(SDL_Rect R)
 	}
 }
 
-void Creature::impregnate()
+void Creature::impregnate(Dna D)
 {
     if(!pregnate){
         pregnate = true;
         pregnancyTime = 0;
+        childs = mine.combine(D);
     }
 }

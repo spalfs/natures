@@ -11,6 +11,6 @@ ideas
 - click to add entities
 - randomly generate new types of creatures
 - gui speed up / down
-- DNA which is mixed with mate and passed to child
+- DNA mutations 
 - pick a c naming/coding standard and stick with it
 - show framerate in gui

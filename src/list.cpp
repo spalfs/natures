@@ -43,7 +43,7 @@ void List::Behavior()
         it->Behavior();
         
         if(it->getPregnancyReady()){
-            Dna D  = it->getDNA();
+            Dna D  = it->getChildDNA();
             SDL_Rect Rect = it->getRect();
             Rect.h = Rect.w = D.sizeMax / 5; 
             Creature X(main,Rect,D);

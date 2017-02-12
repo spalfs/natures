@@ -7,6 +7,7 @@ class Dna
 {  
     public:
         Dna();
+        Dna combine(Dna D);
         int maxHealth;
         int speed;
         int reach;

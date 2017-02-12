@@ -2,6 +2,7 @@
 #define entity_h
 
 #include "window.hpp"
+#include "dna.hpp"
 
 class Entity
 {
@@ -12,7 +13,7 @@ class Entity
         SDL_Rect getRect(){return rect;};
         
         virtual void eat(int bite){};
-        virtual void impregnate(void){};
+        virtual void impregnate(Dna D){};
         virtual bool getGender(void){};
         virtual int  getAmount(void){}; 
 

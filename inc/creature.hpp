@@ -20,10 +20,11 @@ class Creature: public Entity
     void    setTarget();
     void    checkTarget();
     void    Move(SDL_Rect R);
-    void    impregnate();
+    void    impregnate(Dna D);
     void    giveN(std::vector<Entity*> n){N = n;};
     
     Dna     getDNA(){return mine;};
+    Dna     getChildDNA(){return childs;};
     int     getHealth(){return health;};
     int     getBestSense(){return mine.bestSense;};
     bool    getGender(){return gender;};
@@ -31,10 +32,11 @@ class Creature: public Entity
     void    hadPregnancy(){pregnate = pregnancyReady = false;};
   
   private:
-    SDL_Rect            wTarget;
-    Entity              *target;
-    std::vector<Entity*>N;
-    Dna                 mine;
+    SDL_Rect                wTarget;
+    Entity                  *target;
+    std::vector<Entity*>    N;
+    Dna                     mine;
+    Dna                     childs;
 
     int     health; 
     int     amountAte;
