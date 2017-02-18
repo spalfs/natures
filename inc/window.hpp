@@ -3,7 +3,7 @@
 
 #include <SDL2/SDL.h>
 #include <algorithm>
-
+#include <string>
 #include "constants.hpp"
 
 class Window
