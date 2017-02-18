@@ -11,12 +11,9 @@ int main()
     int speed = 60;
     bool pause = false;
 
-	while(e.gRun())
-	{
+	while(e.gRun()){
         fps.Start();
-
-		while(e.Poll())
-		{
+		while(e.Poll()){
 			if(e.gEventType() == SDL_QUIT)
 				e.off();
 			else if(e.gEventType() == SDL_KEYDOWN)

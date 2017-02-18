@@ -7,22 +7,22 @@
 class Entity
 {
 	public:
-		void Place();
-
-        int getType(){return type;};
-        SDL_Rect getRect(){return rect;};
+		void            Place();
+ 
+        int             getType(){return type;};
+        virtual bool    getGender(void){};
+        virtual int     getAmount(void){}; 
+        SDL_Rect        getRect(){return rect;};
         
-        virtual void eat(int bite){};
-        virtual void impregnate(Dna D){};
-        virtual bool getGender(void){};
-        virtual int  getAmount(void){}; 
+        virtual void    eat(int bite){};
+        virtual void    impregnate(Dna D){};
 
 	protected:
-		int type;
-        int gender;
-        bool pregnate;
-        SDL_Rect rect;
-		SDL_Renderer* renderer;
+		int             type;
+        int             gender;
+        bool            pregnate;
+        SDL_Rect        rect;
+		SDL_Renderer*   renderer;
 };
 
 #endif

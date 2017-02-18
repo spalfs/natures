@@ -16,7 +16,6 @@ Creature::Creature(Window M, SDL_Rect R, Dna D)
     gender          = rand() % 2;
     age             = 0;
     pregnancyTime   = 0;
-    able            = true;
     pregnancyReady  = false;
     pregnate        = false;
     hasTarget       = false;
@@ -88,7 +87,7 @@ void Creature::checkTarget()
     for(std::vector <Entity*>::iterator it = N.begin(); it!=N.end(); it++)
         if( target == *it )
             return;
-    
+
     hasTarget = false;
 }
 
@@ -112,17 +111,17 @@ void Creature::Action()
             hasTarget = false;
         }
         else
-            Move(target->getRect());    
+            moveTowards(target->getRect());    
     }
     else if(wander){
         if(Distance(rect,wTarget) < mine.reach)
             wander = false;
         else
-            Move(wTarget);
+            moveTowards(wTarget);
     }
 }
 
-void Creature::Move(SDL_Rect R)
+void Creature::moveTowards(SDL_Rect R)
 {
     if( rect.x == R.x ){
         if( rect.y < R.y )

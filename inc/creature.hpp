@@ -19,7 +19,7 @@ class Creature: public Entity
     void    Priority();
     void    setTarget();
     void    checkTarget();
-    void    Move(SDL_Rect R);
+    void    moveTowards(SDL_Rect R);
     void    impregnate(Dna D);
     void    giveN(std::vector<Entity*> n){N = n;};
     

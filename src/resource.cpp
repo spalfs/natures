@@ -1,9 +1,8 @@
 #include "resource.hpp"
 
-Resource::Resource(Window m, SDL_Rect R)
+Resource::Resource(Window M, SDL_Rect R)
 {	
-    renderer    = m.getRenderer();
-    type        = RESOURCE_TYPE;
+    renderer    = M.getRenderer();
     rect        = R;
     
     if(rect.x == 0 && rect.y == 0){
@@ -11,6 +10,7 @@ Resource::Resource(Window m, SDL_Rect R)
         rect.y  = rand()%WINDOW_Y;
     }
 
+    type        = RESOURCE_TYPE;
 	amount      = RESOURCE_AMOUNT_START;
     growAmount  = RESOURCE_GROW;
 }

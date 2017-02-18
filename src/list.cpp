@@ -17,7 +17,6 @@ List::List(Window m)
     Resource Y(main,Rect);
     R.push_back(Y);
   }
-
 }
 
 void List::Remove()
@@ -44,9 +43,9 @@ void List::Behavior()
         
         if(it->getPregnancyReady()){
             Dna D  = it->getChildDNA();
-            SDL_Rect Rect = it->getRect();
-            Rect.h = Rect.w = D.sizeMax / 5; 
-            Creature X(main,Rect,D);
+            SDL_Rect rect = it->getRect();
+            rect.h = rect.w = D.sizeMax / 5; 
+            Creature X(main,rect,D);
             C.push_back(X);
             it->hadPregnancy();
         }
@@ -58,9 +57,9 @@ void List::Behavior()
 
 void List::Place()
 { 
-    SDL_Rect Rect = {0,0,RESOURCE_SIZE_START,RESOURCE_SIZE_START};
+    SDL_Rect rect = {0,0,RESOURCE_SIZE_START,RESOURCE_SIZE_START};
     while(R.size() < MINIMUM_RESOURCES){
-        Resource Y(main,Rect);
+        Resource Y(main,rect);
         R.push_back(Y);
     }
 
@@ -76,13 +75,13 @@ std::vector<Entity*> List::getNear(Creature nC)
     std::vector<Entity*> N;
 
     for(std::list<Resource>::iterator it = R.begin(); it!=R.end(); it++)
-        if( nC.getBestSense() > Distance(nC.getRect(),it->getRect()) )
+        if(nC.getBestSense() > Distance(nC.getRect(),it->getRect()))
             N.push_back(&(*it));
         
     for(std::list<Creature>::iterator it = C.begin(); it!=C.end(); it++)
-        if( &nC == &(*it))
+        if(&nC == &(*it))
             continue;
-        else if( nC.getBestSense() > Distance(nC.getRect(),it->getRect()) )
+        else if(nC.getBestSense() > Distance(nC.getRect(),it->getRect()))
             N.push_back(&(*it));
 
     return N;

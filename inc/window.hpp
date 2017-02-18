@@ -2,7 +2,6 @@
 #define window_h
 
 #include <SDL2/SDL.h>
-#include <algorithm>
 #include <string>
 #include "constants.hpp"
 
