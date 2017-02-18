@@ -84,7 +84,7 @@ std::vector<Entity*> List::getNear(Creature nC)
             continue;
         else if( nC.getBestSense() > Distance(nC.getRect(),it->getRect()) )
             N.push_back(&(*it));
-                
+
     return N;
 }
 

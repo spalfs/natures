@@ -19,6 +19,7 @@ Creature::Creature(Window M, SDL_Rect R, Dna D)
     able            = true;
     pregnancyReady  = false;
     pregnate        = false;
+    hasTarget       = false;
 }
 
 void Creature::Behavior()
