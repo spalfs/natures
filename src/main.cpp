@@ -46,7 +46,6 @@ int main()
 
                         shader.Bind();
                         _spriteBatch.begin();
-                        printf("%d\n",L.creatures.size());
                         
                         for(std::list<Creature>::iterator it = L.creatures.begin(); it != L.creatures.end(); it++)
                                 _spriteBatch.draw(it->getGFXD());
