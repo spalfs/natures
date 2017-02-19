@@ -15,8 +15,8 @@ class Event
 		int             gEventType();
 
 	private:
-		bool run;
-		SDL_Event v;
+		bool            run;
+		SDL_Event       v;
 };
 
 #endif

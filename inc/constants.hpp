@@ -2,9 +2,9 @@
 #define constants_h
 
 // General
-const int   CREATURES               = 10;
-const int   RESOURCES               = 100;
-const int   MINIMUM_RESOURCES       = 80;
+const int   CREATURES               = 100;
+const int   RESOURCES               = 1000;
+const int   MINIMUM_RESOURCES       = 800;
 const int   WINDOW_X                = 1000;
 const int   WINDOW_Y                = 1000;
 
