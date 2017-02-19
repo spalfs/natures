@@ -8,37 +8,37 @@ List::List()
     tmp.x = tmp.y = 0;
     for(i=0;i<CREATURES;i++){
         Creature X(tmp,defaultDNA);
-        C.push_back(X);
+        creatures.push_back(X);
     }
 
     //rect = {0,0,RESOURCE_SIZE_START,RESOURCE_SIZE_START};
     for(i=0;i<RESOURCES;i++){
         Resource Y(tmp);
-        R.push_back(Y);
+        resources.push_back(Y);
     }
 
-    R1 = Rectangle(0,0,60,60);
-    tree = Quadtree(0,R1);
+    Rectangle R1 = Rectangle(0,0,60,60);
+    tree = Quadtree(0, R1);
 }
 
 void List::Remove()
 {
-    for(std::list<Creature>::iterator it = C.begin(); it!=C.end(); it++)    
+    for(std::list<Creature>::iterator it = creatures.begin(); it!= creatures.end(); it++)    
         if(it->getHealth()<=0){
             Rectangle tmp = it->getRectangle();
             Resource r = Resource(tmp);
-            R.push_back(r);
-            C.erase(it--);
+            resources.push_back(r);
+            creatures.erase(it--);
         }
     
-    for(std::list<Resource>::iterator it = R.begin(); it!=R.end(); it++)
+    for(std::list<Resource>::iterator it = resources.begin(); it!= resources.end(); it++)
         if(it->getAmount()<=0)
-            R.erase(it--);
+            resources.erase(it--);
 }
 
 void List::Behavior()
 {
-    for(std::list<Creature>::iterator it = C.begin(); it!=C.end(); it++){
+    for(std::list<Creature>::iterator it = creatures.begin(); it!= creatures.end(); it++){
         std::list<Entity*> N = getNear(*it); 
         it->giveNearMe(N); 
         it->Behavior();
@@ -47,12 +47,12 @@ void List::Behavior()
             DNA D  = it->getChildsDNA();
             Rectangle tmp = it->getRectangle();
             Creature X(tmp,D);
-            C.push_back(X);
+            creatures.push_back(X);
             it->hadPregnancy();
         }
     }
     
-    for(std::list<Resource>::iterator it = R.begin(); it!=R.end(); it++)
+    for(std::list<Resource>::iterator it = resources.begin(); it!= resources.end(); it++)
         it->grow(); 
 }
 
@@ -62,17 +62,17 @@ void List::Place()
 
     Rectangle tmp;
     tmp.x = tmp.y = 0;
-    while(R.size() < MINIMUM_RESOURCES){
+    while(resources.size() < MINIMUM_RESOURCES){
         Resource Y(tmp);
-        R.push_back(Y);
+        resources.push_back(Y);
     }
 
-    for(std::list<Creature>::iterator it = C.begin(); it!=C.end(); it++){
+    for(std::list<Creature>::iterator it = creatures.begin(); it!= creatures.end(); it++){
         it->Place();
         tree.insert(&(*it));;
     }
 
-    for(std::list<Resource>::iterator it = R.begin(); it!=R.end(); it++){
+    for(std::list<Resource>::iterator it = resources.begin(); it!=resources.end(); it++){
         it->Place();
         tree.insert(&(*it));;
     }

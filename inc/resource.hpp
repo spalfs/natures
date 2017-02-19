@@ -1,20 +1,24 @@
 #ifndef resource_h
 #define resource_h
 
+#include <cstdlib>
+
 #include "entity.hpp"
 #include "functions.hpp"
 
 class Resource: public Entity
 {
-  public:
-    Resource(Rectangle t);
-    int getAmount(){return amount;};
-    void grow();
-    void eat(int bite);
+        public:
+                Resource(Rectangle t);
 
-  private:
-    int amount;
-    int growAmount;
+                void    grow();
+                void    eat(int bite);
+
+                int     getAmount(){return amount;};
+
+        private:
+                int     amount;
+                int     growAmount;
 };
 
 #endif

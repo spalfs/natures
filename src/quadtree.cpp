@@ -3,7 +3,7 @@
 
 Quadtree::Quadtree(){}
 
-Quadtree::Quadtree(int pLevel, Rectangle pBounds){
+Quadtree::Quadtree(int pLevel,Rectangle pBounds){
 	level = pLevel;
 	bounds = pBounds;
 	isNull=false;

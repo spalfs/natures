@@ -1,6 +1,8 @@
 #ifndef functions_h
 #define functions_h
 
+#include <cmath>
+
 #include "rectangle.hpp"
 
 static double Distance(Rectangle A, Rectangle B){

@@ -1,12 +1,11 @@
 #ifndef creature_h
 #define creature_h
 
-#include <SDL2/SDL.h>
+#include <cstdlib>
 #include <list>
 
 #include "entity.hpp"
 #include "functions.hpp"
-#include "dna.hpp"
 
 class Creature: public Entity
 {

@@ -14,3 +14,6 @@ ideas
 - DNA mutations 
 - pick a c naming/coding standard and stick with it
 - show framerate in gui
+
+credit to iamn1ck for opengl and quadtree
+credit to dakjos for assistance with theorycrafting the idea

@@ -54,10 +54,10 @@ int main()
 
             shader.Bind();
             _spriteBatch.begin();
-            for(std::list<Creature>::iterator it = L.C.begin(); it != L.C.end(); it++)
+            for(std::list<Creature>::iterator it = L.creatures.begin(); it != L.creatures.end(); it++)
                 _spriteBatch.draw(it->getGFXD());;
 
-            for(std::list<Resource>::iterator it = L.R.begin(); it != L.R.end(); it++)
+            for(std::list<Resource>::iterator it = L.resources.begin(); it != L.resources.end(); it++)
                 _spriteBatch.draw(it->getGFXD());;
 
             _spriteBatch.end();

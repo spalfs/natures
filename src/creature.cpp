@@ -2,17 +2,17 @@
 
 Creature::Creature(Rectangle t, DNA D)
 {
-    L           = t;
+    rect           = t;
     myDNA        = D;
     
-    if(L.x == 0 && L.y == 0){
-        L.x = -30.0 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/(30-(-30))));
-        L.y = -30.0 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/(30-(-30))));
+    if(rect.x == 0 && rect.y == 0){
+        rect.x = -30.0 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/(30-(-30))));
+        rect.y = -30.0 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/(30-(-30))));
     }
 
     gfxData.sides = 4.0;
-    gfxData.x     = L.x;
-    gfxData.y     = L.y;
+    gfxData.x     = rect.x;
+    gfxData.y     = rect.y;
 
     type            = CREATURE_TYPE;
     health          = myDNA.maxHealth/2;
@@ -118,18 +118,18 @@ void Creature::checkTarget()
 void Creature::Action()
 {	
     if(hasTarget){ 
-        if( Distance(L,target->getRectangle()) < myDNA.reach && target->getType() == RESOURCE_TYPE){
+        if( Distance(rect,target->getRectangle()) < myDNA.reach && target->getType() == RESOURCE_TYPE){
             target->eat(myDNA.bite);
             health+=myDNA.bite;
             amountAte++;
-            //if(L.w <= myDNA.sizeMax && myDNA.amountToGrow <= amountAte){
+            //if(rect.w <= myDNA.sizeMax && myDNA.amountToGrow <= amountAte){
             //    amountAte = 0;
-            //    L.w = L.h = L.w + 1;
+            //    rect.w = rect.h = rect.w + 1;
             //}
             if(target->getAmount()<=0)
                 hasTarget = false; 
         } 
-        else if( Distance(L,target->getRectangle()) < myDNA.reach && target->getType() == CREATURE_TYPE && target->getGender() != gender ){
+        else if( Distance(rect,target->getRectangle()) < myDNA.reach && target->getType() == CREATURE_TYPE && target->getGender() != gender ){
             target->impregnate(myDNA);
             hasTarget = false;
         }
@@ -137,7 +137,7 @@ void Creature::Action()
             moveTowards(target->getRectangle());    
     }
     else if(wander){
-        if(Distance(L,wTarget) < myDNA.reach)
+        if(Distance(rect,wTarget) < myDNA.reach)
             wander = false;
         else
             moveTowards(wTarget);
@@ -146,36 +146,36 @@ void Creature::Action()
 
 void Creature::moveTowards(Rectangle t)
 {
-    if( L.x == t.x ){
-        if( L.y < t.y )
-		    L.y+=myDNA.speed;
+    if( rect.x == t.x ){
+        if( rect.y < t.y )
+		    rect.y+=myDNA.speed;
 		else
-			L.y-=myDNA.speed;
+			rect.y-=myDNA.speed;
 	}
-	else if( L.y == t.y ){
-		if( L.x < t.x )
-			L.x+=myDNA.speed;
+	else if( rect.y == t.y ){
+		if( rect.x < t.x )
+			rect.x+=myDNA.speed;
 		else
-			L.x-=myDNA.speed;
+			rect.x-=myDNA.speed;
 	}
-	else if( L.x < t.x ){
-		if( L.y < t.y ){
-			L.x+=myDNA.speed;
-			L.y+=myDNA.speed;
+	else if( rect.x < t.x ){
+		if( rect.y < t.y ){
+			rect.x+=myDNA.speed;
+			rect.y+=myDNA.speed;
 		}
 		else{
-			L.x+=myDNA.speed;
-			L.y-=myDNA.speed;
+			rect.x+=myDNA.speed;
+			rect.y-=myDNA.speed;
 		}
 	}
-	else if ( L.x > t.x ){
-		if( L.y < t.y ){
-			L.x-=myDNA.speed;
-			L.y+=myDNA.speed;
+	else if ( rect.x > t.x ){
+		if( rect.y < t.y ){
+			rect.x-=myDNA.speed;
+			rect.y+=myDNA.speed;
 		}
 		else{
-			L.x-=myDNA.speed;
-			L.y-=myDNA.speed;
+			rect.x-=myDNA.speed;
+			rect.y-=myDNA.speed;
 		}
 	}
 }

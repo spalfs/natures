@@ -2,6 +2,6 @@
 
 void Entity::Place()
 {
-    gfxData.x = L.x;
-    gfxData.y = L.y;
+    gfxData.x = rect.x;
+    gfxData.y = rect.y;
 }

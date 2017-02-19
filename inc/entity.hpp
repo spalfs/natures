@@ -1,11 +1,10 @@
 #ifndef entity_h
 #define entity_h
 
-#include <SDL2/SDL.h>
-
 #include "dna.hpp"
-#include "opengl/graphicsdata.hpp"
 #include "rectangle.hpp"
+
+#include "opengl/graphicsdata.hpp"
 
 class Entity
 {
@@ -18,7 +17,7 @@ class Entity
                 int             getType(){return type;};
                 virtual bool    getGender(void){};
                 virtual int     getAmount(void){}; 
-                Rectangle       getRectangle(){return L;};
+                Rectangle       getRectangle(){return rect;};
                 GraphicsData    getGFXD(){return gfxData;};
 
 
@@ -26,7 +25,7 @@ class Entity
                 int             type;
                 int             gender;
                 bool            pregnate;
-                Rectangle       L;
+                Rectangle       rect;
                 GraphicsData    gfxData;
 };
 

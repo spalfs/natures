@@ -1,16 +1,12 @@
 #ifndef list_h
 #define list_h
 
-#include <SDL2/SDL.h>
 #include <list>
 #include <vector>
 
-#include "functions.hpp"
+#include "constants.hpp"
 #include "creature.hpp"
 #include "resource.hpp"
-#include "sdl/window.hpp"
-#include "constants.hpp"
-#include "rectangle.hpp"
 #include "quadtree.hpp"
 
 class List
@@ -19,14 +15,14 @@ class List
 		List();
 		void Behavior();
 		void Place();
-        void Remove();
-        std::list<Entity*> getNear(Creature C);
-        std::list<Resource> R;
-        std::list<Creature> C;
+                void Remove();
 
-        Quadtree tree;
-        std::vector<GraphicsData> drawQuadTree();
-        Rectangle R1;
+                std::list<Entity*>              getNear(Creature c);
+                std::list<Resource>             resources;
+                std::list<Creature>             creatures;
+
+                Quadtree                        tree;
+                std::vector<GraphicsData>       drawQuadTree();
 };
 
 #endif

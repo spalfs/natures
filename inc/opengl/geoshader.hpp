@@ -5,7 +5,6 @@
 #include <GL/glew.h>
 
 #include "constants.hpp"
-#include "graphicsdata.hpp"
 #include "transform.hpp"
 
 class GeoShader
@@ -13,10 +12,10 @@ class GeoShader
         public:
                 GeoShader(const std::string& fileName);
 
-                void    Bind();
-                void    Update(const Transform& transform, const Camera& camera);
-                virtual ~GeoShader();
-                GLuint  m_program;
+                void            Bind();
+                void            Update(const Transform& transform, const Camera& camera);
+                virtual         ~GeoShader();
+                GLuint          m_program;
 
         private:
                 std::string     LoadShader(const std::string& fileName);
