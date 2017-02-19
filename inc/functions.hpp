@@ -13,4 +13,8 @@ static int map(int x, int inMin, int inMax, int outMin, int outMax){
         return (x-inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
 }
 
+static float getRandom(float x){
+        return (-x + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/(x-(-x)))));
+}
+
 #endif

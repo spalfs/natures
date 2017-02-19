@@ -13,6 +13,7 @@ Window::Window(int width, int height, const std::string& title)
 
         main            = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,width,height,SDL_WINDOW_OPENGL);
         glContext       = SDL_GL_CreateContext(main);
+        SDL_GL_SetSwapInterval(0);
         GLenum status   = glewInit();
         closed          = false;
 

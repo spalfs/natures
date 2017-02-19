@@ -11,7 +11,6 @@ List::List()
         creatures.push_back(X);
     }
 
-    //rect = {0,0,RESOURCE_SIZE_START,RESOURCE_SIZE_START};
     for(i=0;i<RESOURCES;i++){
         Resource Y(tmp);
         resources.push_back(Y);

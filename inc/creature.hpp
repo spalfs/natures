@@ -2,7 +2,9 @@
 #define creature_h
 
 #include <cstdlib>
+#include <vector>
 #include <list>
+#include <algorithm>
 
 #include "entity.hpp"
 #include "functions.hpp"
@@ -19,7 +21,7 @@ class Creature: public Entity
                 void    checkTarget();
                 void    moveTowards(Rectangle t);
                 void    impregnate(DNA D);
-                void    giveNearMe(std::list<Entity*> n){nearMe = n;};
+                void    giveNearMe(std::list<Entity*> n){nearMe = {std::begin(n),std::end(n)};};
 
                 DNA     getDNA(){return myDNA;};
                 DNA     getChildsDNA(){return childsDNA;};
@@ -32,7 +34,7 @@ class Creature: public Entity
         private:
                 Rectangle               wTarget;
                 Entity*                 target;
-                std::list<Entity*>      nearMe;
+                std::vector<Entity*>    nearMe;
                 DNA                     myDNA;
                 DNA                     childsDNA;
 
