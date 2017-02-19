@@ -3,6 +3,7 @@
 
 #include <SDL2/SDL.h>
 #include <vector>
+#include <list>
 #include <algorithm>
 
 #include "entity.hpp"
@@ -13,15 +14,15 @@
 class Creature: public Entity
 {
   public:
-    Creature(Window M, SDL_Rect R, Dna D);
+    Creature(Location t, Dna D);
     void    Behavior();
     void    Action();
     void    Priority();
     void    setTarget();
     void    checkTarget();
-    void    moveTowards(SDL_Rect R);
+    void    moveTowards(Location t);
     void    impregnate(Dna D);
-    void    giveN(std::vector<Entity*> n){N = n;};
+    void    giveN(std::list<Entity*> n){N = n;};
     
     Dna     getDNA(){return mine;};
     Dna     getChildDNA(){return childs;};
@@ -32,9 +33,9 @@ class Creature: public Entity
     void    hadPregnancy(){pregnate = pregnancyReady = false;};
   
   private:
-    SDL_Rect                wTarget;
+    Location                wTarget;
     Entity                  *target;
-    std::vector<Entity*>    N;
+    std::list<Entity*>    N;
     Dna                     mine;
     Dna                     childs;
 

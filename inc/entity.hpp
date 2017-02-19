@@ -1,8 +1,10 @@
 #ifndef entity_h
 #define entity_h
 
-#include "window.hpp"
+#include <SDL2/SDL.h>
+
 #include "dna.hpp"
+#include "graphicsobjects.hpp"
 
 class Entity
 {
@@ -12,17 +14,18 @@ class Entity
         int             getType(){return type;};
         virtual bool    getGender(void){};
         virtual int     getAmount(void){}; 
-        SDL_Rect        getRect(){return rect;};
+        Location        getLocation(){return L;};
         
         virtual void    eat(int bite){};
         virtual void    impregnate(Dna D){};
+        GraphicsData    getGFXD(){return gfxData;};
+        GraphicsData    gfxData;
 
 	protected:
 		int             type;
         int             gender;
         bool            pregnate;
-        SDL_Rect        rect;
-		SDL_Renderer*   renderer;
+        Location        L;
 };
 
 #endif

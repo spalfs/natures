@@ -1,15 +1,18 @@
 #include "creature.hpp"
 
-Creature::Creature(Window M, SDL_Rect R, Dna D)
+Creature::Creature(Location t, Dna D)
 {
-    renderer    = M.getRenderer();
-    rect        = R; 
+    L           = t;
     mine        = D;
     
-    if(rect.x == 0 && rect.y == 0){
-        rect.x  = rand()%WINDOW_X;
-        rect.y  = rand()%WINDOW_Y;
+    if(L.x == 0 && L.y == 0){
+        L.x = -30.0 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/(30-(-30))));
+        L.y = -30.0 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/(30-(-30))));
     }
+
+    gfxData.sides = 4.0;
+    gfxData.x     = L.x;
+    gfxData.y     = L.y;
 
     type            = CREATURE_TYPE;
     health          = mine.maxHealth/2;
@@ -19,6 +22,22 @@ Creature::Creature(Window M, SDL_Rect R, Dna D)
     pregnancyReady  = false;
     pregnate        = false;
     hasTarget       = false;
+
+    if(gender){
+        gfxData.r = 1.0;
+        gfxData.g = 0.0;
+        gfxData.b = 0.0;
+    }
+    else if(pregnate){
+        gfxData.r = 1.0;
+        gfxData.g = 0.0;
+        gfxData.b = 1.0;
+    }
+    else{
+        gfxData.r = 0.0;
+        gfxData.g = 0.0;
+        gfxData.b = 1.0;
+    }
 }
 
 void Creature::Behavior()
@@ -59,8 +78,8 @@ void Creature::Priority()
 
 void Creature::setTarget()
 {
-    std::random_shuffle(N.begin(),N.end());
-    for(std::vector <Entity*>::iterator it = N.begin(); it!=N.end(); it++){
+    //std::random_shuffle(N.begin(),N.end());
+    for(std::list <Entity*>::iterator it = N.begin(); it!=N.end(); it++){
         if( (*it)->getType() == RESOURCE_TYPE && hungry){ 
             target = *it;
             hasTarget = true;
@@ -77,14 +96,18 @@ void Creature::setTarget()
 
     if(!hasTarget&&!wander){
         wander = true;
-        SDL_Rect r = {rand() % WINDOW_X, rand() % WINDOW_Y, 0, 0};
-        wTarget = r;
+        float x = -30.0 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/(30-(-30))));
+        float y = -30.0 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/(30-(-30))));
+        Location tmp;
+        tmp.x = x;
+        tmp.y = y;
+        wTarget = tmp;
     }
 }
 
 void Creature::checkTarget()
 {
-    for(std::vector <Entity*>::iterator it = N.begin(); it!=N.end(); it++)
+    for(std::list <Entity*>::iterator it = N.begin(); it!=N.end(); it++)
         if( target == *it )
             return;
 
@@ -95,64 +118,64 @@ void Creature::checkTarget()
 void Creature::Action()
 {	
     if(hasTarget){ 
-        if( Distance(rect,target->getRect()) < mine.reach && target->getType() == RESOURCE_TYPE){
+        if( Distance(L,target->getLocation()) < mine.reach && target->getType() == RESOURCE_TYPE){
             target->eat(mine.bite);
             health+=mine.bite;
             amountAte++;
-            if(rect.w <= mine.sizeMax && mine.amountToGrow <= amountAte){
-                amountAte = 0;
-                rect.w = rect.h = rect.w + 1;
-            }
+            //if(L.w <= mine.sizeMax && mine.amountToGrow <= amountAte){
+            //    amountAte = 0;
+            //    L.w = L.h = L.w + 1;
+            //}
             if(target->getAmount()<=0)
                 hasTarget = false; 
         } 
-        else if( Distance(rect,target->getRect()) < mine.reach && target->getType() == CREATURE_TYPE && target->getGender() != gender ){
+        else if( Distance(L,target->getLocation()) < mine.reach && target->getType() == CREATURE_TYPE && target->getGender() != gender ){
             target->impregnate(mine);
             hasTarget = false;
         }
         else
-            moveTowards(target->getRect());    
+            moveTowards(target->getLocation());    
     }
     else if(wander){
-        if(Distance(rect,wTarget) < mine.reach)
+        if(Distance(L,wTarget) < mine.reach)
             wander = false;
         else
             moveTowards(wTarget);
     }
 }
 
-void Creature::moveTowards(SDL_Rect R)
+void Creature::moveTowards(Location t)
 {
-    if( rect.x == R.x ){
-        if( rect.y < R.y )
-		    rect.y+=mine.speed;
+    if( L.x == t.x ){
+        if( L.y < t.y )
+		    L.y+=mine.speed;
 		else
-			rect.y-=mine.speed;
+			L.y-=mine.speed;
 	}
-	else if( rect.y == R.y ){
-		if( rect.x < R.x )
-			rect.x+=mine.speed;
+	else if( L.y == t.y ){
+		if( L.x < t.x )
+			L.x+=mine.speed;
 		else
-			rect.x-=mine.speed;
+			L.x-=mine.speed;
 	}
-	else if( rect.x < R.x ){
-		if( rect.y < R.y ){
-			rect.x+=mine.speed;
-			rect.y+=mine.speed;
+	else if( L.x < t.x ){
+		if( L.y < t.y ){
+			L.x+=mine.speed;
+			L.y+=mine.speed;
 		}
 		else{
-			rect.x+=mine.speed;
-			rect.y-=mine.speed;
+			L.x+=mine.speed;
+			L.y-=mine.speed;
 		}
 	}
-	else if ( rect.x > R.x ){
-		if( rect.y < R.y ){
-			rect.x-=mine.speed;
-			rect.y+=mine.speed;
+	else if ( L.x > t.x ){
+		if( L.y < t.y ){
+			L.x-=mine.speed;
+			L.y+=mine.speed;
 		}
 		else{
-			rect.x-=mine.speed;
-			rect.y-=mine.speed;
+			L.x-=mine.speed;
+			L.y-=mine.speed;
 		}
 	}
 }

@@ -9,7 +9,7 @@ class Dna
         Dna();
         Dna combine(Dna D);
         int maxHealth;
-        int speed;
+        float speed;
         int reach;
         int bestSense;
         int bite;

@@ -1,31 +1,41 @@
 #include "window.hpp"
 
-Window::Window() 
+Window::Window(int width, int height, const std::string& title) 
 {
-	SDL_Init(SDL_INIT_VIDEO);
-	main = SDL_CreateWindow("main",SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED,WINDOW_X,WINDOW_Y,SDL_WINDOW_SHOWN);
-	renderer = SDL_CreateRenderer(main,-1,SDL_RENDERER_ACCELERATED);
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+	SDL_Init(SDL_INIT_EVERYTHING);
+
+    SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
+    SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
+    SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
+    SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
+    SDL_GL_SetAttribute(SDL_GL_BUFFER_SIZE, 32);
+    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+
+	main            = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,width,height,SDL_WINDOW_OPENGL);
+	glContext       = SDL_GL_CreateContext(main);
+    GLenum status   = glewInit();
+    closed          = false;
+
+    if(status != GLEW_OK)
+        std::cerr << "Failiure to init." << std::endl;
+
 }
 
-void Window::Destroy()
+Window::~Window()
 {
-	SDL_DestroyRenderer(renderer);
+	SDL_GL_DeleteContext(glContext);
 	SDL_DestroyWindow(main);
 	SDL_Quit();
 }
 
-void Window::Clear() 
+void Window::swapBuffers()
 {
-	SDL_RenderClear(renderer);
+    SDL_GL_SwapWindow(main);
 }
 
-void Window::Render() 
+void Window::Clear(float r, float g, float b, float a) 
 {
-	SDL_RenderPresent(renderer);
+    glClearColor(r, g, b, a);
+    glClear(GL_COLOR_BUFFER_BIT);
 }
 
-SDL_Renderer* Window::getRenderer()
-{
-	return renderer;
-}

@@ -1,30 +1,33 @@
 #include "list.hpp"
 
-List::List(Window m)
+List::List()
 {
-  main = m;
+    int i;
+    Dna defaultDNA;
+    //SDL_Rect rect = {0,0,defaultDNA.sizeMax/5,defaultDNA.sizeMax/5};
+    Location tmp;
+    tmp.x = tmp.y = 0;
+    for(i=0;i<CREATURES;i++){
+        Creature X(tmp,defaultDNA);
+        C.push_back(X);
+    }
 
-  int i;
-  Dna defaultDNA;
-  SDL_Rect Rect = {0,0,defaultDNA.sizeMax/5,defaultDNA.sizeMax/5};
-  for(i=0;i<CREATURES;i++){
-    Creature X(main,Rect,defaultDNA);
-    C.push_back(X);
-  }
+    //rect = {0,0,RESOURCE_SIZE_START,RESOURCE_SIZE_START};
+    for(i=0;i<RESOURCES;i++){
+        Resource Y(tmp);
+        R.push_back(Y);
+    }
 
-  Rect = {0,0,RESOURCE_SIZE_START,RESOURCE_SIZE_START};
-  for(i=0;i<RESOURCES;i++){
-    Resource Y(main,Rect);
-    R.push_back(Y);
-  }
+    R1 = Rectangle(0,0,60,60);
+    tree = Quadtree(0,R1);
 }
 
 void List::Remove()
 {
     for(std::list<Creature>::iterator it = C.begin(); it!=C.end(); it++)    
         if(it->getHealth()<=0){
-            SDL_Rect Rect = it->getRect();
-            Resource r = Resource(main,Rect);
+            Location tmp = it->getLocation();
+            Resource r = Resource(tmp);
             R.push_back(r);
             C.erase(it--);
         }
@@ -37,15 +40,14 @@ void List::Remove()
 void List::Behavior()
 {
     for(std::list<Creature>::iterator it = C.begin(); it!=C.end(); it++){
-        std::vector<Entity*> N = getNear(*it); 
+        std::list<Entity*> N = getNear(*it); 
         it->giveN(N); 
         it->Behavior();
         
         if(it->getPregnancyReady()){
             Dna D  = it->getChildDNA();
-            SDL_Rect rect = it->getRect();
-            rect.h = rect.w = D.sizeMax / 5; 
-            Creature X(main,rect,D);
+            Location tmp = it->getLocation();
+            Creature X(tmp,D);
             C.push_back(X);
             it->hadPregnancy();
         }
@@ -57,34 +59,38 @@ void List::Behavior()
 
 void List::Place()
 { 
-    SDL_Rect rect = {0,0,RESOURCE_SIZE_START,RESOURCE_SIZE_START};
+    tree.clear();
+
+    Location tmp;
+    tmp.x = tmp.y = 0;
     while(R.size() < MINIMUM_RESOURCES){
-        Resource Y(main,rect);
+        Resource Y(tmp);
         R.push_back(Y);
     }
 
-    for(std::list<Creature>::iterator it = C.begin(); it!=C.end(); it++)
+    for(std::list<Creature>::iterator it = C.begin(); it!=C.end(); it++){
         it->Place();
+        tree.insert(&(*it));;
+    }
 
-    for(std::list<Resource>::iterator it = R.begin(); it!=R.end(); it++)
+    for(std::list<Resource>::iterator it = R.begin(); it!=R.end(); it++){
         it->Place();
+        tree.insert(&(*it));;
+    }
 }
 
-std::vector<Entity*> List::getNear(Creature nC)
+std::list<Entity*> List::getNear(Creature nC)
 {
-    std::vector<Entity*> N;
+    std::list<Entity*> N;
+    N.clear();
+    N = tree.retrieve(N, nC.getGFXD()); 
 
-    for(std::list<Resource>::iterator it = R.begin(); it!=R.end(); it++)
-        if(nC.getBestSense() > Distance(nC.getRect(),it->getRect()))
-            N.push_back(&(*it));
-        
-    for(std::list<Creature>::iterator it = C.begin(); it!=C.end(); it++)
-        if(&nC == &(*it))
-            continue;
-        else if(nC.getBestSense() > Distance(nC.getRect(),it->getRect()))
-            N.push_back(&(*it));
-
+    //std::vector<Entity*> x{std::begin(N),std::begin(N)};
     return N;
+}
+
+std::vector<GraphicsData> List::drawQuadTree(){
+    return tree.Draw();
 }
 
 

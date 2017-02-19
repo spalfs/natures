@@ -7,7 +7,7 @@
 class Resource: public Entity
 {
   public:
-    Resource(Window m, SDL_Rect R);
+    Resource(Location L);
     int getAmount(){return amount;};
     void grow();
     void eat(int bite);

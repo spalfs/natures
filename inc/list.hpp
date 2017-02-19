@@ -10,20 +10,22 @@
 #include "resource.hpp"
 #include "window.hpp"
 #include "constants.hpp"
+#include "quadtree.hpp"
 
 class List
 {
 	public:
-		List(Window m);
+		List();
 		void Behavior();
 		void Place();
         void Remove();
-        std::vector<Entity*> getNear(Creature C);
-
-	private:
-		Window main = Window("do not create new window.");
+        std::list<Entity*> getNear(Creature C);
         std::list<Resource> R;
         std::list<Creature> C;
+
+        Quadtree tree;
+        std::vector<GraphicsData> drawQuadTree();
+        Rectangle R1;
 };
 
 #endif

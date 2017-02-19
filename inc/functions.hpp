@@ -1,7 +1,9 @@
 #ifndef functions_h
 #define functions_h
 
-static double Distance(SDL_Rect A, SDL_Rect B){
+#include "graphicsobjects.hpp"
+
+static double Distance(Location A, Location B){
     return sqrt( pow(A.x-B.x,2) + pow(A.y-B.y,2));
 }
 
