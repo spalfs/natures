@@ -1,4 +1,4 @@
-#include "window.hpp"
+#include "sdl/window.hpp"
 
 Window::Window(int width, int height, const std::string& title) 
 {

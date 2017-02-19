@@ -1,4 +1,4 @@
-#include "rectdrawer.hpp"
+#include "opengl/rectdrawer.hpp"
 
 Rectdrawer::Rectdrawer(GeoShader theshader) : _vbo(0), _vao(0), shader(theshader){
     // Generate the VAO if it isn't already generated

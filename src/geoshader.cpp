@@ -1,4 +1,4 @@
-#include "geoshader.hpp"
+#include "opengl/geoshader.hpp"
 #include <iostream>
 #include <fstream>
 

@@ -1,4 +1,4 @@
-#include "event.hpp"
+#include "sdl/event.hpp"
 
 Event::Event()
 {

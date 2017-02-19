@@ -4,13 +4,13 @@
 #include <time.h>
 #include <vector>
 
-#include "geoshader.hpp"
-#include "rectdrawer.hpp"
-#include "spritebatch.hpp"
-#include "window.hpp"
-#include "event.hpp"
+#include "opengl/geoshader.hpp"
+#include "opengl/rectdrawer.hpp"
+#include "opengl/spritebatch.hpp"
+#include "sdl/window.hpp"
+#include "sdl/event.hpp"
 #include "list.hpp"
-#include "timer.hpp"
+#include "sdl/timer.hpp"
 #include "constants.hpp"
 
 #endif

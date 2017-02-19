@@ -1,7 +1,7 @@
 nature's course
 
 for librarys ~
-apt install libsdl2-dev
+apt install libsdl2-dev libglm-dev
 
 ideas
 - make code compilable on various distrobutions (maybe wangblows if not too big of changes)

@@ -11,8 +11,8 @@ int main()
     //New opengl stuff
     Transform   transform;
     Camera      camera(glm::vec3(0,0,70), 70.0f, (float)800/(float)600, 0.01f, 1000.0f);
-    GeoShader   shader("./inc/opengl/theshader");
-    GeoShader   shader2("./inc/opengl/basicshader");
+    GeoShader   shader("./inc/opengl/shaders/theshader");
+    GeoShader   shader2("./inc/opengl/shaders/basicshader");
     Rectdrawer  rectrenderer(shader2);
     SpriteBatch _spriteBatch(shader);
 

@@ -4,7 +4,7 @@
 #include <SDL2/SDL.h>
 
 #include "dna.hpp"
-#include "graphicsobjects.hpp"
+#include "opengl/graphicsdata.hpp"
 #include "rectangle.hpp"
 
 class Entity

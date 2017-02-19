@@ -8,7 +8,7 @@
 #include "functions.hpp"
 #include "creature.hpp"
 #include "resource.hpp"
-#include "window.hpp"
+#include "sdl/window.hpp"
 #include "constants.hpp"
 #include "rectangle.hpp"
 #include "quadtree.hpp"

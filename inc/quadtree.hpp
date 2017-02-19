@@ -4,12 +4,12 @@
 #include <list>
 #include <vector>
 
-#include "window.hpp"
+#include "sdl/window.hpp"
 #include "creature.hpp"
 #include "resource.hpp"
 #include "entity.hpp"
 #include "rectangle.hpp"
-#include "graphicsobjects.hpp"
+#include "opengl/graphicsdata.hpp"
 
 class Quadtree {
 
