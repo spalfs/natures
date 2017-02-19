@@ -12,16 +12,17 @@ class Window
 {
 	public:
 		Window(int width, int height, const std::string& title);
-        void Clear(float r, float g, float b, float a);
-        void swapBuffers();
-        bool getClosed(){return closed;};
+                ~Window();
 
-        virtual ~Window();
+                void Clear();
+                void swapBuffers();
+                bool getClosed(){return closed;};
+
 
 	private:
 		SDL_Window* main;
-        SDL_GLContext glContext;
-        bool closed;
+                SDL_GLContext glContext;
+                bool closed;
 };
 
 #endif

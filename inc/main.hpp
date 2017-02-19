@@ -9,7 +9,6 @@
 #include "sdl/window.hpp"
 
 #include "opengl/geoshader.hpp"
-#include "opengl/rectdrawer.hpp"
 #include "opengl/spritebatch.hpp"
 
 #endif
