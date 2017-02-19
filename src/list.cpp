@@ -3,9 +3,8 @@
 List::List()
 {
     int i;
-    Dna defaultDNA;
-    //SDL_Rect rect = {0,0,defaultDNA.sizeMax/5,defaultDNA.sizeMax/5};
-    Location tmp;
+    DNA defaultDNA;
+    Rectangle tmp;
     tmp.x = tmp.y = 0;
     for(i=0;i<CREATURES;i++){
         Creature X(tmp,defaultDNA);
@@ -26,7 +25,7 @@ void List::Remove()
 {
     for(std::list<Creature>::iterator it = C.begin(); it!=C.end(); it++)    
         if(it->getHealth()<=0){
-            Location tmp = it->getLocation();
+            Rectangle tmp = it->getRectangle();
             Resource r = Resource(tmp);
             R.push_back(r);
             C.erase(it--);
@@ -41,12 +40,12 @@ void List::Behavior()
 {
     for(std::list<Creature>::iterator it = C.begin(); it!=C.end(); it++){
         std::list<Entity*> N = getNear(*it); 
-        it->giveN(N); 
+        it->giveNearMe(N); 
         it->Behavior();
         
         if(it->getPregnancyReady()){
-            Dna D  = it->getChildDNA();
-            Location tmp = it->getLocation();
+            DNA D  = it->getChildsDNA();
+            Rectangle tmp = it->getRectangle();
             Creature X(tmp,D);
             C.push_back(X);
             it->hadPregnancy();
@@ -61,7 +60,7 @@ void List::Place()
 { 
     tree.clear();
 
-    Location tmp;
+    Rectangle tmp;
     tmp.x = tmp.y = 0;
     while(R.size() < MINIMUM_RESOURCES){
         Resource Y(tmp);

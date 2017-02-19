@@ -3,20 +3,23 @@
 
 #include "constants.hpp"
 
-class Dna
+class DNA
 {  
-    public:
-        Dna();
-        Dna combine(Dna D);
-        int maxHealth;
-        float speed;
-        int reach;
-        int bestSense;
-        int bite;
-        int amountToGrow;
-        int expectedPregnancyTime;
-        int expectedAge;
-        int sizeMax;
+        public:
+                DNA();
+
+                DNA combine(DNA D);
+
+                int     maxHealth;
+                int     reach;
+                int     bestSense;
+                int     bite;
+                int     amountToGrow;
+                int     expectedPregnancyTime;
+                int     expectedAge;
+                int     sizeMax;
+
+                float   speed;
 };
 
 #endif

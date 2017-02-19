@@ -5,27 +5,29 @@
 
 #include "dna.hpp"
 #include "graphicsobjects.hpp"
+#include "rectangle.hpp"
 
 class Entity
 {
-	public:
-		void            Place();
- 
-        int             getType(){return type;};
-        virtual bool    getGender(void){};
-        virtual int     getAmount(void){}; 
-        Location        getLocation(){return L;};
-        
-        virtual void    eat(int bite){};
-        virtual void    impregnate(Dna D){};
-        GraphicsData    getGFXD(){return gfxData;};
-        GraphicsData    gfxData;
+        public:
+                void            Place(); 
+                
+                virtual void    eat(int bite){};
+                virtual void    impregnate(DNA D){};
 
-	protected:
-		int             type;
-        int             gender;
-        bool            pregnate;
-        Location        L;
+                int             getType(){return type;};
+                virtual bool    getGender(void){};
+                virtual int     getAmount(void){}; 
+                Rectangle       getRectangle(){return L;};
+                GraphicsData    getGFXD(){return gfxData;};
+
+
+        protected:
+                int             type;
+                int             gender;
+                bool            pregnate;
+                Rectangle       L;
+                GraphicsData    gfxData;
 };
 
 #endif

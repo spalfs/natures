@@ -1,9 +1,9 @@
 #include "creature.hpp"
 
-Creature::Creature(Location t, Dna D)
+Creature::Creature(Rectangle t, DNA D)
 {
     L           = t;
-    mine        = D;
+    myDNA        = D;
     
     if(L.x == 0 && L.y == 0){
         L.x = -30.0 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/(30-(-30))));
@@ -15,7 +15,7 @@ Creature::Creature(Location t, Dna D)
     gfxData.y     = L.y;
 
     type            = CREATURE_TYPE;
-    health          = mine.maxHealth/2;
+    health          = myDNA.maxHealth/2;
     gender          = rand() % 2;
     age             = 0;
     pregnancyTime   = 0;
@@ -55,18 +55,18 @@ void Creature::Behavior()
 
     if(pregnate){
         pregnancyTime++;
-        if(pregnancyTime > mine.expectedPregnancyTime)
+        if(pregnancyTime > myDNA.expectedPregnancyTime)
             pregnancyReady = true;
     }
 
     age++;
-    if(age > mine.expectedAge)
+    if(age > myDNA.expectedAge)
         health = 0;
 }
 
 void Creature::Priority()
 {	 
-    if(health < mine.maxHealth / 2){
+    if(health < myDNA.maxHealth / 2){
         hungry = true;
         able = false;
     }
@@ -79,7 +79,7 @@ void Creature::Priority()
 void Creature::setTarget()
 {
     //std::random_shuffle(N.begin(),N.end());
-    for(std::list <Entity*>::iterator it = N.begin(); it!=N.end(); it++){
+    for(std::list <Entity*>::iterator it = nearMe.begin(); it!=nearMe.end(); it++){
         if( (*it)->getType() == RESOURCE_TYPE && hungry){ 
             target = *it;
             hasTarget = true;
@@ -98,7 +98,7 @@ void Creature::setTarget()
         wander = true;
         float x = -30.0 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/(30-(-30))));
         float y = -30.0 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/(30-(-30))));
-        Location tmp;
+        Rectangle tmp;
         tmp.x = x;
         tmp.y = y;
         wTarget = tmp;
@@ -107,7 +107,7 @@ void Creature::setTarget()
 
 void Creature::checkTarget()
 {
-    for(std::list <Entity*>::iterator it = N.begin(); it!=N.end(); it++)
+    for(std::list <Entity*>::iterator it = nearMe.begin(); it!=nearMe.end(); it++)
         if( target == *it )
             return;
 
@@ -118,73 +118,73 @@ void Creature::checkTarget()
 void Creature::Action()
 {	
     if(hasTarget){ 
-        if( Distance(L,target->getLocation()) < mine.reach && target->getType() == RESOURCE_TYPE){
-            target->eat(mine.bite);
-            health+=mine.bite;
+        if( Distance(L,target->getRectangle()) < myDNA.reach && target->getType() == RESOURCE_TYPE){
+            target->eat(myDNA.bite);
+            health+=myDNA.bite;
             amountAte++;
-            //if(L.w <= mine.sizeMax && mine.amountToGrow <= amountAte){
+            //if(L.w <= myDNA.sizeMax && myDNA.amountToGrow <= amountAte){
             //    amountAte = 0;
             //    L.w = L.h = L.w + 1;
             //}
             if(target->getAmount()<=0)
                 hasTarget = false; 
         } 
-        else if( Distance(L,target->getLocation()) < mine.reach && target->getType() == CREATURE_TYPE && target->getGender() != gender ){
-            target->impregnate(mine);
+        else if( Distance(L,target->getRectangle()) < myDNA.reach && target->getType() == CREATURE_TYPE && target->getGender() != gender ){
+            target->impregnate(myDNA);
             hasTarget = false;
         }
         else
-            moveTowards(target->getLocation());    
+            moveTowards(target->getRectangle());    
     }
     else if(wander){
-        if(Distance(L,wTarget) < mine.reach)
+        if(Distance(L,wTarget) < myDNA.reach)
             wander = false;
         else
             moveTowards(wTarget);
     }
 }
 
-void Creature::moveTowards(Location t)
+void Creature::moveTowards(Rectangle t)
 {
     if( L.x == t.x ){
         if( L.y < t.y )
-		    L.y+=mine.speed;
+		    L.y+=myDNA.speed;
 		else
-			L.y-=mine.speed;
+			L.y-=myDNA.speed;
 	}
 	else if( L.y == t.y ){
 		if( L.x < t.x )
-			L.x+=mine.speed;
+			L.x+=myDNA.speed;
 		else
-			L.x-=mine.speed;
+			L.x-=myDNA.speed;
 	}
 	else if( L.x < t.x ){
 		if( L.y < t.y ){
-			L.x+=mine.speed;
-			L.y+=mine.speed;
+			L.x+=myDNA.speed;
+			L.y+=myDNA.speed;
 		}
 		else{
-			L.x+=mine.speed;
-			L.y-=mine.speed;
+			L.x+=myDNA.speed;
+			L.y-=myDNA.speed;
 		}
 	}
 	else if ( L.x > t.x ){
 		if( L.y < t.y ){
-			L.x-=mine.speed;
-			L.y+=mine.speed;
+			L.x-=myDNA.speed;
+			L.y+=myDNA.speed;
 		}
 		else{
-			L.x-=mine.speed;
-			L.y-=mine.speed;
+			L.x-=myDNA.speed;
+			L.y-=myDNA.speed;
 		}
 	}
 }
 
-void Creature::impregnate(Dna D)
+void Creature::impregnate(DNA D)
 {
     if(!pregnate){
         pregnate = true;
         pregnancyTime = 0;
-        childs = mine.combine(D);
+        childsDNA = myDNA.combine(D);
     }
 }

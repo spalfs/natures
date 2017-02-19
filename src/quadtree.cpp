@@ -13,7 +13,7 @@ Quadtree::Quadtree(int pLevel, Rectangle pBounds){
 	gfxDataRect.r = 255;
 	gfxDataRect.g = 0;
 	gfxDataRect.b = 255;
-	gfxDataRect.sides = pBounds.height;
+	gfxDataRect.sides = pBounds.h;
 }
 
 void Quadtree::clear(){
@@ -31,10 +31,10 @@ void Quadtree::clear(){
  }
 
  void Quadtree::split(){
-    float subWidth = (bounds.getWidth() / 2);
-    float subHeight = (bounds.getHeight() / 2);
-    float x = bounds.getX();
-    float y = bounds.getY();
+    float subWidth = (bounds.w / 2);
+    float subHeight = (bounds.h / 2);
+    float x = bounds.x;
+    float y = bounds.y;
 
 
     Rectangle R0(x + subWidth/2, y + subHeight/2, subWidth, subHeight);
@@ -57,16 +57,16 @@ void Quadtree::clear(){
 int Quadtree::getIndex(GraphicsData object) {
     int index = -1;
 
-    bool topQuadrant = (object.getY() > bounds.getY());
-    bool bottomQuadrant = (object.getY() < bounds.getY());
+    bool topQuadrant = (object.y > bounds.y);
+    bool bottomQuadrant = (object.y < bounds.y);
 
-    if (object.getX() < bounds.getX()) {
+    if (object.x < bounds.x) {
         if (topQuadrant) 
             index = 1;
         else if (bottomQuadrant) 
             index = 2; 
     }
-    else if (object.getX() > bounds.getX()) {
+    else if (object.x > bounds.x) {
         if (topQuadrant) 
             index = 0; 
         else if (bottomQuadrant) 

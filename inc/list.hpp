@@ -10,6 +10,7 @@
 #include "resource.hpp"
 #include "window.hpp"
 #include "constants.hpp"
+#include "rectangle.hpp"
 #include "quadtree.hpp"
 
 class List

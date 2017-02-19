@@ -8,6 +8,7 @@
 #include "creature.hpp"
 #include "resource.hpp"
 #include "entity.hpp"
+#include "rectangle.hpp"
 #include "graphicsobjects.hpp"
 
 class Quadtree {

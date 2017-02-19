@@ -1,6 +1,6 @@
 #include "resource.hpp"
 
-Resource::Resource(Location t)
+Resource::Resource(Rectangle t)
 {	
     L        = t;
     

@@ -7,7 +7,7 @@
 class Resource: public Entity
 {
   public:
-    Resource(Location L);
+    Resource(Rectangle t);
     int getAmount(){return amount;};
     void grow();
     void eat(int bite);

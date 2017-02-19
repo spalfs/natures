@@ -1,6 +1,6 @@
 #include "dna.hpp"
 
-Dna::Dna()
+DNA::DNA()
 {
     maxHealth                = CREATURE_MAX_HEALTH;
     speed                    = CREATURE_SPEED;
@@ -13,9 +13,9 @@ Dna::Dna()
     sizeMax                  = CREATURE_SIZE_MAX;
 }
 
-Dna Dna::combine(Dna D)
+DNA DNA::combine(DNA D)
 {
-    Dna N;
+    DNA N;
 
     N.maxHealth             = (this->maxHealth + D.maxHealth)/2; 
     N.speed                 = (this->speed + D.speed)/2; 

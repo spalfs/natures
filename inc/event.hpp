@@ -5,13 +5,14 @@
 
 class Event
 {
-	public:
-		Event();
-		int Poll();
-		void off();
-		bool gRun();
-		SDL_Event& gEvent();
-		int gEventType();
+        public:
+	        Event();
+
+		int             Poll();
+		void            off();
+		bool            gRun();
+		SDL_Event&      gEvent();
+		int             gEventType();
 
 	private:
 		bool run;
