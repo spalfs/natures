@@ -1,20 +1,15 @@
 #include "resource.hpp"
 
-Resource::Resource(Rectangle t)
+Resource::Resource(Rectangle r)
 {	
-        rect = t;
+        rect = r;
 
         if(rect.x == 0 && rect.y == 0){
-                rect.x = getRandom(50);
-                rect.y = getRandom(50);
+                rect.x = getRandom(30);
+                rect.y = getRandom(30);
         }
 
-        gfxData.x       = rect.x;
-        gfxData.y       = rect.y;
-        gfxData.r       = 0.0;
-        gfxData.g       = 1.0;
-        gfxData.b       = 0.0;
-        gfxData.sides   = 10.0;
+        gfxData = GraphicsData(rect.x, rect.y, 0, 1, 0, RESOURCE_SIDES);
 
         type        = RESOURCE_TYPE;
         amount      = RESOURCE_AMOUNT_START;

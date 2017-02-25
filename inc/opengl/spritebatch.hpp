@@ -20,7 +20,6 @@ class SpriteBatch
 {
         public:
                 SpriteBatch(GeoShader theshader);
-                ~SpriteBatch();
 
                 void init();
                 void begin();
@@ -35,8 +34,8 @@ class SpriteBatch
                 GLuint _vbo;
                 GLuint _vao;
 
-                std::vector<GraphicsData*> _gfxPtr; ///< This is for sorting
-                std::vector<GraphicsData> _gfx; ///< These are the actual glyphs
+                std::vector<GraphicsData*> _gfxPtr; 
+                std::vector<GraphicsData> _gfx; 
                 std::vector<RenderBatch> _renderBatches;
 
                 GeoShader shader;

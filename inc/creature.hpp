@@ -12,15 +12,15 @@
 class Creature: public Entity
 {
         public:
-                Creature(Rectangle t, DNA D);
+                Creature(Rectangle r, DNA d);
 
                 void    Behavior();
                 void    Action();
                 void    Priority();
                 void    setTarget();
                 void    checkTarget();
-                void    moveTowards(Rectangle t);
-                void    impregnate(DNA D);
+                void    moveTowards(Rectangle r);
+                void    impregnate(DNA d);
                 void    giveNearMe(std::list<Entity*> n){nearMe = {std::begin(n),std::end(n)};};
 
                 DNA     getDNA(){return myDNA;};

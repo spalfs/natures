@@ -9,7 +9,7 @@
 class Resource: public Entity
 {
         public:
-                Resource(Rectangle t);
+                Resource(Rectangle r);
 
                 void    grow();
                 void    eat(int bite);
