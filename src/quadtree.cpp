@@ -132,7 +132,7 @@ std::list<Entity*> Quadtree::retrieve(std::list<Entity*> returnObjects, Graphics
                 returnObjects = nodes[index].retrieve(returnObjects, obj);
         
         for(std::list <Entity*>::iterator it = objects.begin(); it!=objects.end(); it++)
-          returnObjects.emplace_back(*it); 
+                returnObjects.emplace_back(*it); 
 
         return returnObjects;
 }

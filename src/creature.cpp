@@ -1,5 +1,4 @@
 #include "creature.hpp"
-#include <cstdio>
 
 Creature::Creature(Rectangle r, DNA d)
 {
