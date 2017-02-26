@@ -36,7 +36,7 @@ void List::Remove()
 void List::Behavior()
 {
         for(std::list<Creature>::iterator it = creatures.begin(); it!= creatures.end(); it++){
-                std::list<Entity*> N = getNear(*it); 
+                std::vector<Entity*> N = getNear(*it); 
                 it->giveNearMe(N); 
                 it->Behavior();
 
@@ -74,9 +74,9 @@ void List::Place()
         }
 }
 
-std::list<Entity*> List::getNear(Creature nC)
+std::vector<Entity*> List::getNear(Creature nC)
 {
-        std::list<Entity*> N;
+        std::vector<Entity*> N;
         N = tree.retrieve(N, nC.getGFXD()); 
 
         return N;

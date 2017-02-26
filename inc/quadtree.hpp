@@ -1,7 +1,6 @@
 #ifndef quadtree_h
 #define quadtree_h
 
-#include <list>
 #include <vector>
 
 #include "constants.hpp"
@@ -21,8 +20,8 @@ class Quadtree {
                 void clear();
                 void insert(Entity* iter);
 
-                std::list<Entity*> retrieve(std::list<Entity*> returnObject, GraphicsData obj);
-                std::list<Entity*> objects;
+                std::vector<Entity*> retrieve(std::vector<Entity*> returnObject, GraphicsData obj);
+                std::vector<Entity*> objects;
 
                 Quadtree* nodes;
 

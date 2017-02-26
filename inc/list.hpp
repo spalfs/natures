@@ -17,7 +17,8 @@ class List
 		void Place();
                 void Remove();
 
-                std::list<Entity*>              getNear(Creature c);
+                std::vector<Entity*>            getNear(Creature c);
+
                 std::list<Resource>             resources;
                 std::list<Creature>             creatures;
 

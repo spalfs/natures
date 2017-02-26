@@ -92,7 +92,7 @@ void Quadtree::insert(Entity* iter){
                         split();
 
                 int index;
-                for(std::list <Entity*>::iterator it = objects.begin(); it!=objects.end();it++){
+                for(std::vector<Entity*>::iterator it = objects.begin(); it!=objects.end();it++){
                         index = getIndex((*it)->getGFXD());
                         if (index != -1) {
                                 nodes[index].insert(*it);
@@ -104,8 +104,8 @@ void Quadtree::insert(Entity* iter){
 
 std::vector<GraphicsData> Quadtree::Draw(){
         std::vector<GraphicsData> retdat;
-
-        for (int i = 0; i < 4; i++) {
+        int i;
+        for (i = 0; i < 4; i++) {
                 if (!nodes[i].isNull) {
                         std::vector<GraphicsData> temp = nodes[i].Draw();
                         retdat.insert(retdat.end(), temp.begin(), temp.end());
@@ -126,12 +126,12 @@ std::vector<GraphicsData> Quadtree::Draw(){
         return retdat;
 }
 
-std::list<Entity*> Quadtree::retrieve(std::list<Entity*> returnObjects, GraphicsData obj) {
+std::vector<Entity*> Quadtree::retrieve(std::vector<Entity*> returnObjects, GraphicsData obj) {
         int index = getIndex(obj);  
         if (index != -1 && !nodes[0].isNull) 
                 returnObjects = nodes[index].retrieve(returnObjects, obj);
         
-        for(std::list <Entity*>::iterator it = objects.begin(); it!=objects.end(); it++)
+        for(std::vector<Entity*>::iterator it = objects.begin(); it!=objects.end(); it++)
                 returnObjects.emplace_back(*it); 
 
         return returnObjects;

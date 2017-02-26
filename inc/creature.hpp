@@ -1,9 +1,7 @@
 #ifndef creature_h
 #define creature_h
 
-#include <cstdlib>
 #include <vector>
-#include <list>
 #include <algorithm>
 
 #include "entity.hpp"
@@ -21,7 +19,7 @@ class Creature: public Entity
                 void    checkTarget();
                 void    moveTowards(Rectangle r);
                 void    impregnate(DNA d);
-                void    giveNearMe(std::list<Entity*> n){nearMe = {std::begin(n),std::end(n)};};
+                void    giveNearMe(std::vector<Entity*> n){nearMe = n;};
 
                 DNA     getDNA(){return myDNA;};
                 DNA     getChildsDNA(){return childsDNA;};
