@@ -39,8 +39,8 @@ const float CREATURE_SIDES              = 4.0;
 const float RESOURCE_SIDES              = 10;
 
 // Quadtree 
-const int   MAX_OBJECTS                 = 10;
-const int   MAX_LEVELS                  = 10;
+const int   MAX_OBJECTS                 = 5;
+const int   MAX_LEVELS                  = 20;
 
 // Camera
 const float MOVE_AMOUNT                 = .2;                     

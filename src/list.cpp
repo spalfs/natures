@@ -41,9 +41,7 @@ void List::Behavior()
                 it->Behavior();
 
                 if(it->getPregnancyReady()){
-                        DNA d           = it->getChildsDNA();
-                        Rectangle tmp   = it->getRectangle();
-                        Creature X(tmp,d);
+                        Creature X(it->getRectangle(),it->getChildsDNA());
                         creatures.push_back(X);
                         it->hadPregnancy();
                 }
@@ -74,12 +72,16 @@ void List::Place()
         }
 }
 
-std::vector<Entity*> List::getNear(Creature nC)
+std::vector<Entity*> List::getNear(Creature c)
 {
-        std::vector<Entity*> N;
-        N = tree.retrieve(N, nC.getGFXD()); 
+        std::vector<Entity*> near;
+        near = tree.retrieve(near, c.getGFXD()); 
 
-        return N;
+        for(std::vector<Entity*>::iterator it = near.begin(); it!= near.end(); it++)
+                if(c.getBestSense() < Distance(c.getRectangle(),(*it)->getRectangle()))
+                        near.erase(it--);
+
+        return near;
 }
 
 std::vector<GraphicsData> List::drawQuadTree(){
