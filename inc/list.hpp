@@ -5,22 +5,21 @@
 #include <vector>
 
 #include "constants.hpp"
-#include "creature.hpp"
-#include "resource.hpp"
+#include "organism.hpp"
 #include "quadtree.hpp"
 
 class List
 {
 	public:
 		List();
-		void Behavior();
-		void Place();
-                void Remove();
+		void                            Behavior();
+		void                            Place();
+                void                            Remove();
 
-                std::vector<Entity*>            getNear(Creature c);
+                std::vector<Organism*>          getNear(Organism o);
 
-                std::list<Resource>             resources;
-                std::list<Creature>             creatures;
+                std::list<Organism>             resources;
+                std::list<Organism>             creatures;
 
                 Quadtree                        tree;
                 std::vector<GraphicsData>       drawQuadTree();

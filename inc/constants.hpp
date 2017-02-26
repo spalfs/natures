@@ -14,28 +14,23 @@ const int   RESOURCE_TYPE               = 2;
 
 // Creatures
 const int   CREATURE_MAX_HEALTH         = 1000;
-const int   CREATURE_REACH              = 1;
-const int   CREATURE_BEST_SENSE         = 1;
+const int   CREATURE_BEST_SENSE         = 2;
 const int   CREATURE_BITE               = 10;
-const int   CREATURE_AMOUNT_TO_GROW     = 50;
 const int   CREATURE_EXP_PREG_TIME      = 100;
-const int   CREATURE_EXP_AGE            = 1000000;
-const int   CREATURE_SIZE_MAX           = 10;
+const int   CREATURE_EXP_AGE            = 1000;
 const float CREATURE_SPEED              = .1;
 const float CREATURE_MUTATION_PERCENT   = .25;
 const float CREATURE_MUTATION_CHANCE    = .05;
+const float CREATURE_REACH              = .1;
 
 // Resource
-const int   RESOURCE_SIZE_START         = 1;
-const int   RESOURCE_SIZE_MAX           = 4;
-const int   RESOURCE_AMOUNT_START       = 100;
-const int   RESOURCE_AMOUNT_MAX         = 200;
-const int   RESOURCE_GROW               = 1;
+const int   RESOURCE_MAX_HEALTH         = 200;
+const int   RESOURCE_GROW_AMOUNT        = 1;
 
 // Opengl
 const int   NUM_SHADERS                 = 3;
 const int   NUM_UNIFORMS                = 3;
-const float CREATURE_SIDES              = 4.0;
+const float CREATURE_SIDES              = 4;
 const float RESOURCE_SIDES              = 10;
 
 // Quadtree 

@@ -1,6 +1,6 @@
-#include "creature.hpp"
+#include "organism.hpp"
 
-Creature::Creature(Rectangle r, DNA d)
+Organism::Organism(Rectangle r, DNA d)
 {
         rect    = r;
         myDNA   = d;
@@ -10,7 +10,6 @@ Creature::Creature(Rectangle r, DNA d)
                 rect.y = getRandom(30);
         }
 
-        type            = CREATURE_TYPE;
         health          = myDNA.maxHealth/2;
         gender          = rand() % 2;
         age             = 0;
@@ -18,14 +17,19 @@ Creature::Creature(Rectangle r, DNA d)
         pregnancyReady  = false;
         pregnate        = false;
         hasTarget       = false;
+        wander          = false;
 
-        if(gender)
-                gfxData = GraphicsData(rect.x, rect.y, 1, 0, 0, CREATURE_SIDES);
+        if(myDNA.type == CREATURE_TYPE){
+                if(gender)
+                        gfxData = GraphicsData(rect.x, rect.y, 1, 0, 0, CREATURE_SIDES);
+                else
+                        gfxData = GraphicsData(rect.x, rect.y, 0, 0, 1, CREATURE_SIDES);
+        }
         else
-                gfxData = GraphicsData(rect.x, rect.y, 0, 0, 1, CREATURE_SIDES);
+                gfxData = GraphicsData(rect.x, rect.y, 0, 1, 0, RESOURCE_SIDES);
 }
 
-void Creature::Behavior()
+void Organism::Behavior()
 {
         health-=1; 
 
@@ -49,7 +53,7 @@ void Creature::Behavior()
                 health = 0;
 }
 
-void Creature::Priority()
+void Organism::Priority()
 {	 
         if(health < myDNA.maxHealth / 2){
                 hungry = true;
@@ -61,11 +65,11 @@ void Creature::Priority()
         }
 }
 
-void Creature::setTarget()
+void Organism::setTarget()
 {
         std::random_shuffle(nearMe.begin(),nearMe.end());
 
-        for(std::vector <Entity*>::iterator it = nearMe.begin(); it!=nearMe.end(); it++){
+        for(std::vector<Organism*>::iterator it = nearMe.begin(); it!=nearMe.end(); it++){
                 if( (*it)->getType() == RESOURCE_TYPE && hungry){ 
                         target = *it;
                         hasTarget = true;
@@ -82,16 +86,14 @@ void Creature::setTarget()
 
         if(!hasTarget&&!wander){
                 wander = true;
-                Rectangle tmp;
-                tmp.x = getRandom(30);
-                tmp.y = getRandom(30);
+                Rectangle tmp(getRandom(30),getRandom(30),0,0);
                 wTarget = tmp;
         }
 }
 
-void Creature::checkTarget()
+void Organism::checkTarget()
 {
-        for(std::vector <Entity*>::iterator it = nearMe.begin(); it!=nearMe.end(); it++)
+        for(std::vector<Organism*>::iterator it = nearMe.begin(); it!=nearMe.end(); it++)
                 if( target == *it )
                         return;
 
@@ -99,20 +101,19 @@ void Creature::checkTarget()
 }
 
 
-void Creature::Action()
+void Organism::Action()
 {	
         if(hasTarget){ 
                 if(Distance(rect,target->getRectangle()) < myDNA.reach){
                         if(target->getType() == RESOURCE_TYPE){
-                                target->eat(myDNA.bite);
+                                target->takeBite(myDNA.bite);
                                 health+=myDNA.bite;
-                                amountAte++;
-                                if(target->getAmount()<=0)
+                                if(target->getHealth()<=0)
                                         hasTarget = false;
                         }
                         else if (target->getType() == CREATURE_TYPE){
                                 if(target->getGender() != gender){
-                                        target->impregnate(myDNA);
+                                        target->passDNA(myDNA);
                                 }
                                 hasTarget = false;
                         }
@@ -129,7 +130,7 @@ void Creature::Action()
         }
 }
 
-void Creature::moveTowards(Rectangle t)
+void Organism::moveTowards(Rectangle t)
 {
         if( rect.x == t.x ){
                 if( rect.y < t.y )
@@ -165,11 +166,28 @@ void Creature::moveTowards(Rectangle t)
         }
 }
 
-void Creature::impregnate(DNA D)
+void Organism::passDNA(DNA d)
 {
         if(!pregnate){
                 pregnate = true;
                 pregnancyTime = 0;
-                childsDNA = myDNA.combine(D);
+                childsDNA = myDNA.combine(d);
         }
+}
+
+void Organism::grow()
+{
+        if(health < myDNA.maxHealth)
+                health+=myDNA.growAmount; 
+}
+
+void Organism::takeBite(int bite)
+{
+        health-=bite;
+}
+
+void Organism::Place()
+{
+        gfxData.x = rect.x;
+        gfxData.y = rect.y;
 }

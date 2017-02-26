@@ -1,12 +1,12 @@
 #ifndef spritebatch_h
 #define spritebatch_h
 
-#include <GL/glew.h>
-#include "graphicsdata.hpp"
-#include <vector>
-#include "geoshader.hpp"
 #include <iostream>
+#include <vector>
+#include <GL/glew.h>
 
+#include "graphicsdata.hpp"
+#include "geoshader.hpp"
 
 class RenderBatch {
         public:

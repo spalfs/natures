@@ -4,9 +4,7 @@
 #include <vector>
 
 #include "constants.hpp"
-#include "creature.hpp"
-#include "resource.hpp"
-#include "entity.hpp"
+#include "organism.hpp"
 #include "rectangle.hpp"
 
 #include "opengl/graphicsdata.hpp"
@@ -18,10 +16,10 @@ class Quadtree {
                 Quadtree(int pLevel,Rectangle pBounds);
 
                 void clear();
-                void insert(Entity* iter);
+                void insert(Organism* iter);
 
-                std::vector<Entity*> retrieve(std::vector<Entity*> returnObject, GraphicsData obj);
-                std::vector<Entity*> objects;
+                std::vector<Organism*> retrieve(std::vector<Organism*> returnObject, GraphicsData obj);
+                std::vector<Organism*> objects;
 
                 Quadtree* nodes;
 
