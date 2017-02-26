@@ -39,7 +39,7 @@ DNA DNA::combine(DNA D)
         N.bite                  = (bite                         + D.bite)/2; 
         N.expectedPregnancyTime = (expectedPregnancyTime        + D.expectedPregnancyTime)/2; 
         N.expectedAge           = (expectedAge                  + D.expectedAge)/2; 
-        N.growAmount            = (growAmount                   + D.growAmount)/2
+        N.growAmount            = (growAmount                   + D.growAmount)/2;
         N.reach                 = (reach                        + D.reach)/2; 
         N.speed                 = (speed                        + D.speed)/2; 
         N.mutationPercent       = (mutationPercent              + D.mutationPercent)/2;
