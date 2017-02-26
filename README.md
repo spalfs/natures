@@ -11,9 +11,10 @@ ideas
 - click to add entities
 - randomly generate new types of creatures
 - gui speed up / down
-- DNA mutations 
+- DNA mutations with normal distrobution 
 - pick a c naming/coding standard and stick with it
 - show framerate in gui
+- multithreading
 
 credit to iamn1ck for opengl and quadtree
 
