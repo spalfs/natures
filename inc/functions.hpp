@@ -1,6 +1,7 @@
 #ifndef functions_h
 #define functions_h
 
+#include <cstdlib>
 #include <cmath>
 
 #include "rectangle.hpp"
@@ -17,4 +18,11 @@ static float getRandom(float x){
         return (-x + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/(x-(-x)))));
 }
 
+static bool roll(float x){
+        float y = (float)(rand()%101)/100;
+        if(x >= y)
+                return true;
+        else
+                return false;
+}
 #endif

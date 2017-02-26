@@ -22,6 +22,8 @@ const int   CREATURE_EXP_PREG_TIME      = 100;
 const int   CREATURE_EXP_AGE            = 1000000;
 const int   CREATURE_SIZE_MAX           = 10;
 const float CREATURE_SPEED              = .1;
+const float CREATURE_MUTATION_PERCENT   = .25;
+const float CREATURE_MUTATION_CHANCE    = .05;
 
 // Resource
 const int   RESOURCE_SIZE_START         = 1;
@@ -37,8 +39,8 @@ const float CREATURE_SIDES              = 4.0;
 const float RESOURCE_SIDES              = 10;
 
 // Quadtree 
-const int   MAX_OBJECTS                 = 5;
-const int   MAX_LEVELS                  = 6;
+const int   MAX_OBJECTS                 = 10;
+const int   MAX_LEVELS                  = 10;
 
 // Camera
 const float MOVE_AMOUNT                 = .2;                     

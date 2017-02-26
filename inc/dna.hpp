@@ -2,6 +2,7 @@
 #define dna_h
 
 #include "constants.hpp"
+#include "functions.hpp"
 
 class DNA
 {  
@@ -20,6 +21,8 @@ class DNA
                 int     sizeMax;
 
                 float   speed;
+                float   mutationPercent;
+                float   mutationChance;
 };
 
 #endif
