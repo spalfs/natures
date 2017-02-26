@@ -12,8 +12,8 @@ class List
 {
 	public:
 		List();
-		void                            Behavior();
-		void                            Place();
+	        void                            Behavior();
+	        void                            Place();
                 void                            Remove();
 
                 std::vector<Organism*>          getNear(Organism o);
