@@ -27,9 +27,9 @@ void SpriteBatch::end()
         createRenderBatches();
 }
 
-void SpriteBatch::draw(const GraphicsData& gfxData) 
+void SpriteBatch::draw(Rectangle r, DNA::Visuals v) 
 {
-        _gfx.emplace_back(gfxData);
+        _gfx.emplace_back(std::make_pair(r,v));
 }
 
 void SpriteBatch::renderBatch() 
@@ -62,12 +62,12 @@ void SpriteBatch::createRenderBatches()
 
         //Add the first batch
         _renderBatches.emplace_back(offset, 6);
-        vertices[cv++] = _gfxPtr[0]->x;
-        vertices[cv++] = _gfxPtr[0]->y;
-        vertices[cv++] = _gfxPtr[0]->r;
-        vertices[cv++] = _gfxPtr[0]->g;
-        vertices[cv++] = _gfxPtr[0]->b;
-        vertices[cv++] = _gfxPtr[0]->sides;
+        vertices[cv++] = _gfxPtr[0]->first.x;
+        vertices[cv++] = _gfxPtr[0]->first.y;
+        vertices[cv++] = _gfxPtr[0]->second.red;
+        vertices[cv++] = _gfxPtr[0]->second.green;
+        vertices[cv++] = _gfxPtr[0]->second.blue;
+        vertices[cv++] = _gfxPtr[0]->second.sides;
 
         offset += 6;
 
@@ -82,12 +82,12 @@ void SpriteBatch::createRenderBatches()
                 // If its part of the current batch, just increase numVertices
                 _renderBatches.back().numVertices += 6;
                 //}
-                vertices[cv++] = _gfxPtr[cg]->x;
-                vertices[cv++] = _gfxPtr[cg]->y;
-                vertices[cv++] = _gfxPtr[cg]->r;
-                vertices[cv++] = _gfxPtr[cg]->g;
-                vertices[cv++] = _gfxPtr[cg]->b;
-                vertices[cv++] = _gfxPtr[cg]->sides;
+                vertices[cv++] = _gfxPtr[cg]->first.x;
+                vertices[cv++] = _gfxPtr[cg]->first.y;
+                vertices[cv++] = _gfxPtr[cg]->second.red;
+                vertices[cv++] = _gfxPtr[cg]->second.green;
+                vertices[cv++] = _gfxPtr[cg]->second.blue;
+                vertices[cv++] = _gfxPtr[cg]->second.sides;
 
                 offset += 6;
         }
@@ -98,7 +98,6 @@ void SpriteBatch::createRenderBatches()
         glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), nullptr, GL_DYNAMIC_DRAW);
         // Upload the data
         glBufferSubData(GL_ARRAY_BUFFER, 0, vertices.size() * sizeof(float), vertices.data());
-
         // Unbind the VBO
         glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
@@ -131,8 +130,10 @@ void SpriteBatch::createVertexArray()
         //glEnableVertexAttribArray(2);
 
         //This is the position attribute pointer
-        glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 6*sizeof(float), 0);    //This is the color attribute pointer
-        glVertexAttribPointer(colAttrib, 3, GL_FLOAT, GL_FALSE, 6*sizeof(float), (void*) (2 * sizeof(float)));    //This is the UV attribute pointer
+        glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 6*sizeof(float), 0);                            
+        //This is the color attribute pointer
+        glVertexAttribPointer(colAttrib, 3, GL_FLOAT, GL_FALSE, 6*sizeof(float), (void*) (2 * sizeof(float)));  
+        //This is the UV attribute pointer
         glVertexAttribPointer(sidesAttrib, 1, GL_FLOAT, GL_FALSE,6*sizeof(float), (void*) (5 * sizeof(float)));
         glBindVertexArray(0);
 }

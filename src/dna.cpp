@@ -14,6 +14,10 @@ DNA::DNA(std::string s)
                 speed                   = CREATURE_SPEED;
                 mutationPercent         = CREATURE_MUTATION_PERCENT;
                 mutationChance          = CREATURE_MUTATION_CHANCE;
+                appearance.sides        = CREATURE_SIDES;
+                appearance.red          = 0;
+                appearance.green        = 1;
+                appearance.blue         = 1;
         }
         else if(s == "resource"){
                 type                    = RESOURCE_TYPE;
@@ -27,6 +31,10 @@ DNA::DNA(std::string s)
                 speed                   = 0;
                 mutationPercent         = 0;
                 mutationChance          = 0;
+                appearance.sides        = RESOURCE_SIDES;
+                appearance.red          = 0;
+                appearance.green        = 1;
+                appearance.blue         = 0;
         }
 }
 
@@ -44,6 +52,10 @@ DNA DNA::combine(DNA D)
         N.speed                 = (speed                        + D.speed)/2; 
         N.mutationPercent       = (mutationPercent              + D.mutationPercent)/2;
         N.mutationChance        = (mutationChance               + D.mutationChance)/2;
+        N.appearance.sides      = CREATURE_SIDES;
+        N.appearance.red        = 0;
+        N.appearance.green      = 1;
+        N.appearance.blue       = 1;  
 
         if(roll(mutationChance)){
                 float pn;

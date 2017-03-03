@@ -22,7 +22,7 @@ class List
                 std::list<Organism>             creatures;
 
                 Quadtree                        tree;
-                std::vector<GraphicsData>       drawQuadTree();
+                std::vector<Rectangle>          drawQuadTree();
 };
 
 #endif

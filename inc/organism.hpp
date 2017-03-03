@@ -8,8 +8,6 @@
 #include "rectangle.hpp"
 #include "functions.hpp"
 
-#include "opengl/graphicsdata.hpp"
-
 class Organism
 {
         public:
@@ -18,7 +16,6 @@ class Organism
                 void            Behavior();
                 void            Action();
                 void            Priority();
-                void            Place();
                 void            setTarget();
                 void            checkTarget();
                 void            moveTowards(Rectangle r);
@@ -30,7 +27,7 @@ class Organism
 
                 DNA             getDNA()                {return myDNA;};
                 DNA             getChildsDNA()          {return childsDNA;};
-                GraphicsData    getGFXD()               {return gfxData;};    
+                DNA::Visuals    getVisuals()            {return myDNA.appearance;};    
                 Rectangle       getRectangle()          {return rect;};
                 int             getHealth()             {return health;};
                 int             getBestSense()          {return myDNA.bestSense;};
@@ -45,7 +42,6 @@ class Organism
                 DNA                     myDNA;
                 DNA                     childsDNA;
                 Rectangle               rect;
-                GraphicsData            gfxData;
 
                 int                     health; 
                 int                     pregnancyTime;

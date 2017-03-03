@@ -8,12 +8,8 @@ Quadtree::Quadtree(int pLevel,Rectangle pBounds){
 	bounds = pBounds;
 	isNull=false;
 	nodes = new Quadtree[4];
-	gfxDataRect.x = pBounds.x * 1.01;
-	gfxDataRect.y = pBounds.y * 1.05;
-	gfxDataRect.r = 255;
-	gfxDataRect.g = 0;
-	gfxDataRect.b = 255;
-	gfxDataRect.sides = pBounds.h;
+	rect.x = pBounds.x * 1.01;
+	rect.y = pBounds.y * 1.05;
 }
 
 void Quadtree::clear(){
@@ -53,8 +49,7 @@ void Quadtree::clear(){
         nodes[3] = Q3; 
 }
 
-
-int Quadtree::getIndex(GraphicsData object) {
+int Quadtree::getIndex(Rectangle object) {
         int index = -1;
 
         bool topQuadrant = (object.y > bounds.y);
@@ -78,7 +73,7 @@ int Quadtree::getIndex(GraphicsData object) {
 
 void Quadtree::insert(Organism* iter){
         if (!nodes[0].isNull) {
-                int index = getIndex((*iter).getGFXD());
+                int index = getIndex((*iter).getRectangle());
                 if (index != -1) {
                         nodes[index].insert(iter);
                         return;
@@ -93,7 +88,7 @@ void Quadtree::insert(Organism* iter){
 
                 int index;
                 for(std::vector<Organism*>::iterator it = objects.begin(); it!=objects.end();it++){
-                        index = getIndex((*it)->getGFXD());
+                        index = getIndex((*it)->getRectangle());
                         if (index != -1) {
                                 nodes[index].insert(*it);
                                 objects.erase(it--);
@@ -102,31 +97,31 @@ void Quadtree::insert(Organism* iter){
         }
 } 
 
-std::vector<GraphicsData> Quadtree::Draw(){
-        std::vector<GraphicsData> retdat;
+std::vector<Rectangle> Quadtree::Draw(){
+        std::vector<Rectangle> retdat;
         int i;
         for (i = 0; i < 4; i++) {
                 if (!nodes[i].isNull) {
-                        std::vector<GraphicsData> temp = nodes[i].Draw();
+                        std::vector<Rectangle> temp = nodes[i].Draw();
                         retdat.insert(retdat.end(), temp.begin(), temp.end());
                 }
         }
 
         if (!nodes[0].isNull) 
-                retdat.emplace_back(nodes[0].gfxDataRect);
+                retdat.emplace_back(nodes[0].rect);
         if (!nodes[1].isNull) 
-                retdat.emplace_back(nodes[1].gfxDataRect);
+                retdat.emplace_back(nodes[1].rect);
         if (!nodes[2].isNull) 
-                retdat.emplace_back(nodes[2].gfxDataRect);
+                retdat.emplace_back(nodes[2].rect);
         if (!nodes[3].isNull) 
-                retdat.emplace_back(nodes[3].gfxDataRect);
+                retdat.emplace_back(nodes[3].rect);
 
-        retdat.emplace_back(gfxDataRect);
+        retdat.emplace_back(rect);
 
         return retdat;
 }
 
-std::vector<Organism*> Quadtree::retrieve(std::vector<Organism*> returnObjects, GraphicsData obj) {
+std::vector<Organism*> Quadtree::retrieve(std::vector<Organism*> returnObjects, Rectangle obj) {
         int index = getIndex(obj);  
         if (index != -1 && !nodes[0].isNull) 
                 returnObjects = nodes[index].retrieve(returnObjects, obj);

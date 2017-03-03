@@ -26,6 +26,13 @@ class DNA
                 float   speed;
                 float   mutationPercent;
                 float   mutationChance;
+
+                struct  Visuals{
+                        float  sides;
+                        float  red;
+                        float  green;
+                        float  blue;
+                } appearance;
 };
 
 #endif

@@ -5,8 +5,8 @@
 #include <vector>
 #include <GL/glew.h>
 
-#include "graphicsdata.hpp"
 #include "geoshader.hpp"
+#include "dna.hpp"
 
 class RenderBatch {
         public:
@@ -24,7 +24,7 @@ class SpriteBatch
                 void init();
                 void begin();
                 void end();
-                void draw(const GraphicsData& gfxData);
+                void draw(Rectangle r, DNA::Visuals v);
                 void renderBatch();
 
         private:
@@ -34,9 +34,9 @@ class SpriteBatch
                 GLuint _vbo;
                 GLuint _vao;
 
-                std::vector<GraphicsData*> _gfxPtr; 
-                std::vector<GraphicsData> _gfx; 
-                std::vector<RenderBatch> _renderBatches;
+                std::vector<std::pair<Rectangle,DNA::Visuals>*> _gfxPtr; 
+                std::vector<std::pair<Rectangle,DNA::Visuals>>  _gfx; 
+                std::vector<RenderBatch>                        _renderBatches;
 
                 GeoShader shader;
 };

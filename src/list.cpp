@@ -64,21 +64,18 @@ void List::Place()
                 resources.push_back(X);
         }
 
-        for(std::list<Organism>::iterator it = creatures.begin(); it!= creatures.end(); it++){
-                it->Place();
+        for(std::list<Organism>::iterator it = creatures.begin(); it!= creatures.end(); it++)
                 tree.insert(&(*it));;
-        }
-
-        for(std::list<Organism>::iterator it = resources.begin(); it!=resources.end(); it++){
-                it->Place();
+        
+        for(std::list<Organism>::iterator it = resources.begin(); it!=resources.end(); it++)
                 tree.insert(&(*it));;
-        }
+        
 }
 
 std::vector<Organism*> List::getNear(Organism c)
 {
         std::vector<Organism*> near;
-        near = tree.retrieve(near, c.getGFXD()); 
+        near = tree.retrieve(near, c.getRectangle()); 
 
         for(std::vector<Organism*>::iterator it = near.begin(); it!= near.end(); it++)
                 if(c.getBestSense() < Distance(c.getRectangle(),(*it)->getRectangle()))
@@ -87,7 +84,7 @@ std::vector<Organism*> List::getNear(Organism c)
         return near;
 }
 
-std::vector<GraphicsData> List::drawQuadTree()
+std::vector<Rectangle> List::drawQuadTree()
 {
         return tree.Draw();
 }

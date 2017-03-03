@@ -18,15 +18,6 @@ Organism::Organism(Rectangle r, DNA d)
         pregnate        = false;
         hasTarget       = false;
         wander          = false;
-
-        if(myDNA.type == CREATURE_TYPE){
-                if(gender)
-                        gfxData = GraphicsData(rect.x, rect.y, 1, 0, 0, CREATURE_SIDES);
-                else
-                        gfxData = GraphicsData(rect.x, rect.y, 0, 0, 1, CREATURE_SIDES);
-        }
-        else
-                gfxData = GraphicsData(rect.x, rect.y, 0, 1, 0, RESOURCE_SIDES);
 }
 
 void Organism::Behavior()
@@ -99,7 +90,6 @@ void Organism::checkTarget()
 
         hasTarget = false;
 }
-
 
 void Organism::Action()
 {	
@@ -184,10 +174,4 @@ void Organism::grow()
 void Organism::takeBite(int bite)
 {
         health-=bite;
-}
-
-void Organism::Place()
-{
-        gfxData.x = rect.x;
-        gfxData.y = rect.y;
 }

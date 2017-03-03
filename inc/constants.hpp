@@ -14,7 +14,7 @@ const int   RESOURCE_TYPE               = 2;
 
 // Creatures
 const int   CREATURE_MAX_HEALTH         = 1000;
-const int   CREATURE_BEST_SENSE         = 2;
+const int   CREATURE_BEST_SENSE         = 1.5;
 const int   CREATURE_BITE               = 10;
 const int   CREATURE_EXP_PREG_TIME      = 100;
 const int   CREATURE_EXP_AGE            = 10000;
