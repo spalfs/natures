@@ -15,6 +15,7 @@ class DNA
                 DNA combine(DNA D);
 
                 int     type;
+                int     eatType;
                 int     maxHealth;
                 int     bestSense;
                 int     bite;

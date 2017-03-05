@@ -3,15 +3,21 @@
 List::List()
 {
         int i;
-        DNA d = DNA("creature");
+        DNA d = DNA("herbavore");
         Rectangle tmp;
-        for(i=0;i<CREATURES;i++){
+        for(i=0;i<HERBAVORES;i++){
                 Organism X(tmp,d);
                 creatures.push_back(X);
         }
         
-        d = DNA("resource");
-        for(i=0;i<RESOURCES;i++){
+        d = DNA("carnivore");
+        for(i=0;i<CARNIVORES;i++){
+                Organism X(tmp, d);
+                creatures.push_back(X);
+        }
+        
+        d = DNA("plant");
+        for(i=0;i<PLANTS;i++){
                 Organism X(tmp, d);
                 resources.push_back(X);
         }
@@ -24,7 +30,7 @@ void List::Remove()
 {
         for(std::list<Organism>::iterator it = creatures.begin(); it!= creatures.end(); it++)    
                 if(it->getHealth()<=0){
-                        DNA d = DNA("resource");
+                        DNA d = DNA("plant");
                         Organism X(it->getRectangle(), d);
                         resources.push_back(X);
                         creatures.erase(it--);
@@ -58,8 +64,8 @@ void List::Place()
         tree.clear();
 
         Rectangle tmp;
-        DNA d = DNA("resource");
-        while(resources.size() < MINIMUM_RESOURCES){
+        DNA d = DNA("plant");
+        while(resources.size() < MINIMUM_PLANTS){
                 Organism X(tmp, d);
                 resources.push_back(X);
         }

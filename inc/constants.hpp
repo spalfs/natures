@@ -2,15 +2,17 @@
 #define constants_h
 
 // General
-const int   CREATURES                   = 100;
-const int   RESOURCES                   = 1000;
-const int   MINIMUM_RESOURCES           = 5000;
+const int   HERBAVORES                  = 100;
+const int   CARNIVORES                  = 50;;
+const int   PLANTS                      = 5000;
+const int   MINIMUM_PLANTS              = 4000;
 const int   WINDOW_X                    = 1000;
 const int   WINDOW_Y                    = 1000;
 
 // Types
-const int   CREATURE_TYPE               = 1;
-const int   RESOURCE_TYPE               = 2;
+const int   PLANT_TYPE                  = 1;
+const int   HERBAVORE_TYPE              = 2;
+const int   CARNIVORE_TYPE              = 3;
 
 // Creatures
 const int   CREATURE_MAX_HEALTH         = 1000;
@@ -19,9 +21,9 @@ const int   CREATURE_BITE               = 10;
 const int   CREATURE_EXP_PREG_TIME      = 100;
 const int   CREATURE_EXP_AGE            = 10000;
 const float CREATURE_SPEED              = .1;
+const float CREATURE_REACH              = .1;
 const float CREATURE_MUTATION_PERCENT   = .25;
 const float CREATURE_MUTATION_CHANCE    = .05;
-const float CREATURE_REACH              = .1;
 
 // Resource
 const int   RESOURCE_MAX_HEALTH         = 200;

@@ -61,13 +61,13 @@ void Organism::setTarget()
         std::random_shuffle(nearMe.begin(),nearMe.end());
 
         for(std::vector<Organism*>::iterator it = nearMe.begin(); it!=nearMe.end(); it++){
-                if( (*it)->getType() == RESOURCE_TYPE && hungry){ 
+                if( (*it)->getType() == myDNA.eatType && hungry){ 
                         target = *it;
                         hasTarget = true;
                         wander = false;
                         break;
                 } 
-                if( (*it)->getType() == CREATURE_TYPE && able && (*it)->getGender() != gender ){
+                if( (*it)->getType() == myDNA.type && able && (*it)->getGender() != gender ){
                         target = *it;
                         hasTarget = true;
                         wander = false;
@@ -95,13 +95,13 @@ void Organism::Action()
 {	
         if(hasTarget){ 
                 if(Distance(rect,target->getRectangle()) < myDNA.reach){
-                        if(target->getType() == RESOURCE_TYPE){
+                        if(target->getType() == myDNA.eatType){
                                 target->takeBite(myDNA.bite);
                                 health+=myDNA.bite;
                                 if(target->getHealth()<=0)
                                         hasTarget = false;
                         }
-                        else if (target->getType() == CREATURE_TYPE){
+                        else if (target->getType() == myDNA.type){
                                 if(target->getGender() != gender){
                                         target->passDNA(myDNA);
                                 }

@@ -12,6 +12,7 @@ class List
 {
 	public:
 		List();
+
 	        void                            Behavior();
 	        void                            Place();
                 void                            Remove();
