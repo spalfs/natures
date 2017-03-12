@@ -22,7 +22,7 @@ List::List()
                 resources.push_back(X);
         }
 
-        Rectangle R1    = Rectangle(0,0,60,60);
+        Rectangle R1    = Rectangle(0,0,BOUNDS*2,BOUNDS*2);
         tree            = Quadtree(0, R1);
 }
 
@@ -30,7 +30,7 @@ void List::Remove()
 {
         for(std::list<Organism>::iterator it = creatures.begin(); it!= creatures.end(); it++)    
                 if(it->getHealth()<=0){
-                        DNA d = DNA("plant");
+                        DNA d = DNA("corpse");
                         Organism X(it->getRectangle(), d);
                         resources.push_back(X);
                         creatures.erase(it--);

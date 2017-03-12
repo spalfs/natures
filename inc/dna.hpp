@@ -22,6 +22,8 @@ class DNA
                 int     expectedPregnancyTime;
                 int     expectedAge;
                 int     growAmount;
+                int     hungryAmount;
+                int     starveAmount;
 
                 float   reach;
                 float   speed;
@@ -29,7 +31,6 @@ class DNA
                 float   mutationChance;
 
                 struct  Visuals{
-                        float  sides;
                         float  red;
                         float  green;
                         float  blue;

@@ -5,10 +5,10 @@ apt install libsdl2-dev libglm-dev libglew-dev
 
 ideas
 - make code compilable on various distrobutions (maybe wangblows if not too big of changes)
-- camera zoom
-- collision
-- carnivores / omnivores
-- click to add entities
+- camera zoom / movement
+- maybe collision
+- omnivores
+- click to add new organisms
 - randomly generate new types of creatures
 - gui speed up / down
 - DNA mutations with normal distrobution 

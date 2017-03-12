@@ -6,14 +6,16 @@ Organism::Organism(Rectangle r, DNA d)
         myDNA   = d;
 
         if(rect.x == 0 && rect.y == 0){
-                rect.x = getRandom(30);
-                rect.y = getRandom(30);
+                rect.x = getRandom(BOUNDS);
+                rect.y = getRandom(BOUNDS);
         }
 
+        hunger          = 50;
         health          = myDNA.maxHealth/2;
         gender          = rand() % 2;
         age             = 0;
         pregnancyTime   = 0;
+        able            = false;
         pregnancyReady  = false;
         pregnate        = false;
         hasTarget       = false;
@@ -22,8 +24,6 @@ Organism::Organism(Rectangle r, DNA d)
 
 void Organism::Behavior()
 {
-        health-=1; 
-
 	this->Priority();
 
         if(!hasTarget)
@@ -42,17 +42,30 @@ void Organism::Behavior()
         age++;
         if(age > myDNA.expectedAge)
                 health = 0;
+
+        hunger++;
+        if(starving)
+                health-=1;
+        if(able)
+                health+=1;
 }
 
 void Organism::Priority()
 {	 
-        if(health < myDNA.maxHealth / 2){
-                hungry = true;
-                able = false;
+        if(hunger > myDNA.hungryAmount){
+                starving=false;
+                hungry  = true;
+                able    = false;
+        }
+        else if(hunger > myDNA.starveAmount){
+                hungry  = true;
+                starving= true;
+                able    = false;
         }
         else{
-                hungry = false;
-                able = true;
+                hungry  = false;
+                starving= false;
+                able    = true;
         }
 }
 
@@ -61,7 +74,7 @@ void Organism::setTarget()
         std::random_shuffle(nearMe.begin(),nearMe.end());
 
         for(std::vector<Organism*>::iterator it = nearMe.begin(); it!=nearMe.end(); it++){
-                if( (*it)->getType() == myDNA.eatType && hungry){ 
+                if( ((*it)->getType() == myDNA.eatType && hungry) || ((*it)->getType() == CORPSE_TYPE && starving) ){ 
                         target = *it;
                         hasTarget = true;
                         wander = false;
@@ -77,7 +90,7 @@ void Organism::setTarget()
 
         if(!hasTarget&&!wander){
                 wander = true;
-                Rectangle tmp(getRandom(30),getRandom(30),0,0);
+                Rectangle tmp(getRandom(BOUNDS),getRandom(BOUNDS),0,0);
                 wTarget = tmp;
         }
 }
@@ -95,9 +108,9 @@ void Organism::Action()
 {	
         if(hasTarget){ 
                 if(Distance(rect,target->getRectangle()) < myDNA.reach){
-                        if(target->getType() == myDNA.eatType){
+                        if( (target->getType() == myDNA.eatType) || (target->getType() == CORPSE_TYPE) ){
                                 target->takeBite(myDNA.bite);
-                                health+=myDNA.bite;
+                                hunger-=myDNA.bite;
                                 if(target->getHealth()<=0)
                                         hasTarget = false;
                         }
@@ -107,7 +120,6 @@ void Organism::Action()
                                 }
                                 hasTarget = false;
                         }
-
                 }
                 else
                         moveTowards(target->getRectangle());

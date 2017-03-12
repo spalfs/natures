@@ -46,7 +46,9 @@ class Organism
                 int                     health; 
                 int                     pregnancyTime;
                 int                     age;
+                int                     hunger;
                 
+                bool                    starving;
                 bool                    gender;
                 bool                    pregnate;
                 bool                    hungry; 

@@ -10,7 +10,6 @@ void SpriteBatch::init()
 void SpriteBatch::begin() 
 {
         _renderBatches.clear();
-
         // Makes _glpyhs.size() == 0, however it does not free internal memory.
         // So when we later call emplace_back it doesn't need to internally call new.
         _gfx.clear();
@@ -67,7 +66,7 @@ void SpriteBatch::createRenderBatches()
         vertices[cv++] = _gfxPtr[0]->second.red;
         vertices[cv++] = _gfxPtr[0]->second.green;
         vertices[cv++] = _gfxPtr[0]->second.blue;
-        vertices[cv++] = _gfxPtr[0]->second.sides;
+        vertices[cv++] = SIDES;
 
         offset += 6;
 
@@ -87,7 +86,7 @@ void SpriteBatch::createRenderBatches()
                 vertices[cv++] = _gfxPtr[cg]->second.red;
                 vertices[cv++] = _gfxPtr[cg]->second.green;
                 vertices[cv++] = _gfxPtr[cg]->second.blue;
-                vertices[cv++] = _gfxPtr[cg]->second.sides;
+                vertices[cv++] = SIDES;
 
                 offset += 6;
         }
