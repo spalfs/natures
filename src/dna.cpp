@@ -1,8 +1,8 @@
 #include "dna.hpp"
 
-DNA::DNA(std::string s)
+DNA::DNA(int type)
 {
-        if(s == "herbavore"){
+        if(type == HERBAVORE_TYPE){
                 type                    = HERBAVORE_TYPE;
                 eatType                 = PLANT_TYPE;
                 maxHealth               = CREATURE_MAX_HEALTH;
@@ -20,7 +20,7 @@ DNA::DNA(std::string s)
                 appearance.green        = 1;
                 appearance.blue         = 1;
         }
-        else if(s == "carnivore"){
+        else if(type == CARNIVORE_TYPE){
                 type                    = CARNIVORE_TYPE;
                 eatType                 = HERBAVORE_TYPE;
                 maxHealth               = CREATURE_MAX_HEALTH;
@@ -38,7 +38,7 @@ DNA::DNA(std::string s)
                 appearance.green        = 0;
                 appearance.blue         = 1;
         }
-        else if(s == "plant"){
+        else if(type == PLANT_TYPE){
                 type                    = PLANT_TYPE;
                 maxHealth               = PLANT_MAX_HEALTH;
                 growAmount              = PLANT_GROW_AMOUNT;
@@ -46,7 +46,7 @@ DNA::DNA(std::string s)
                 appearance.green        = 1;
                 appearance.blue         = 0;
         }
-        else if(s == "corpse"){
+        else if(type == CORPSE_TYPE){
                 type                    = CORPSE_TYPE;
                 maxHealth               = CORPSE_MAX_HEALTH;
                 growAmount              = CORPSE_DECAY_AMOUNT;

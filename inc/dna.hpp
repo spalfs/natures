@@ -10,7 +10,7 @@ class DNA
 {  
         public:
                 DNA(){};
-                DNA(std::string s);
+                DNA(int type);
 
                 DNA combine(DNA D);
 
