@@ -10,7 +10,7 @@ class DNA
 {  
         public:
                 DNA(){};
-                DNA(int type);
+                DNA(int t);
 
                 DNA combine(DNA D);
 
