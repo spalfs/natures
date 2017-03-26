@@ -3,9 +3,8 @@
 
 // General
 const int   HERBAVORES                  = 100;
-const int   CARNIVORES                  = 50;;
-const int   MINIMUM_PLANTS              = 4000;
-const int   PLANTS                      = 5000;
+const int   CARNIVORES                  = 5;
+const int   PLANTS                      = 3000;
 const int   WINDOW_X                    = 1000;
 const int   WINDOW_Y                    = 1000;
 const float BOUNDS                      = 30;
@@ -43,7 +42,7 @@ const int   NUM_UNIFORMS                = 3;
 const float SIDES                       = 5;
 
 // Quadtree 
-const int   MAX_OBJECTS                 = 5;
+const int   MAX_OBJECTS                 = 10;
 const int   MAX_LEVELS                  = 20;
 
 // Camera

@@ -46,11 +46,8 @@ int main()
 
                         shader.Bind();
                         _spriteBatch.begin();
-                        
-                        for(std::list<Organism>::iterator it = L.creatures.begin(); it != L.creatures.end(); it++)
-                                _spriteBatch.draw(it->getRectangle(),it->getVisuals());
 
-                        for(std::list<Organism>::iterator it = L.resources.begin(); it != L.resources.end(); it++)
+                        for(std::list<Organism>::iterator it = L.organisms.begin(); it != L.organisms.end(); it++)
                                 _spriteBatch.draw(it->getRectangle(),it->getVisuals());
                         
                         _spriteBatch.end();

@@ -7,19 +7,19 @@ List::List()
         Rectangle tmp;
         for(i=0;i<HERBAVORES;i++){
                 Organism X(tmp,d);
-                creatures.push_back(X);
+                organisms.push_back(X);
         }
         
         d = DNA(CARNIVORE_TYPE);
         for(i=0;i<CARNIVORES;i++){
                 Organism X(tmp, d);
-                creatures.push_back(X);
+                organisms.push_back(X);
         }
         
         d = DNA(PLANT_TYPE);
         for(i=0;i<PLANTS;i++){
                 Organism X(tmp, d);
-                resources.push_back(X);
+                organisms.push_back(X);
         }
 
         Rectangle R1    = Rectangle(0,0,BOUNDS*2,BOUNDS*2);
@@ -28,54 +28,44 @@ List::List()
 
 void List::Remove()
 {
-        for(std::list<Organism>::iterator it = creatures.begin(); it!= creatures.end(); it++)    
+        for(std::list<Organism>::iterator it = organisms.begin(); it!= organisms.end(); it++)    
                 if(it->getHealth()<=0){
-                        DNA d = DNA(CORPSE_TYPE);
-                        Organism X(it->getRectangle(), d);
-                        resources.push_back(X);
-                        creatures.erase(it--);
+                        if(it->getType() == PLANT_TYPE or it->getType() == CORPSE_TYPE)
+                                organisms.erase(it--);
+                        else{
+                                DNA d = DNA(CORPSE_TYPE);
+                                Organism X(it->getRectangle(), d);
+                                organisms.push_back(X);
+                                organisms.erase(it--);
+                        }
                 }
-
-        for(std::list<Organism>::iterator it = resources.begin(); it!= resources.end(); it++)
-                if(it->getHealth()<=0)
-                        resources.erase(it--);
 }
 
 void List::Behavior()
 {
-        for(std::list<Organism>::iterator it = creatures.begin(); it!= creatures.end(); it++){
-                std::vector<Organism*> near = getNear(*it); 
-                it->giveNearMe(near); 
-                it->Behavior();
+        for(std::list<Organism>::iterator it = organisms.begin(); it!= organisms.end(); it++){
+                if(it->getType() == PLANT_TYPE or it->getType() == CORPSE_TYPE)
+                        it->grow(); 
+                else{
+                        std::vector<Organism*> near = getNear(*it); 
+                        it->giveNearMe(near); 
+                        it->Behavior();
 
-                if(it->getPregnancyReady()){
-                        Organism X(it->getRectangle(),it->getChildsDNA());
-                        creatures.push_back(X);
-                        it->hadPregnancy();
+                        if(it->getPregnancyReady()){
+                                Organism X(it->getRectangle(),it->getChildsDNA());
+                                organisms.push_back(X);
+                                it->hadPregnancy();
+                        }
                 }
         }
-
-        for(std::list<Organism>::iterator it = resources.begin(); it!= resources.end(); it++)
-                it->grow(); 
 }
 
 void List::Place()
 { 
         tree.clear();
 
-        Rectangle tmp;
-        DNA d = DNA(PLANT_TYPE);
-        while(resources.size() < MINIMUM_PLANTS){
-                Organism X(tmp, d);
-                resources.push_back(X);
-        }
-
-        for(std::list<Organism>::iterator it = creatures.begin(); it!= creatures.end(); it++)
+        for(std::list<Organism>::iterator it = organisms.begin(); it!= organisms.end(); it++)
                 tree.insert(&(*it));;
-        
-        for(std::list<Organism>::iterator it = resources.begin(); it!=resources.end(); it++)
-                tree.insert(&(*it));;
-        
 }
 
 std::vector<Organism*> List::getNear(Organism c)
@@ -89,9 +79,3 @@ std::vector<Organism*> List::getNear(Organism c)
 
         return near;
 }
-
-std::vector<Rectangle> List::drawQuadTree()
-{
-        return tree.Draw();
-}
-

@@ -19,11 +19,9 @@ class List
 
                 std::vector<Organism*>          getNear(Organism o);
 
-                std::list<Organism>             resources;
-                std::list<Organism>             creatures;
+                std::list<Organism>             organisms;
 
                 Quadtree                        tree;
-                std::vector<Rectangle>          drawQuadTree();
 };
 
 #endif
